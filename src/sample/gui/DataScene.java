@@ -1,14 +1,19 @@
 package sample.gui;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.logic.entities.Person;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,23 +22,37 @@ public class DataScene extends Application {
     private TableView<Person> table;
     private Scene dataScene;
 
+    private AddScene addScene;
+    private Stage primatyStage;
 
     private MenuBar bar;
     private Map<String, MenuItem> menuItems;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        this.primatyStage = primaryStage;
 
         setUp();
+        behavior();
 
         primaryStage.setTitle("Directorio del Paro de Colombia");
         primaryStage.setScene(dataScene);
         primaryStage.show();
     }
 
-    private void behavior() {
-        menuItems.get("Add").setOnAction(e -> {
+    public Stage getPrimatyStage() {
+        return primatyStage;
+    }
 
+    public void behavior() {
+        menuItems.get("Add").setOnAction(e -> {
+            try {
+                Stage stage = new Stage();
+                addScene = new AddScene();
+                addScene.start(stage);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
         });
     }
 
