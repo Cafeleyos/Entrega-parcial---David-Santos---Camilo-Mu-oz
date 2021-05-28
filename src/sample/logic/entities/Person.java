@@ -1,6 +1,7 @@
 package sample.logic.entities;
 
 import sample.logic.services.PersonException;
+import sample.logic.services.implementation.PersonaServices;
 
 public class Person {
     private String name;
@@ -11,8 +12,8 @@ public class Person {
     private String condition;
     private String reason;
     private String id;
-    public static final int MAX_ID_DIGITS = 8;
-    public static final int MIN_ID_DIGITS = 10;
+    public static final int MAX_ID_DIGITS = 10;
+    public static final int MIN_ID_DIGITS = 8;
 
     public Person(String name, String lastName, String age, String sex, String department, String condition, String reason, String id) throws PersonException {
         this.name = name;
@@ -26,10 +27,7 @@ public class Person {
     }
 
     private void setAge(String inputAge) throws PersonException {
-        if(inputAge==null) {
-            throw new PersonException(PersonException.MISSING_PARAMETER);
-        }
-        try {
+            try {
             int result = Integer.parseInt(inputAge);
             if (result> 150) throw new PersonException(PersonException.UPPER_AGE);
             if (result<= 0) throw new PersonException(PersonException.UNDER_AGE);
@@ -40,23 +38,16 @@ public class Person {
 
     }
     private void setId(String inputId) throws PersonException {
-        int count =0;
-        if(inputId==null) {
-            throw new PersonException(PersonException.MISSING_PARAMETER);
-        }
         try {
             Long.parseLong(inputId);
-            for (int i = 0; i < inputId.length(); i++) {
-                if(inputId.charAt(i)== 'a'){
-
-                }
-            }
-
-
+            if(inputId.length()< MIN_ID_DIGITS) throw new PersonException(PersonException.UNDER_ID);
+            if(inputId.length()> MAX_ID_DIGITS) throw new PersonException(PersonException.UPPER_ID);
         } catch (NumberFormatException e) {
             throw new PersonException(PersonException.INVALID_CHARACTERS);
         }
     }
+
+
 
 
 }
