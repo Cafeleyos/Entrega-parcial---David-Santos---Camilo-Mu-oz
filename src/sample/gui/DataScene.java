@@ -10,15 +10,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sample.logic.entities.Persona;
+import sample.logic.entities.Person;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class DataScene extends Application {
 
-    private TableView<Persona> table;
+    private TableView<Person> table;
     private Scene dataScene;
+
+
 
     private MenuBar bar;
     private Map<String, MenuItem> fileMenuItems;
@@ -60,7 +62,7 @@ public class DataScene extends Application {
     }
 
     public void setUpTable() {
-        TableColumn<Persona, String> nameColumn = new TableColumn<>("Contacto");
+        TableColumn<Person, String> nameColumn = new TableColumn<>("Contacto");
         nameColumn.setMaxWidth(400);
         nameColumn.setPrefWidth(400);
         nameColumn.setMinWidth(100);
