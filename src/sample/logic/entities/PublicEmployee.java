@@ -2,7 +2,7 @@ package sample.logic.entities;
 
 import sample.logic.services.PersonaException;
 
-public class PublicEmployee extends Person {
+public class PublicEmployee extends Persona {
     private String job;
 
     public PublicEmployee(String name, String lastName, String age, String sex, String department, String condition, String reason, String id) throws PersonaException {
