@@ -12,6 +12,8 @@ import sample.logic.entities.Persona;
 import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
+import static javafx.application.Application.launch;
+
 public class AddScene extends Stage {
 
     private Button buttonAdd, buttonCancel;
