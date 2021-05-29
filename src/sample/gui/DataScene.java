@@ -40,19 +40,13 @@ public class DataScene extends Application {
         primaryStage.show();
     }
 
-    public Stage getPrimatyStage() {
+    public Stage getPrimaryStage() {
         return primatyStage;
     }
 
     public void behavior() {
         menuItems.get("Add").setOnAction(e -> {
-            try {
-                Stage stage = new Stage();
-                addScene = new AddScene();
-                addScene.start(stage);
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
+
         });
     }
 

@@ -12,24 +12,23 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AddScene extends Application {
+public class AddScene extends Stage {
 
     private Button buttonAdd;
     private Scene addScene;
-    private TextField inputName, inputLastname, age, sex, department, condition, reason, id;
-    private Text name, lastname;
+    private TextField inputName, inputLastname, inputAge, inputSex, inputDepartment, inputCondition, inputReason, inputId;
+    private Text name, lastname, age, sex, department, condition, reason, id;
     private DataScene dataScene = new DataScene();
 
     private static final Font FONT = new Font("DIALOG", 15);
 
-    @Override
-    public void start(Stage stage) throws Exception {
+    public AddScene(Stage stage) {
         setUp();
 
         stage.setTitle("Agregar Nuevo Contacto");
         stage.setScene(addScene);
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(dataScene.getPrimatyStage());
+        stage.initOwner(dataScene.getPrimaryStage());
         stage.show();
     }
 
@@ -37,15 +36,18 @@ public class AddScene extends Application {
         setUpButton();
         setUpImputs();
 
-        HBox inputs = new HBox();
-        inputs.getChildren().addAll(name, inputName);
+        HBox inputsNameLastname = new HBox(10);
+        inputsNameLastname.getChildren().addAll(name, inputName, lastname, inputLastname);
+
+        HBox inputsAgeSex = new HBox(10);
+        inputsNameLastname.getChildren().addAll(age, inputAge, sex, inputSex);
 
         HBox buttons = new HBox();
         buttons.getChildren().addAll(buttonAdd);
 
         VBox layout = new VBox(20);
         layout.setPadding(new Insets(10, 10, 10, 10));
-        layout.getChildren().addAll(inputs, buttons);
+        layout.getChildren().addAll(inputsNameLastname, buttons);
 
         addScene = new Scene(layout, 400, 200);
     }
@@ -62,17 +64,31 @@ public class AddScene extends Application {
     public void setUpImputs() {
         name = new Text();
         name.setFont(FONT);
-        name.setText("Nombre: ");
+        name.setText("Nombre:");
         inputName = new TextField();
         inputName.setPromptText("Nombre");
         inputName.setMaxWidth(100);
 
         lastname = new Text();
         lastname.setFont(FONT);
-        lastname.setText("Apellido: ");
-        inputName = new TextField();
-        inputName.setPromptText("Apellido");
-        inputName.setMaxWidth(100);
+        lastname.setText("Apellido:");
+        inputLastname = new TextField();
+        inputLastname.setPromptText("Apellido");
+        inputLastname.setMaxWidth(100);
+
+        age = new Text();
+        age.setFont(FONT);
+        age.setText("Años:");
+        inputAge = new TextField();
+        inputAge.setPromptText("Años");
+        inputAge.setMaxWidth(100);
+
+        sex = new Text();
+        sex.setFont(FONT);
+        sex.setText("Sexo:");
+        inputSex = new TextField();
+        inputSex.setPromptText("Sexo");
+        inputSex.setMaxWidth(100);
     }
 
     public static void main(String[] args) {
