@@ -8,15 +8,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sample.logic.entities.Person;
-import sample.logic.services.PersonException;
+import sample.logic.entities.Persona;
+import sample.logic.services.PersonaException;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class TestScene extends Application {
 
-    private TableView<Person> table;
+    private TableView<Persona> table;
     private Scene dataScene;
     private TextField ageInput;
     private TextField idInput;
@@ -40,10 +40,10 @@ public class TestScene extends Application {
 
         addButton.setOnAction(e -> {
             try {
-                System.out.println(new Person("a","a",ageInput.getText(),"m","m","m","m",idInput.getText()));
-            } catch (PersonException personException) {
-                System.out.println(personException.getMessage());
-                personException.printStackTrace();
+                System.out.println(new Persona("a","a",ageInput.getText(),"m","m","m","m",idInput.getText()));
+            } catch (PersonaException personaException) {
+                System.out.println(personaException.getMessage());
+                personaException.printStackTrace();
             }
         });
     }
@@ -85,7 +85,7 @@ public class TestScene extends Application {
     }
 
     public void setUpTable() {
-        TableColumn<Person, String> nameColumn = new TableColumn<>("Contacto");
+        TableColumn<Persona, String> nameColumn = new TableColumn<>("Contacto");
         nameColumn.setPrefWidth(400);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("Contacto"));
 

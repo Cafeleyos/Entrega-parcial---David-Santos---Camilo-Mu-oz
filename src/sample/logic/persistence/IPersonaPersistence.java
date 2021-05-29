@@ -1,14 +1,14 @@
 package sample.logic.persistence;
 
-import sample.logic.entities.Person;
+import sample.logic.entities.Persona;
 
 import java.io.IOException;
 import java.util.List;
 
 public interface IPersonaPersistence {
-    void save(Person person) throws IOException;
+    void save(Persona person) throws IOException;
 
-    List<Person> read() throws IOException;
+    List<Persona> read() throws IOException;
 
     void export();
 

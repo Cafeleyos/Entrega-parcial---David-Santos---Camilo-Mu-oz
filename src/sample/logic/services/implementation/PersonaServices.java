@@ -1,4 +1,44 @@
 package sample.logic.services.implementation;
 
-public class PersonaServices {
+import javafx.collections.FXCollections;
+import sample.logic.entities.Persona;
+import sample.logic.persistence.IPersonaPersistence;
+import sample.logic.persistence.implementation.PersonaPersistence;
+import sample.logic.services.IPersonaServices;
+
+import java.io.IOException;
+import java.util.List;
+
+public class PersonaServices implements IPersonaServices {
+    private IPersonaPersistence personasDataBase;
+    private List<Persona>personas;
+
+    public PersonaServices() {
+        personas = FXCollections.observableArrayList();
+        try {
+            personasDataBase = new PersonaPersistence();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Persona> getAll() {
+        return personas;
+    }
+
+    @Override
+    public Persona insert(Persona persona) {
+        return null;
+    }
+
+    @Override
+    public void modify(Persona persona) {
+
+    }
+
+    @Override
+    public void delete(Persona persona) {
+
+    }
 }

@@ -1,6 +1,6 @@
 package sample.logic.persistence.implementation;
 
-import sample.logic.entities.Person;
+import sample.logic.entities.Persona;
 import sample.logic.persistence.IPersonaPersistence;
 
 import java.io.*;
@@ -17,14 +17,14 @@ public class PersonaPersistence implements IPersonaPersistence {
     }
 
     @Override
-    public void save(Person person) throws IOException {
+    public void save(Persona person) throws IOException {
         ObjectOutputStream write = new ObjectOutputStream(new FileOutputStream(PEOPLE_FILE_PATH,true));
         write.writeObject(person);
         write.close();
     }
 
     @Override
-    public List<Person> read()  throws IOException {
+    public List<Persona> read()  throws IOException {
         ObjectInputStream read = new ObjectInputStream(new FileInputStream(PEOPLE_FILE_PATH));
         return null;
     }

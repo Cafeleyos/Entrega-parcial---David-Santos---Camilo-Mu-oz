@@ -1,6 +1,6 @@
 package sample.logic.services;
 
-public class PersonException extends Exception{
+public class PersonaException extends Exception{
     public static final String UNDER_AGE = "La edad introducida es menor a 0 años";
     public static final String UPPER_AGE = "La edad introducida es mayor a 150 años";
     public static final String UPPER_ID = "El Id supera los 10 digitos";
@@ -10,7 +10,7 @@ public class PersonException extends Exception{
 
 
 
-    public PersonException(String message) {
+    public PersonaException(String message) {
         super(message);
     }
 }
