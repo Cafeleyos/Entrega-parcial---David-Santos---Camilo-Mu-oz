@@ -43,12 +43,25 @@ public class Persona {
             Long.parseLong(inputId);
             if(inputId.length()< MIN_ID_DIGITS) throw new PersonaException(PersonaException.UNDER_ID);
             if(inputId.length()> MAX_ID_DIGITS) throw new PersonaException(PersonaException.UPPER_ID);
+            this.id = inputId;
         } catch (NumberFormatException e) {
             throw new PersonaException(PersonaException.INVALID_CHARACTERS);
         }
     }
 
-
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", department='" + department + '\'' +
+                ", condition='" + condition + '\'' +
+                ", reason='" + reason + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
 
 
 }

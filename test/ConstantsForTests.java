@@ -8,6 +8,8 @@ public class ConstantsForTests {
     private static String number = "1";
     public static final String VALID_ID= number.repeat(Persona.MIN_ID_DIGITS);
     public static final String VALID_STATE= "Herido";
+    public static final String VALID_POSITION= "Manifestante";
+
 
     //Invalid
     public static final String INVALID_AGE= Integer.toString(Persona.MIN_AGE-10);

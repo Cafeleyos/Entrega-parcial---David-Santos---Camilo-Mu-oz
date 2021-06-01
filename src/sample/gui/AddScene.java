@@ -3,6 +3,7 @@ package sample.gui;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -11,10 +12,14 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
+import sample.logic.entities.PublicEmployee;
 import sample.logic.services.PersonaException;
+import sample.logic.services.ValidPublicEmployees;
 import sample.logic.services.implementation.PersonaServices;
 
-import static javafx.application.Application.launch;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class AddScene extends Stage {
 
@@ -22,8 +27,8 @@ public class AddScene extends Stage {
     private Stage stage;
     private Scene addScene;
     private TextField inputName, inputLastname, inputAge, inputReason, inputId;
-    private ComboBox<String> inputDepartment, inputSex, inputCondition;
-    private Label name, lastname, age, sex, department, condition, reason, id;
+    private ComboBox<String> inputDepartment, inputSex, inputCondition, inputPosition;
+    private Label name, lastname, age, sex, department, condition, reason, id, position;
     private GridPane pane;
     private static final Text title = new Text("Nueva Persona");
 
@@ -52,19 +57,41 @@ public class AddScene extends Stage {
 
     public void behavior() {
         PersonaServices personaServices = new PersonaServices();
+        ArrayList<Persona> personas = new ArrayList<>();
+
         buttonAdd.setOnAction(e -> {
             try {
-                Persona persona = new Persona(inputName.getText(), inputLastname.getText(), inputAge.getText(),
-                        inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
-                        inputId.getText());
-                personaServices.insert(persona);
-                inputId.clear();
-                inputReason.clear();
-                inputAge.clear();
-                inputLastname.clear();
-                inputName.clear();
+                Boolean isPublicEmployee = false;
+                for (ValidPublicEmployees v: ValidPublicEmployees.values()){
+                    if(inputPosition.getValue().equals(v.toString())){
+                        isPublicEmployee =true;
+                    }
+                }
+                if(!isPublicEmployee) {
+                    Persona persona = new Persona(inputName.getText(), inputLastname.getText(), inputAge.getText(),
+                            inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
+                            inputId.getText());
+                    personaServices.insert(persona);
+                    inputId.clear();
+                    inputReason.clear();
+                    inputAge.clear();
+                    inputLastname.clear();
+                    inputName.clear();
+                    personas.add(persona);
+                }
+                if(isPublicEmployee) {
+                    PublicEmployee publicEmployee = new PublicEmployee(inputName.getText(), inputLastname.getText(), inputAge.getText(),
+                            inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
+                            inputId.getText(), inputPosition.getValue());
+                    personaServices.insert(publicEmployee);
+                    inputId.clear();
+                    inputReason.clear();
+                    inputAge.clear();
+                    inputLastname.clear();
+                    inputName.clear();
+                    personas.add(publicEmployee);
+                }
 
-                stage.close();
             } catch (PersonaException personaException) {
                 personaException.printStackTrace();
             }
@@ -72,46 +99,31 @@ public class AddScene extends Stage {
 
         buttonCancel.setOnAction(e -> {
             stage.close();
+            System.out.println(ValidPublicEmployees.ESMAD.toString());
+            for (Persona p: personas ) {
+                System.out.println(p.toString());
+            }
         });
     }
 
     public void setUpPane() {
         pane = new GridPane();
-
         pane.setAlignment(Pos.CENTER);
-
         pane.setHgap(20);
         pane.setVgap(20);
-
         title.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         pane.add(title, 0, 0, 2, 1);
 
-        pane.add(name, 0, 1);
-        pane.add(inputName, 1, 1);
+        int counter =1;
+        Map<Node,Node> objectList = createListOfObjets();
+        for (Map.Entry<Node,Node> p: objectList.entrySet()){
+            pane.add(p.getKey(),0,counter);
+            pane.add(p.getValue(),1,counter);
+            counter++;
+        }
 
-        pane.add(lastname, 0, 2);
-        pane.add(inputLastname, 1, 2);
-
-        pane.add(age, 0, 3);
-        pane.add(inputAge, 1, 3);
-
-        pane.add(sex, 0, 4);
-        pane.add(inputSex, 1, 4);
-
-        pane.add(id, 0, 5);
-        pane.add(inputId, 1, 5);
-
-        pane.add(department, 0, 6);
-        pane.add(inputDepartment, 1, 6);
-
-        pane.add(condition, 0, 7);
-        pane.add(inputCondition, 1, 7);
-
-        pane.add(reason, 0, 8);
-        pane.add(inputReason, 1, 8);
-
-        pane.add(buttonAdd, 0, 9,2,1);
-        pane.add(buttonCancel, 1, 9);
+        pane.add(buttonAdd, 0, objectList.size()+1,2,1);
+        pane.add(buttonCancel, 1, objectList.size()+1);
     }
 
     public void setUpButton() {
@@ -123,6 +135,12 @@ public class AddScene extends Stage {
     }
 
     public void setUpInputs() {
+
+        position = new Label();
+        position.setFont(FONT);
+        position.setText("Posición:");
+        setUpPositionComboBox();
+
         name = new Label();
         name.setFont(FONT);
         name.setText("Nombre:");
@@ -164,9 +182,9 @@ public class AddScene extends Stage {
 
         id = new Label();
         id.setFont(FONT);
-        id.setText("Cédula:");
+        id.setText("Identificación:");
         inputId = new TextField();
-        inputId.setPromptText("Cédula");
+        inputId.setPromptText("Identificación");
     }
 
     public void setUpDepartmentsComboBox() {
@@ -180,22 +198,46 @@ public class AddScene extends Stage {
                 "Vaupés", "Vichada");
         inputDepartment = new ComboBox<>(departmentsList);
         inputDepartment.setPromptText("-");
-        inputDepartment.setMinWidth(100);
+        inputDepartment.setMinWidth(200);
     }
 
     public void setUpSexComboBox() {
-        ObservableList<String> departmentsList = FXCollections.observableArrayList();
-        departmentsList.addAll("Masculino","Femenino");
-        inputSex = new ComboBox<>(departmentsList);
+        ObservableList<String> list = FXCollections.observableArrayList();
+        list.addAll("Masculino","Femenino");
+        inputSex = new ComboBox<>(list);
         inputSex.setPromptText("-");
-        inputSex.setMinWidth(100);
+        inputSex.setMinWidth(200);
     }
 
     public void setUpConditionComboBox() {
-        ObservableList<String> departmentsList = FXCollections.observableArrayList();
-        departmentsList.addAll("Vivo", "Herido", "Muerto","Desconocido");
-        inputCondition = new ComboBox<>(departmentsList);
+        ObservableList<String> list = FXCollections.observableArrayList();
+        list.addAll("Vivo", "Herido", "Muerto","Desconocido");
+        inputCondition = new ComboBox<>(list);
         inputCondition.setPromptText("-");
-        inputCondition.setMinWidth(100);
+        inputCondition.setMinWidth(200);
     }
+
+    public void setUpPositionComboBox() {
+        ObservableList<String> list = FXCollections.observableArrayList();
+        list.addAll("Manifestante","Civil","Policia","Militar","ESMAD");
+        inputPosition = new ComboBox<>(list);
+        inputPosition.setPromptText("-");
+        inputPosition.setMinWidth(200);
+    }
+
+    private Map<Node,Node> createListOfObjets(){
+        Map<Node,Node > objectList = new LinkedHashMap<>();
+        objectList.put(position,inputPosition);
+        objectList.put(name,inputName);
+        objectList.put(lastname,inputLastname);
+        objectList.put(age,inputAge);
+        objectList.put(id,inputId);
+        objectList.put(sex,inputSex);
+        objectList.put(department,inputDepartment);
+        objectList.put(condition,inputCondition);
+        objectList.put(reason, inputReason);
+        return objectList;
+    }
+
+
 }
