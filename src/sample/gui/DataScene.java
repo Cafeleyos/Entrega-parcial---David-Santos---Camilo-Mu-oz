@@ -1,7 +1,6 @@
 package sample.gui;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -11,8 +10,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
-
-
+import sample.logic.services.PersonaException;
+import sample.logic.services.implementation.PersonaServices;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,11 +20,10 @@ public class DataScene extends Application {
 
     private TableView<Persona> table;
     private Scene dataScene;
+    private PersonaServices personaServices;
 
     private MenuBar bar;
     private Map<String, MenuItem> menuItems;
-
-
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -38,7 +36,19 @@ public class DataScene extends Application {
     }
 
     public void behavior() {
+        personaServices = new PersonaServices();
+
+        try {
+            personaServices.insert(new Persona("Santiago", "Santos", "18", "Masculino", "Tólima", "Vivo", "Ninguna", "1005569340"));
+        } catch (PersonaException e) {
+            e.printStackTrace();
+        }
+
+        table.setItems((ObservableList<Persona>) personaServices.getAll());
+
         menuItems.get("Add").setOnAction(e -> new AddScene());
+
+        menuItems.get("Delete").setOnAction(e -> new DeleteScene());
     }
 
     public void setUp() {
@@ -76,16 +86,32 @@ public class DataScene extends Application {
     }
 
     public void setUpTable() {
-        TableColumn<Persona, String> nameColumn = new TableColumn<>("Contacto");
-        nameColumn.setPrefWidth(400);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Contacto"));
+        TableColumn<Persona, String> nameColumn = new TableColumn<>("Nombre");
+        nameColumn.setMinWidth(20);
+        nameColumn.setMaxWidth(200);
+        nameColumn.setPrefWidth(150);
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        TableColumn<Persona, String> lastNameColumn = new TableColumn<>("Apellido");
+        lastNameColumn.setMinWidth(20);
+        lastNameColumn.setMaxWidth(200);
+        lastNameColumn.setPrefWidth(150);
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+
+        TableColumn<Persona, String> conditionColumn = new TableColumn<>("Condición");
+        conditionColumn.setMinWidth(20);
+        conditionColumn.setMaxWidth(200);
+        conditionColumn.setPrefWidth(150);
+        conditionColumn.setCellValueFactory(new PropertyValueFactory<>("condition"));
 
         table = new TableView<>();
-        table.getColumns().add(nameColumn);
-        table.setMaxWidth(400);
+        table.getColumns().addAll(nameColumn, lastNameColumn, conditionColumn);
+        table.setMaxWidth(450);
     }
 
-
+    public ObservableList<Persona> getSelectionPerson() {
+        return table.getSelectionModel().getSelectedItems();
+    }
 
     public static void main(String[] args) {
         launch(args);

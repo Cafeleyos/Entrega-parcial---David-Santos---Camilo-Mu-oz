@@ -27,6 +27,18 @@ public class Persona {
         setId(id);
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public String getLastName(){
+        return this.lastName;
+    }
+
+    public String getCondition() {
+        return this.condition;
+    }
+
     private void setAge(String inputAge) throws PersonaException {
             try {
             int result = Integer.parseInt(inputAge);

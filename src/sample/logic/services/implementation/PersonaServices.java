@@ -29,7 +29,9 @@ public class PersonaServices implements IPersonaServices {
 
     @Override
     public Persona insert(Persona persona) {
-        return null;
+        personas.add(persona);
+
+        return persona;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class PersonaServices implements IPersonaServices {
     }
 
     @Override
-    public void delete(Persona persona) {
-
+    public void delete(List<Persona> deleteThisPersons) {
+        deleteThisPersons.forEach(this.personas::remove);
     }
 }
