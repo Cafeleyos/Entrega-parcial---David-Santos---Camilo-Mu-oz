@@ -22,6 +22,27 @@ public class PersonaServices implements IPersonaServices {
         }
     }
 
+    public int index() {
+        System.out.println(personas.size());
+
+        return personas.size();
+    }
+
+    public Persona findIndex(String cedula) {
+        Persona result = null;
+        int index = 0;
+
+
+        for(index = 0; index < personas.size(); index++) {
+            if(cedula.equals(personas.get(index).getId())) {
+                result = personas.get(index);
+                break;
+            }
+        }
+
+        return result;
+    }
+
     @Override
     public List<Persona> getAll() {
         return personas;
@@ -40,7 +61,7 @@ public class PersonaServices implements IPersonaServices {
     }
 
     @Override
-    public void delete(List<Persona> deleteThisPersons) {
-        deleteThisPersons.forEach(this.personas::remove);
+    public void delete(Persona persona) {
+        this.personas.remove(persona);
     }
 }

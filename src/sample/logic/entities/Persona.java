@@ -39,6 +39,10 @@ public class Persona {
         return this.condition;
     }
 
+    public String getId() {
+        return this.id;
+    }
+
     private void setAge(String inputAge) throws PersonaException {
             try {
             int result = Integer.parseInt(inputAge);
@@ -50,6 +54,7 @@ public class Persona {
         }
 
     }
+
     private void setId(String inputId) throws PersonaException {
         try {
             Long.parseLong(inputId);
@@ -74,6 +79,4 @@ public class Persona {
                 ", id='" + id + '\'' +
                 '}';
     }
-
-
 }

@@ -13,10 +13,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
 import sample.logic.entities.PublicEmployee;
+import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
 import sample.logic.services.ValidPublicEmployees;
 import sample.logic.services.implementation.PersonaServices;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -24,17 +26,13 @@ import java.util.Map;
 public class AddScene extends Stage {
 
     private Button buttonAdd, buttonCancel;
-    private Stage stage;
+    private final Stage stage;
     private Scene addScene;
     private TextField inputName, inputLastname, inputAge, inputReason, inputId;
     private ComboBox<String> inputDepartment, inputSex, inputCondition, inputPosition;
     private Label name, lastname, age, sex, department, condition, reason, id, position;
     private GridPane pane;
-    private static final Text title = new Text("Nueva Persona");
-
-    private static final Font FONT = new Font("DIALOG", 15);
-
-
+    private static final Text TITLE = new Text("Nueva Persona");
 
     public AddScene() {
         stage = new Stage();
@@ -43,7 +41,7 @@ public class AddScene extends Stage {
 
         stage.setTitle("Añadir Nuevo Contacto");
         stage.setScene(addScene);
-        stage.show();
+        stage.showAndWait();
     }
 
     public void setUp() {
@@ -56,12 +54,12 @@ public class AddScene extends Stage {
     }
 
     public void behavior() {
-        PersonaServices personaServices = new PersonaServices();
+        IPersonaServices personaServices = new PersonaServices();
         ArrayList<Persona> personas = new ArrayList<>();
 
         buttonAdd.setOnAction(e -> {
             try {
-                Boolean isPublicEmployee = false;
+                boolean isPublicEmployee = false;
                 for (ValidPublicEmployees v: ValidPublicEmployees.values()){
                     if(inputPosition.getValue().equals(v.toString())){
                         isPublicEmployee =true;
@@ -79,7 +77,7 @@ public class AddScene extends Stage {
                     inputName.clear();
                     personas.add(persona);
                 }
-                if(isPublicEmployee) {
+                else {
                     PublicEmployee publicEmployee = new PublicEmployee(inputName.getText(), inputLastname.getText(), inputAge.getText(),
                             inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
                             inputId.getText(), inputPosition.getValue());
@@ -91,7 +89,6 @@ public class AddScene extends Stage {
                     inputName.clear();
                     personas.add(publicEmployee);
                 }
-
             } catch (PersonaException personaException) {
                 personaException.printStackTrace();
             }
@@ -111,8 +108,8 @@ public class AddScene extends Stage {
         pane.setAlignment(Pos.CENTER);
         pane.setHgap(20);
         pane.setVgap(20);
-        title.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        pane.add(title, 0, 0, 2, 1);
+        TITLE.setFont(DataScene.FONT_TITLE);
+        pane.add(TITLE, 0, 0, 2, 1);
 
         int counter =1;
         Map<Node,Node> objectList = createListOfObjets();
@@ -137,51 +134,51 @@ public class AddScene extends Stage {
     public void setUpInputs() {
 
         position = new Label();
-        position.setFont(FONT);
+        position.setFont(DataScene.FONT);
         position.setText("Posición:");
         setUpPositionComboBox();
 
         name = new Label();
-        name.setFont(FONT);
+        name.setFont(DataScene.FONT);
         name.setText("Nombre:");
         inputName = new TextField();
         inputName.setPromptText("Nombre");
 
         lastname = new Label();
-        lastname.setFont(FONT);
+        lastname.setFont(DataScene.FONT);
         lastname.setText("Apellido:");
         inputLastname = new TextField();
         inputLastname.setPromptText("Apellido");
 
         age = new Label();
-        age.setFont(FONT);
+        age.setFont(DataScene.FONT);
         age.setText("Años:");
         inputAge = new TextField();
         inputAge.setPromptText("Años");
 
         sex = new Label();
-        sex.setFont(FONT);
+        sex.setFont(DataScene.FONT);
         sex.setText("Sexo:");
         setUpSexComboBox();
 
         department = new Label();
-        department.setFont(FONT);
+        department.setFont(DataScene.FONT);
         department.setText("Departamento");
         setUpDepartmentsComboBox();
 
         condition = new Label();
-        condition.setFont(FONT);
+        condition.setFont(DataScene.FONT);
         condition.setText("Estado:");
         setUpConditionComboBox();
 
         reason = new Label();
-        reason.setFont(FONT);
+        reason.setFont(DataScene.FONT);
         reason.setText("Razón:");
         inputReason= new TextField();
         inputReason.setPromptText("Razón");
 
         id = new Label();
-        id.setFont(FONT);
+        id.setFont(DataScene.FONT);
         id.setText("Identificación:");
         inputId = new TextField();
         inputId.setPromptText("Identificación");

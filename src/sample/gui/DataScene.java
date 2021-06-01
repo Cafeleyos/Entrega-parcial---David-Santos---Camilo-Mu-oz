@@ -8,8 +8,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
+import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
@@ -25,8 +28,11 @@ public class DataScene extends Application {
     private MenuBar bar;
     private Map<String, MenuItem> menuItems;
 
+    public static final Font FONT = new Font("DIALOG", 15);
+    public static final Font FONT_TITLE = new Font("Tahoma", 20);
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) {
         setUp();
         behavior();
 
@@ -36,19 +42,29 @@ public class DataScene extends Application {
     }
 
     public void behavior() {
-        personaServices = new PersonaServices();
+        this.personaServices = new PersonaServices();
 
         try {
-            personaServices.insert(new Persona("Santiago", "Santos", "18", "Masculino", "Tólima", "Vivo", "Ninguna", "1005569340"));
+            personaServices.insert(new Persona("Santiago", "Santos", "18", "Masculino",
+                    "Tólima", "Vivo", "Ninguna", "1005569340"));
+            personaServices.insert(new Persona("Daniel", "Santos", "18", "Masculino",
+                    "Tólima", "Vivo", "Ninguna", "1105569340"));
+            personaServices.insert(new Persona("Jose", "Santos", "18", "Masculino",
+                    "Tólima", "Vivo", "Ninguna", "1015569340"));
         } catch (PersonaException e) {
             e.printStackTrace();
         }
 
-        table.setItems((ObservableList<Persona>) personaServices.getAll());
+        table.setItems((ObservableList<Persona>) this.personaServices.getAll());
 
         menuItems.get("Add").setOnAction(e -> new AddScene());
 
-        menuItems.get("Delete").setOnAction(e -> new DeleteScene());
+        menuItems.get("Update").setOnAction(e -> new UpdateScene());
+
+        menuItems.get("Delete").setOnAction(e -> {
+            new DeleteScene();
+            personaServices.index();
+        });
     }
 
     public void setUp() {
@@ -75,11 +91,11 @@ public class DataScene extends Application {
         menuItems.put("Import", new MenuItem("Importar"));
         menuItems.put("Export", new MenuItem("Exportar"));
         menuItems.put("Add", new MenuItem("Agregar"));
-        menuItems.put("Act", new MenuItem("Actualizar"));
+        menuItems.put("Update", new MenuItem("Actualizar"));
         menuItems.put("Delete", new MenuItem("Eliminar"));
 
         fileMenu.getItems().addAll(menuItems.get("Import"), menuItems.get("Export"));
-        editMenu.getItems().addAll(menuItems.get("Add"), menuItems.get("Act"), menuItems.get("Delete"));
+        editMenu.getItems().addAll(menuItems.get("Add"), menuItems.get("Update"), menuItems.get("Delete"));
 
         bar = new MenuBar();
         bar.getMenus().addAll(fileMenu, editMenu, aboutMenu);
@@ -98,19 +114,15 @@ public class DataScene extends Application {
         lastNameColumn.setPrefWidth(150);
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
-        TableColumn<Persona, String> conditionColumn = new TableColumn<>("Condición");
-        conditionColumn.setMinWidth(20);
-        conditionColumn.setMaxWidth(200);
-        conditionColumn.setPrefWidth(150);
-        conditionColumn.setCellValueFactory(new PropertyValueFactory<>("condition"));
+        TableColumn<Persona, String> idColumn = new TableColumn<>("Cédula");
+        idColumn.setMinWidth(20);
+        idColumn.setMaxWidth(200);
+        idColumn.setPrefWidth(150);
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         table = new TableView<>();
-        table.getColumns().addAll(nameColumn, lastNameColumn, conditionColumn);
+        table.getColumns().addAll(nameColumn, lastNameColumn, idColumn);
         table.setMaxWidth(450);
-    }
-
-    public ObservableList<Persona> getSelectionPerson() {
-        return table.getSelectionModel().getSelectedItems();
     }
 
     public static void main(String[] args) {
