@@ -13,6 +13,8 @@ public class Persona {
     private String id;
     public static final int MAX_ID_DIGITS = 10;
     public static final int MIN_ID_DIGITS = 8;
+    public static final int MAX_AGE = 150;
+    public static final int MIN_AGE = 1;
 
     public Persona(String name, String lastName, String age, String sex, String department, String condition, String reason, String id) throws PersonaException {
         this.name = name;
@@ -28,8 +30,8 @@ public class Persona {
     private void setAge(String inputAge) throws PersonaException {
             try {
             int result = Integer.parseInt(inputAge);
-            if (result> 150) throw new PersonaException(PersonaException.UPPER_AGE);
-            if (result<= 0) throw new PersonaException(PersonaException.UNDER_AGE);
+            if (result> MAX_AGE) throw new PersonaException(PersonaException.UPPER_AGE);
+            if (result< MIN_AGE) throw new PersonaException(PersonaException.UNDER_AGE);
             this.age = result;
         } catch (NumberFormatException e) {
             throw new PersonaException(PersonaException.INVALID_CHARACTERS);
