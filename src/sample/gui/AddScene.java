@@ -1,5 +1,7 @@
 package sample.gui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -19,20 +21,22 @@ public class AddScene extends Stage {
     private Button buttonAdd, buttonCancel;
     private Stage stage;
     private Scene addScene;
-    private TextField inputName, inputLastname, inputAge, inputSex, inputDepartment, inputCondition, inputReason, inputId;
+    private TextField inputName, inputLastname, inputAge, inputReason, inputId;
+    private ComboBox<String> inputDepartment, inputSex, inputCondition;
     private Label name, lastname, age, sex, department, condition, reason, id;
     private GridPane pane;
     private static final Text title = new Text("Nueva Persona");
 
     private static final Font FONT = new Font("DIALOG", 15);
 
+
+
     public AddScene() {
         stage = new Stage();
-
         setUp();
         behavior();
 
-        stage.setTitle("Agregar Nuevo Contacto");
+        stage.setTitle("Añadir Nuevo Contacto");
         stage.setScene(addScene);
         stage.show();
     }
@@ -42,6 +46,7 @@ public class AddScene extends Stage {
         setUpInputs();
         setUpPane();
 
+
         addScene = new Scene(pane, 400, 550);
     }
 
@@ -50,17 +55,14 @@ public class AddScene extends Stage {
         buttonAdd.setOnAction(e -> {
             try {
                 Persona persona = new Persona(inputName.getText(), inputLastname.getText(), inputAge.getText(),
-                        inputSex.getText(), inputDepartment.getText(), inputCondition.getText(), inputReason.getText(),
+                        inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
                         inputId.getText());
                 personaServices.insert(persona);
                 inputId.clear();
                 inputReason.clear();
                 inputAge.clear();
-                inputSex.clear();
                 inputLastname.clear();
                 inputName.clear();
-                inputCondition.clear();
-                inputDepartment.clear();
 
                 stage.close();
             } catch (PersonaException personaException) {
@@ -96,17 +98,17 @@ public class AddScene extends Stage {
         pane.add(sex, 0, 4);
         pane.add(inputSex, 1, 4);
 
-        pane.add(department, 0, 5);
-        pane.add(inputDepartment, 1, 5);
+        pane.add(id, 0, 5);
+        pane.add(inputId, 1, 5);
 
-        pane.add(condition, 0, 6);
-        pane.add(inputCondition, 1, 6);
+        pane.add(department, 0, 6);
+        pane.add(inputDepartment, 1, 6);
 
-        pane.add(reason, 0, 7);
-        pane.add(inputReason, 1, 7);
+        pane.add(condition, 0, 7);
+        pane.add(inputCondition, 1, 7);
 
-        pane.add(id, 0, 8);
-        pane.add(inputId, 1, 8);
+        pane.add(reason, 0, 8);
+        pane.add(inputReason, 1, 8);
 
         pane.add(buttonAdd, 0, 9,2,1);
         pane.add(buttonCancel, 1, 9);
@@ -142,20 +144,17 @@ public class AddScene extends Stage {
         sex = new Label();
         sex.setFont(FONT);
         sex.setText("Sexo:");
-        inputSex = new TextField();
-        inputSex.setPromptText("Sexo");
+        setUpSexComboBox();
 
         department = new Label();
         department.setFont(FONT);
-        department.setText("Departamento:");
-        inputDepartment = new TextField();
-        inputDepartment.setPromptText("Departamento");
+        department.setText("Departamento");
+        setUpDepartmentsComboBox();
 
         condition = new Label();
         condition.setFont(FONT);
         condition.setText("Estado:");
-        inputCondition = new TextField();
-        inputCondition.setPromptText("Estado");
+        setUpConditionComboBox();
 
         reason = new Label();
         reason.setFont(FONT);
@@ -168,5 +167,35 @@ public class AddScene extends Stage {
         id.setText("Cédula:");
         inputId = new TextField();
         inputId.setPromptText("Cédula");
+    }
+
+    public void setUpDepartmentsComboBox() {
+        ObservableList<String> departmentsList = FXCollections.observableArrayList();
+        departmentsList.addAll(
+                "Amazonas","Antioquía","Arauca","Atlántico","Bolívar","Boyacá",
+                "Caldas","Caquetá","Casanare", "Cauca","Cesar","Chocó","Córdoba",
+                "Cundinamarca","Guainía","Guaviare","Huila","La Guajira","Magdalena",
+                "Meta","Nariño","Norte de Santander","Putumayo","Quindío","Risaralda",
+                "San Andrés y Providencia","Santander","Sucre","Tolima","Valle del Cauca",
+                "Vaupés", "Vichada");
+        inputDepartment = new ComboBox<>(departmentsList);
+        inputDepartment.setPromptText("-");
+        inputDepartment.setMinWidth(100);
+    }
+
+    public void setUpSexComboBox() {
+        ObservableList<String> departmentsList = FXCollections.observableArrayList();
+        departmentsList.addAll("Masculino","Femenino");
+        inputSex = new ComboBox<>(departmentsList);
+        inputSex.setPromptText("-");
+        inputSex.setMinWidth(100);
+    }
+
+    public void setUpConditionComboBox() {
+        ObservableList<String> departmentsList = FXCollections.observableArrayList();
+        departmentsList.addAll("Vivo", "Herido", "Muerto","Desconocido");
+        inputCondition = new ComboBox<>(departmentsList);
+        inputCondition.setPromptText("-");
+        inputCondition.setMinWidth(100);
     }
 }

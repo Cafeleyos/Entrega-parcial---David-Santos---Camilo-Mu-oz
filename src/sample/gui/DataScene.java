@@ -1,6 +1,8 @@
 package sample.gui;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -9,6 +11,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
+
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +24,8 @@ public class DataScene extends Application {
 
     private MenuBar bar;
     private Map<String, MenuItem> menuItems;
+
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -78,6 +84,7 @@ public class DataScene extends Application {
         table.getColumns().add(nameColumn);
         table.setMaxWidth(400);
     }
+
 
 
     public static void main(String[] args) {
