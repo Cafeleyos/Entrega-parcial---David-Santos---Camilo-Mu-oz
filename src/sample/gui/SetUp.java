@@ -3,9 +3,12 @@ package sample.gui;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import sample.logic.ValidPublicEmployees;
 
-public class ComboBoxes {
+import java.util.Map;
+
+public class SetUp {
     public static final String EMPTY = "-";
 
     public void setUpDepartmentsComboBox (ComboBox<String> comboBox, String text) {
@@ -50,6 +53,13 @@ public class ComboBoxes {
         comboBox.setItems(list);
         comboBox.setPromptText(text);
         comboBox.setMinWidth(200);
+    }
+
+    public void setUpLabels(Map<Label, String> map){
+        for (Map.Entry<Label,String> e: map.entrySet()){
+            e.getKey().setFont(DataScene.FONT);
+            e.getKey().setText(e.getValue());
+        }
     }
 
 }

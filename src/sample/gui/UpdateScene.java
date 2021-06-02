@@ -11,7 +11,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
-import sample.logic.entities.PublicEmployee;
 import sample.logic.services.implementation.PersonaServices;
 
 import java.util.HashMap;
@@ -20,7 +19,7 @@ import java.util.Map;
 
 public class UpdateScene {
     private Button buttonAdd, buttonCancel;
-    private ComboBoxes comboBoxes;
+    private SetUp setUp;
     private Persona persona;
     private final Stage stage;
     private Scene addScene;
@@ -36,7 +35,7 @@ public class UpdateScene {
     public UpdateScene(PersonaServices personaServices, Persona persona) {
         stage = new Stage();
         this.personaServices = personaServices;
-        this.comboBoxes = new ComboBoxes();
+        this.setUp = new SetUp();
         this.persona = persona;
         setUp();
         behavior();
@@ -58,12 +57,13 @@ public class UpdateScene {
 
     }
     public void setUpInputs () {
-
+        //Labels
+        setUp.setUpLabels(labelsList());
         position = new Label();
         position.setFont(DataScene.FONT);
         position.setText("Nombre:");
         inputPosition = new ComboBox<>();
-        comboBoxes.setUpPositionComboBox(inputPosition,ComboBoxes.EMPTY);
+        setUp.setUpPositionComboBox(inputPosition, SetUp.EMPTY);
         inputPosition.getSelectionModel().select(persona.getPosition());
 
 
@@ -89,21 +89,21 @@ public class UpdateScene {
         sex.setFont(DataScene.FONT);
         sex.setText("Sexo:");
         inputSex = new ComboBox<>();
-        comboBoxes.setUpSexComboBox(inputSex,ComboBoxes.EMPTY);
+        setUp.setUpSexComboBox(inputSex, SetUp.EMPTY);
         inputSex.getSelectionModel().select(persona.getSex());
 
         department = new Label();
         department.setFont(DataScene.FONT);
         department.setText("Departamento");
         inputDepartment = new ComboBox<>();
-        comboBoxes.setUpDepartmentsComboBox(inputDepartment,ComboBoxes.EMPTY);
+        setUp.setUpDepartmentsComboBox(inputDepartment, SetUp.EMPTY);
         inputDepartment.getSelectionModel().select(persona.getDepartment());
 
         condition = new Label();
         condition.setFont(DataScene.FONT);
         condition.setText("Estado:");
         inputCondition = new ComboBox<>();
-        comboBoxes.setUpConditionComboBox(inputCondition,ComboBoxes.EMPTY);
+        setUp.setUpConditionComboBox(inputCondition, SetUp.EMPTY);
         inputCondition.getSelectionModel().select(persona.getCondition());
 
         reason = new Label();
@@ -154,7 +154,7 @@ public class UpdateScene {
         return objectList;
     }
 
-    public void setUpLabels() {
+    public Map<Label, String> labelsList() {
         Map<Label, String> labels = new HashMap<>();
         labels.put(position,"Posición");
         labels.put(name,"Nombre");
@@ -163,7 +163,9 @@ public class UpdateScene {
         labels.put(id,"Cédula");
         labels.put(sex,"Sexo");
         labels.put(department,"Departamento");
-        labels.put(condition,"Posición");
-        labels.put(reason,"Posición");
+        labels.put(condition,"Condición");
+        labels.put(reason,"Razón");
+
+        return labels;
     }
 }

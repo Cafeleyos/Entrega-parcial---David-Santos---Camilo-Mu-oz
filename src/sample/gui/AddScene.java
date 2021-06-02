@@ -1,13 +1,10 @@
 package sample.gui;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
@@ -28,7 +25,7 @@ public class AddScene {
     private ComboBox<String> inputDepartment, inputSex, inputCondition, inputPosition;
     private Label name, lastname, age, sex, department, condition, reason, id, position;
     private GridPane pane;
-    private final ComboBoxes comboBoxes;
+    private final SetUp setUp;
 
     private static final Text TITLE = new Text("Nueva Persona");
     private final PersonaServices personaServices;
@@ -36,7 +33,7 @@ public class AddScene {
     public AddScene(PersonaServices personaServices) {
         stage = new Stage();
         this.personaServices = personaServices;
-        this.comboBoxes = new ComboBoxes();
+        this.setUp = new SetUp();
         setUp();
         behavior();
 
@@ -122,7 +119,7 @@ public class AddScene {
         position.setFont(DataScene.FONT);
         position.setText("Posición:");
         inputPosition = new ComboBox<>();
-        comboBoxes.setUpPositionComboBox(inputPosition,ComboBoxes.EMPTY);
+        setUp.setUpPositionComboBox(inputPosition, SetUp.EMPTY);
 
         name = new Label();
         name.setFont(DataScene.FONT);
@@ -146,19 +143,19 @@ public class AddScene {
         sex.setFont(DataScene.FONT);
         sex.setText("Sexo:");
         inputSex = new ComboBox<>();
-        comboBoxes.setUpSexComboBox(inputSex,ComboBoxes.EMPTY);
+        setUp.setUpSexComboBox(inputSex, SetUp.EMPTY);
 
         department = new Label();
         department.setFont(DataScene.FONT);
         department.setText("Departamento");
         inputDepartment = new ComboBox<>();
-        comboBoxes.setUpDepartmentsComboBox(inputDepartment,ComboBoxes.EMPTY);
+        setUp.setUpDepartmentsComboBox(inputDepartment, SetUp.EMPTY);
 
         condition = new Label();
         condition.setFont(DataScene.FONT);
         condition.setText("Estado:");
         inputCondition = new ComboBox<>();
-        comboBoxes.setUpConditionComboBox(inputCondition,ComboBoxes.EMPTY);
+        setUp.setUpConditionComboBox(inputCondition, SetUp.EMPTY);
 
         reason = new Label();
         reason.setFont(DataScene.FONT);
