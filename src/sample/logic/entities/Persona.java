@@ -71,15 +71,22 @@ public class Persona implements Serializable {
 
     @Override
     public String toString() {
-        return "Persona{" +
-                "name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                ", sex='" + sex + '\'' +
-                ", department='" + department + '\'' +
-                ", condition='" + condition + '\'' +
-                ", reason='" + reason + '\'' +
-                ", id='" + id + '\'' +
-                '}';
+        return String.format("Nombre Completo: " + name + " " + lastName + "\n"
+                + "Edad: " + age + "\n"
+                + "Sexo: " + sex + "\n"
+                + "Cédula: " + id + "\n"
+                + "Departamento: " + department + "\n"
+                + "Condición: " + condition + "\n"
+                + "Razón: " + reason + "\n");
+        //"Persona{" +
+                //"name='" + name + '\'' +
+                //", lastName='" + lastName + '\'' +
+                //", age=" + age +
+                //", sex='" + sex + '\'' +
+                //", department='" + department + '\'' +
+                //", condition='" + condition + '\'' +
+                //", reason='" + reason + '\'' +
+                //", id='" + id + '\'' +
+                //'}';
     }
 }

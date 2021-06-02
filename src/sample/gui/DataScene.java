@@ -52,18 +52,6 @@ public class DataScene extends Application {
     public void behavior() {
 
         table.setItems((ObservableList<Persona>) this.personaServices.getAll());
-        /*
-        try {
-            personaServices.insert(new Persona("Santiago", "Santos", "18", "Masculino",
-                    "Tolima", "Vivo", "Ninguna", "100556934"));
-            personaServices.insert(new Persona("Daniel", "Santos", "18", "Masculino",
-                    "Tolima", "Vivo", "Ninguna", "110556935"));
-            personaServices.insert(new Persona("Jose", "Santos", "18", "Masculino",
-                    "Tolima", "Vivo", "Ninguna", "100556934"));
-        } catch (PersonaException | IOException e) {
-            e.printStackTrace();
-        }
-        */
 
         menuItems.get("Add").setOnAction(e -> new AddScene(this.personaServices));
 
@@ -73,13 +61,14 @@ public class DataScene extends Application {
 
         table.setOnMouseClicked(e -> {
             pane.getChildren().clear();
+            pane.add(table, 0, 0);
             if(table.getSelectionModel().getSelectedItem() != null) {
                 for(Persona p : personaServices.getAll()) {
                     if(table.getSelectionModel().getSelectedItem().getId().equals(p.getId())) {
-                        name = new Text(table.getSelectionModel().getSelectedItem().getName() + " " +
-                                table.getSelectionModel().getSelectedItem().getLastName());
+                        name = new Text(table.getSelectionModel().getSelectedItem().toString());
                         name.setFont(FONT_TITLE);
-                        pane.add(name, 0, 1);
+                        pane.add(name, 1, 0);
+
                     }
                 }
             }
@@ -104,23 +93,18 @@ public class DataScene extends Application {
 
         VBox layout = new VBox(20);
         layout.setPadding(new Insets(10, 10, 10, 10));
-        layout.getChildren().addAll(menuBar, tablePane, pane);
+        layout.getChildren().addAll(menuBar, pane);
 
-        dataScene = new Scene(layout, 1080, 720);
+        dataScene = new Scene(layout, 860, 450);
     }
 
     public void setUpPane() {
         pane = new GridPane();
-        pane.setAlignment(Pos.CENTER_RIGHT);
+        pane.setAlignment(Pos.CENTER_LEFT);
         pane.setVgap(20);
         pane.setHgap(20);
 
-        tablePane = new GridPane();
-        tablePane.setAlignment(Pos.CENTER_LEFT);
-        tablePane.setHgap(20);
-        tablePane.setVgap(20);
-
-        tablePane.add(table, 0, 0);
+        pane.add(table, 0, 0);
     }
 
     public void setUpMenu() {
