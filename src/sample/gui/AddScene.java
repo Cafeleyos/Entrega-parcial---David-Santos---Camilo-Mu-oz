@@ -28,6 +28,7 @@ public class AddScene {
     private ComboBox<String> inputDepartment, inputSex, inputCondition, inputPosition;
     private Label name, lastname, age, sex, department, condition, reason, id, position;
     private GridPane pane;
+    private ComboBoxes comboBoxes;
 
     private static final Text TITLE = new Text("Nueva Persona");
     private PersonaServices personaServices;
@@ -35,6 +36,7 @@ public class AddScene {
     public AddScene(PersonaServices personaServices) {
         stage = new Stage();
         this.personaServices = personaServices;
+        this.comboBoxes = new ComboBoxes();
         setUp();
         behavior();
 
@@ -119,7 +121,8 @@ public class AddScene {
         position = new Label();
         position.setFont(DataScene.FONT);
         position.setText("Posición:");
-        setUpPositionComboBox();
+        inputPosition = new ComboBox<>();
+        comboBoxes.setUpPositionComboBox(inputPosition,ComboBoxes.EMPTY);
 
         name = new Label();
         name.setFont(DataScene.FONT);
@@ -142,17 +145,20 @@ public class AddScene {
         sex = new Label();
         sex.setFont(DataScene.FONT);
         sex.setText("Sexo:");
-        setUpSexComboBox();
+        inputSex = new ComboBox<>();
+        comboBoxes.setUpSexComboBox(inputSex,ComboBoxes.EMPTY);
 
         department = new Label();
         department.setFont(DataScene.FONT);
         department.setText("Departamento");
-        setUpDepartmentsComboBox();
+        inputDepartment = new ComboBox<>();
+        comboBoxes.setUpDepartmentsComboBox(inputDepartment,ComboBoxes.EMPTY);
 
         condition = new Label();
         condition.setFont(DataScene.FONT);
         condition.setText("Estado:");
-        setUpConditionComboBox();
+        inputCondition = new ComboBox<>();
+        comboBoxes.setUpConditionComboBox(inputCondition,ComboBoxes.EMPTY);
 
         reason = new Label();
         reason.setFont(DataScene.FONT);
@@ -166,48 +172,7 @@ public class AddScene {
         inputId = new TextField();
         inputId.setPromptText("Identificación");
     }
-
-    public void setUpDepartmentsComboBox () {
-        ObservableList<String> departmentsList = FXCollections.observableArrayList();
-        departmentsList.addAll(
-                "Amazonas", "Antioquía", "Arauca", "Atlántico", "Bolívar", "Boyacá",
-                "Caldas", "Caquetá", "Casanare", "Cauca", "Cesar", "Chocó", "Córdoba",
-                "Cundinamarca", "Guainía", "Guaviare", "Huila", "La Guajira", "Magdalena",
-                "Meta", "Nariño", "Norte de Santander", "Putumayo", "Quindío", "Risaralda",
-                "San Andrés y Providencia", "Santander", "Sucre", "Tolima", "Valle del Cauca",
-                "Vaupés", "Vichada");
-        inputDepartment = new ComboBox<>(departmentsList);
-        inputDepartment.setPromptText("-");
-        inputDepartment.setMinWidth(200);
-    }
-
-    public void setUpSexComboBox () {
-        ObservableList<String> list = FXCollections.observableArrayList();
-        list.addAll("Masculino", "Femenino");
-        inputSex = new ComboBox<>(list);
-        inputSex.setPromptText("-");
-        inputSex.setMinWidth(200);
-    }
-
-    public void setUpConditionComboBox () {
-        ObservableList<String> list = FXCollections.observableArrayList();
-        list.addAll("Vivo", "Herido", "Muerto", "Desconocido");
-        inputCondition = new ComboBox<>(list);
-        inputCondition.setPromptText("-");
-        inputCondition.setMinWidth(200);
-    }
-
-    public void setUpPositionComboBox () {
-        ObservableList<String> list = FXCollections.observableArrayList();
-        list.add("Civil");
-        for (ValidPublicEmployees v : ValidPublicEmployees.values()) {
-            list.add(v.toString());
-        }
-        inputPosition = new ComboBox<>(list);
-        inputPosition.setPromptText("-");
-        inputPosition.setMinWidth(200);
-    }
-
+    
     private Map<Node, Node> createListOfObjets () {
         Map<Node, Node> objectList = new LinkedHashMap<>();
         objectList.put(position, inputPosition);
