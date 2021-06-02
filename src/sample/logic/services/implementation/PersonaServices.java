@@ -6,6 +6,7 @@ import sample.logic.persistence.IPersonaPersistence;
 import sample.logic.persistence.implementation.PersonaPersistence;
 import sample.logic.services.IPersonaServices;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.util.List;
 

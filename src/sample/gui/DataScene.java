@@ -44,7 +44,7 @@ public class DataScene extends Application {
 
     public void behavior() {
         this.personaServices = new PersonaServices();
-
+        /*
         try {
             personaServices.insert(new Persona("Santiago", "Santos", "18", "Masculino",
                     "Tolima", "Vivo", "Ninguna", "1005569340"));
@@ -55,7 +55,7 @@ public class DataScene extends Application {
         } catch (PersonaException | IOException e) {
             e.printStackTrace();
         }
-
+        */
         table.setItems((ObservableList<Persona>) this.personaServices.getAll());
 
         menuItems.get("Add").setOnAction(e -> new AddScene(this.personaServices));

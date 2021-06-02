@@ -9,18 +9,28 @@ import java.util.List;
 
 public class PersonaPersistence implements IPersonaPersistence, Serializable{
     private static final String PEOPLE_FILE_PATH = "people.database";
+    private File file;
+    private ObjectInputStream read;
+    private ObjectOutputStream write;
 
     public PersonaPersistence() throws IOException {
-        File file = new File(PEOPLE_FILE_PATH);
+        file = new File(PEOPLE_FILE_PATH);
         if (file.createNewFile()) {
             System.out.println("The file "+ PEOPLE_FILE_PATH + " was created successfully");
+        }
+        try {
+            write = new ObjectOutputStream(new FileOutputStream(PEOPLE_FILE_PATH, true));
+            if(file.length() != 0) {
+                read = new ObjectInputStream(new FileInputStream(PEOPLE_FILE_PATH));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void save(Persona persona) throws IOException {
         try {
-            ObjectOutputStream write = new ObjectOutputStream(new FileOutputStream(PEOPLE_FILE_PATH, true));
             write.writeObject(persona);
             write.close();
         } catch (IOException e) {
@@ -30,19 +40,34 @@ public class PersonaPersistence implements IPersonaPersistence, Serializable{
     }
 
     @Override
-    public List<Persona> read() throws IOException {
+    public List<Persona> read() throws IOException, ClassNotFoundException {
         List<Persona> result = new ArrayList<>();
-        FileInputStream input = new FileInputStream(PEOPLE_FILE_PATH);
-        ObjectInputStream r = new ObjectInputStream(input);
-        Object obj = null;
-        while (r.available()>0){
-            try {
-                result.add((Persona) r.readObject());
-                System.out.println(result);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+
+            if(file.length() != 0) {
+                boolean counter = true;
+
+                while (counter) {
+                    try {
+                        result.add((Persona) read.readObject());
+                    } catch (EOFException e) {
+                        break;
+                    }
+                }
+                read.close();
+        }
+
+        return result;
+        }
+
+            /*while (r.available()>0){
+                try {
+                    result.add((Persona) r.readObject());
+                    System.out.println(result);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        return result;
+        return result;*/
     }
-}
+
