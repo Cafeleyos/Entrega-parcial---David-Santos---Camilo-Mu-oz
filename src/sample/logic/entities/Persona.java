@@ -46,7 +46,7 @@ public class Persona implements Serializable {
     }
 
     private void setAge(String inputAge) throws PersonaException {
-            try {
+        try {
             int result = Integer.parseInt(inputAge);
             if (result> MAX_AGE) throw new PersonaException(PersonaException.UPPER_AGE);
             if (result< MIN_AGE) throw new PersonaException(PersonaException.UNDER_AGE);

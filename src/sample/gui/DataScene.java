@@ -5,19 +5,19 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import sample.logic.ValidPublicEmployees;
 import sample.logic.entities.Persona;
-import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +26,8 @@ public class DataScene extends Application {
     private TableView<Persona> table;
     private Scene dataScene;
     private PersonaServices personaServices;
+
+    private Button delete;
 
     private MenuBar bar;
     private Map<String, MenuItem> menuItems;
@@ -48,7 +50,6 @@ public class DataScene extends Application {
 
         table.setItems((ObservableList<Persona>) this.personaServices.getAll());
 
-        /*
         try {
             personaServices.insert(new Persona("Santiago", "Santos", "18", "Masculino",
                     "Tolima", "Vivo", "Ninguna", "100556934"));
@@ -59,20 +60,27 @@ public class DataScene extends Application {
         } catch (PersonaException | IOException e) {
             e.printStackTrace();
         }
-        */
 
         menuItems.get("Add").setOnAction(e -> new AddScene(this.personaServices));
 
         menuItems.get("Update").setOnAction(e -> new UpdateScene());
 
-        menuItems.get("Delete").setOnAction(e -> {
-            new DeleteScene();
-        });
+        menuItems.get("Delete").setOnAction(e -> new DeleteScene(this.personaServices));
+
+
+
+        table.getItems().removeAll(table.getSelectionModel().getSelectedItems());
+    }
+
+    public void a() {
+        delete = new Button();
+        delete.setPrefSize(100, 30);
     }
 
     public void setUp() {
         setUpTable();
         setUpMenu();
+        a();
 
         BorderPane menuBar = new BorderPane();
         menuBar.setPadding(new Insets(-10));
@@ -80,7 +88,7 @@ public class DataScene extends Application {
 
         VBox layout = new VBox(20);
         layout.setPadding(new Insets(10, 10, 10, 10));
-        layout.getChildren().addAll(menuBar, table);
+        layout.getChildren().addAll(menuBar, table, delete);
 
         dataScene = new Scene(layout, 1080, 720);
     }

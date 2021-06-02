@@ -23,8 +23,9 @@ public class DeleteScene extends Stage {
     private GridPane pane;
     private static final Text TITLE = new Text("Eliminar una Persona");
 
-    public DeleteScene() {
+    public DeleteScene(PersonaServices personaServices) {
         stage = new Stage();
+        this.personaServices = personaServices;
 
         setUp();
         behavior();
@@ -39,13 +40,10 @@ public class DeleteScene extends Stage {
         setUpButton();
         setUpPane();
 
-
         deleteScene = new Scene(pane, 400, 150);
     }
 
     public void behavior() {
-        personaServices = new PersonaServices();
-
         delete.setOnAction(e -> {
             personaServices.delete(personaServices.findIndex(inputId.getText()));
             inputId.clear();
