@@ -173,7 +173,7 @@ public class AddScene {
         inputId.setPromptText("Identificación");
     }
 
-    private Map<Node, Node> createListOfObjets () {
+    public Map<Node, Node> createListOfObjets () {
         Map<Node, Node> objectList = new LinkedHashMap<>();
         objectList.put(position, inputPosition);
         objectList.put(name, inputName);

@@ -12,6 +12,11 @@ public class PublicEmployee extends Persona{
         this.job = position;
     }
 
+    public String getPosition() {
+        return this.job;
+    }
+
+
     @Override
     public String toString() {
         return super.toString() +

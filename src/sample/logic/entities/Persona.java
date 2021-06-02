@@ -44,6 +44,16 @@ public class Persona extends Exportable implements Serializable {
         return this.condition;
     }
 
+    public String getPosition() { return "Civil";}
+
+    public String getSex() { return this.sex;}
+
+    public int getAge() { return age; }
+
+    public String getDepartment() { return department; }
+
+    public String getReason() { return reason; }
+
     public String getId() {
         return this.id;
     }
