@@ -64,30 +64,20 @@ public class AddScene extends Stage {
                             inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
                             inputId.getText());
                     personaServices.insert(persona);
-                    inputId.clear();
-                    inputReason.clear();
-                    inputAge.clear();
-                    inputLastname.clear();
-                    inputName.clear();
-                    stage.close();
-                    new AddScene(personaServices);
                 } else {
                     PublicEmployee publicEmployee = new PublicEmployee(inputName.getText(), inputLastname.getText(), inputAge.getText(),
                             inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
                             inputId.getText(), inputPosition.getValue());
                     personaServices.insert(publicEmployee);
-                    inputDepartment.setPromptText("-");
-                    inputSex.setPromptText("-");
-                    inputCondition.setPromptText("-");
-                    inputPosition.setPromptText("-");
-                    inputId.clear();
-                    inputReason.clear();
-                    inputAge.clear();
-                    inputLastname.clear();
-                    inputName.clear();
-                    stage.close();
-                    new AddScene(personaServices);
                 }
+                inputId.clear();
+                inputReason.clear();
+                inputAge.clear();
+                inputLastname.clear();
+                inputName.clear();
+                stage.close();
+                new AddScene(personaServices);
+
             } catch (IOException | PersonaException exception) {
                 exception.printStackTrace();
             }
@@ -95,12 +85,12 @@ public class AddScene extends Stage {
         buttonCancel.setOnAction(e -> stage.close());
     }
 
-
     public void setUpPane () {
         pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
         pane.setHgap(20);
         pane.setVgap(20);
+
         TITLE.setFont(DataScene.FONT_TITLE);
         pane.add(TITLE, 0, 0, 2, 1);
 

@@ -3,6 +3,7 @@ package sample.gui;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Menu;
@@ -10,14 +11,14 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
-import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,9 +26,12 @@ public class DataScene extends Application {
 
     private TableView<Persona> table;
     private Scene dataScene;
-    private PersonaServices personaServices;
+    private PersonaServices personaServices = new PersonaServices();
 
     private Button delete;
+
+    private GridPane pane, tablePane;
+    private Text name;
 
     private MenuBar bar;
     private Map<String, MenuItem> menuItems;
@@ -46,7 +50,6 @@ public class DataScene extends Application {
     }
 
     public void behavior() {
-        this.personaServices = new PersonaServices();
 
         table.setItems((ObservableList<Persona>) this.personaServices.getAll());
         /*
@@ -68,7 +71,19 @@ public class DataScene extends Application {
 
         menuItems.get("Delete").setOnAction(e -> new DeleteScene(this.personaServices));
 
-
+        table.setOnMouseClicked(e -> {
+            pane.getChildren().clear();
+            if(table.getSelectionModel().getSelectedItem() != null) {
+                for(Persona p : personaServices.getAll()) {
+                    if(table.getSelectionModel().getSelectedItem().getId().equals(p.getId())) {
+                        name = new Text(table.getSelectionModel().getSelectedItem().getName() + " " +
+                                table.getSelectionModel().getSelectedItem().getLastName());
+                        name.setFont(FONT_TITLE);
+                        pane.add(name, 0, 1);
+                    }
+                }
+            }
+        });
 
         table.getItems().removeAll(table.getSelectionModel().getSelectedItems());
     }
@@ -81,7 +96,7 @@ public class DataScene extends Application {
     public void setUp() {
         setUpTable();
         setUpMenu();
-        a();
+        setUpPane();
 
         BorderPane menuBar = new BorderPane();
         menuBar.setPadding(new Insets(-10));
@@ -89,9 +104,23 @@ public class DataScene extends Application {
 
         VBox layout = new VBox(20);
         layout.setPadding(new Insets(10, 10, 10, 10));
-        layout.getChildren().addAll(menuBar, table, delete);
+        layout.getChildren().addAll(menuBar, tablePane, pane);
 
         dataScene = new Scene(layout, 1080, 720);
+    }
+
+    public void setUpPane() {
+        pane = new GridPane();
+        pane.setAlignment(Pos.CENTER_RIGHT);
+        pane.setVgap(20);
+        pane.setHgap(20);
+
+        tablePane = new GridPane();
+        tablePane.setAlignment(Pos.CENTER_LEFT);
+        tablePane.setHgap(20);
+        tablePane.setVgap(20);
+
+        tablePane.add(table, 0, 0);
     }
 
     public void setUpMenu() {
@@ -139,9 +168,5 @@ public class DataScene extends Application {
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    public PersonaServices getPersonaServices() {
-        return personaServices;
     }
 }

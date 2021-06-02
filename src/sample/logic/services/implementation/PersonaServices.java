@@ -25,16 +25,9 @@ public class PersonaServices implements IPersonaServices {
         }
     }
 
-    public int index() {
-        System.out.println(personas.size());
-
-        return personas.size();
-    }
-
     public Persona findIndex(String id) {
         Persona result = null;
         int index = 0;
-
 
         for(index = 0; index < personas.size(); index++) {
             if(id.equals(personas.get(index).getId())) {
@@ -63,7 +56,7 @@ public class PersonaServices implements IPersonaServices {
         }
         if (create) {
             personas.add(persona);
-            personasDataBase.save(persona);
+            personasDataBase.save(persona, true);
         }
         if (!create) {
             throw new PersonaException(PersonaException.EQUAL_ID);
@@ -77,6 +70,11 @@ public class PersonaServices implements IPersonaServices {
 
     @Override
     public void delete(Persona persona) {
-        this.personas.remove(persona);
+        try {
+            personasDataBase.save(persona, false);
+            this.personas.remove(persona);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

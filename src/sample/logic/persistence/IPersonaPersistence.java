@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IPersonaPersistence {
-    void save(Persona person) throws IOException;
+    void save(Persona person, boolean option) throws IOException;
 
     List<Persona> read() throws IOException, ClassNotFoundException;
 

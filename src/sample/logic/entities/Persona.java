@@ -1,5 +1,6 @@
 package sample.logic.entities;
 
+import javafx.scene.Node;
 import sample.logic.services.PersonaException;
 
 import java.io.Serializable;
