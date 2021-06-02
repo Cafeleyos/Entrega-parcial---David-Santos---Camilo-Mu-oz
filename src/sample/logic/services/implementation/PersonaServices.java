@@ -29,13 +29,13 @@ public class PersonaServices implements IPersonaServices {
         return personas.size();
     }
 
-    public Persona findIndex(String cedula) {
+    public Persona findIndex(String id) {
         Persona result = null;
         int index = 0;
 
 
         for(index = 0; index < personas.size(); index++) {
-            if(cedula.equals(personas.get(index).getId())) {
+            if(id.equals(personas.get(index).getId())) {
                 result = personas.get(index);
                 break;
             }

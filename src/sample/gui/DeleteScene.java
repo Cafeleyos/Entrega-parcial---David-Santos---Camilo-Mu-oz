@@ -10,18 +10,15 @@ import javafx.stage.Stage;
 import javafx.scene.control.*;
 import sample.logic.services.implementation.PersonaServices;
 
-import javax.xml.crypto.Data;
-
 public class DeleteScene extends Stage {
 
-    private Stage stage;
+    private final Stage stage;
     private Scene deleteScene;
 
     private Button delete, cancel;
-    private TextField inputCedula;
-    private Label cedula;
+    private TextField inputId;
+    private Label id;
     private PersonaServices personaServices;
-    private DataScene dataScene;
 
     private GridPane pane;
     private static final Text TITLE = new Text("Eliminar una Persona");
@@ -48,11 +45,10 @@ public class DeleteScene extends Stage {
 
     public void behavior() {
         personaServices = new PersonaServices();
-        dataScene = new DataScene();
 
         delete.setOnAction(e -> {
-            personaServices.delete(personaServices.findIndex(inputCedula.getText()));
-            inputCedula.clear();
+            personaServices.delete(personaServices.findIndex(inputId.getText()));
+            inputId.clear();
         });
 
         cancel.setOnAction(e -> stage.close());
@@ -77,18 +73,18 @@ public class DeleteScene extends Stage {
         TITLE.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         pane.add(TITLE, 0, 0, 2, 1);
 
-        pane.add(cedula, 0, 1);
-        pane.add(inputCedula, 1, 1);
+        pane.add(id, 0, 1);
+        pane.add(inputId, 1, 1);
 
         pane.add(delete, 0, 2);
         pane.add(cancel, 1, 2);
     }
 
     public void setUpInputs() {
-        cedula = new Label("Cédula");
-        cedula.setFont(DataScene.FONT);
-        cedula.setText("Cédula:");
-        inputCedula = new TextField();
-        inputCedula.setPromptText("Cédula");
+        id = new Label("Cédula");
+        id.setFont(DataScene.FONT);
+        id.setText("Cédula:");
+        inputId = new TextField();
+        inputId.setPromptText("Cédula");
     }
 }

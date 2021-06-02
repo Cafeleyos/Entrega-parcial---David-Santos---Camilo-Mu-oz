@@ -9,10 +9,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import sample.logic.ValidPublicEmployees;
 import sample.logic.entities.Persona;
+import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
@@ -47,11 +47,11 @@ public class DataScene extends Application {
 
         try {
             personaServices.insert(new Persona("Santiago", "Santos", "18", "Masculino",
-                    "Tólima", "Vivo", "Ninguna", "1005569340"));
+                    "Tolima", "Vivo", "Ninguna", "1005569340"));
             personaServices.insert(new Persona("Daniel", "Santos", "18", "Masculino",
-                    "Tólima", "Vivo", "Ninguna", "1105569340"));
+                    "Tolima", "Vivo", "Ninguna", "1105569340"));
             personaServices.insert(new Persona("Jose", "Santos", "18", "Masculino",
-                    "Tólima", "Vivo", "Ninguna", "1015569340"));
+                    "Tolima", "Vivo", "Ninguna", "1015569340"));
         } catch (PersonaException | IOException e) {
             e.printStackTrace();
         }
@@ -64,7 +64,6 @@ public class DataScene extends Application {
 
         menuItems.get("Delete").setOnAction(e -> {
             new DeleteScene();
-            personaServices.index();
         });
     }
 
