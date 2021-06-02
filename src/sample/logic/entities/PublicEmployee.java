@@ -20,7 +20,6 @@ public class PublicEmployee extends Persona{
     @Override
     public String toString() {
         return super.toString() +
-                "job='" + job + '\'' +
-                '}';
+                "Trabajo: " + job;
     }
 }
