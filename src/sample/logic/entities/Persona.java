@@ -67,21 +67,4 @@ public class Persona implements Serializable {
             throw new PersonaException(PersonaException.INVALID_CHARACTERS);
         }
     }
-
-<<<<<<< Updated upstream
-    @Override
-    public String toString() {
-        return "Persona{" +
-                "name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                ", sex='" + sex + '\'' +
-                ", department='" + department + '\'' +
-                ", condition='" + condition + '\'' +
-                ", reason='" + reason + '\'' +
-                ", id='" + id + '\'' +
-                '}';
-    }
-=======
->>>>>>> Stashed changes
 }
