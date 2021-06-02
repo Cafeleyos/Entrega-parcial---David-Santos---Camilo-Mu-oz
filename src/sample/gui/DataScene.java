@@ -67,7 +67,7 @@ public class DataScene extends Application {
 
         menuItems.get("Add").setOnAction(e -> new AddScene(this.personaServices));
 
-        menuItems.get("Update").setOnAction(e -> new UpdateScene());
+        menuItems.get("Update").setOnAction(e -> new UpdateScene(this.personaServices));
 
         menuItems.get("Delete").setOnAction(e -> new DeleteScene(this.personaServices));
 
