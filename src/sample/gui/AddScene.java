@@ -16,7 +16,6 @@ import sample.logic.services.PersonaException;
 import sample.logic.ValidPublicEmployees;
 import sample.logic.services.implementation.PersonaServices;
 import java.io.IOException;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -32,8 +31,6 @@ public class AddScene extends Stage {
 
     private static final Text TITLE = new Text("Nueva Persona");
     private PersonaServices personaServices;
-
-    private static final Font FONT = new Font("DIALOG", 15);
 
     public AddScene(PersonaServices personaServices) {
         stage = new Stage();

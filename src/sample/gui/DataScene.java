@@ -49,7 +49,7 @@ public class DataScene extends Application {
         this.personaServices = new PersonaServices();
 
         table.setItems((ObservableList<Persona>) this.personaServices.getAll());
-
+        /*
         try {
             personaServices.insert(new Persona("Santiago", "Santos", "18", "Masculino",
                     "Tolima", "Vivo", "Ninguna", "100556934"));
@@ -60,6 +60,7 @@ public class DataScene extends Application {
         } catch (PersonaException | IOException e) {
             e.printStackTrace();
         }
+        */
 
         menuItems.get("Add").setOnAction(e -> new AddScene(this.personaServices));
 
