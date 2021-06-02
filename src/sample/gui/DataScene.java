@@ -55,7 +55,7 @@ public class DataScene extends Application {
 
         menuItems.get("Add").setOnAction(e -> new AddScene(this.personaServices));
 
-        menuItems.get("Update").setOnAction(e -> new UpdateScene(this.personaServices));
+        //menuItems.get("Update").setOnAction(e -> new UpdateScene(this.personaServices));
 
         menuItems.get("Delete").setOnAction(e -> new DeleteScene(this.personaServices));
 
@@ -146,6 +146,16 @@ public class DataScene extends Application {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         table = new TableView<>();
+        table.setRowFactory(tw -> {
+            TableRow row = new TableRow();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())){
+                    new UpdateScene(this.personaServices,(Persona) row.getItem());
+                }
+            });
+            return row;
+        });
+
         table.getColumns().addAll(nameColumn, lastNameColumn, idColumn);
         table.setMaxWidth(450);
     }

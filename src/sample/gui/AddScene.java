@@ -28,10 +28,10 @@ public class AddScene {
     private ComboBox<String> inputDepartment, inputSex, inputCondition, inputPosition;
     private Label name, lastname, age, sex, department, condition, reason, id, position;
     private GridPane pane;
-    private ComboBoxes comboBoxes;
+    private final ComboBoxes comboBoxes;
 
     private static final Text TITLE = new Text("Nueva Persona");
-    private PersonaServices personaServices;
+    private final PersonaServices personaServices;
 
     public AddScene(PersonaServices personaServices) {
         stage = new Stage();
@@ -172,7 +172,7 @@ public class AddScene {
         inputId = new TextField();
         inputId.setPromptText("Identificación");
     }
-    
+
     private Map<Node, Node> createListOfObjets () {
         Map<Node, Node> objectList = new LinkedHashMap<>();
         objectList.put(position, inputPosition);
