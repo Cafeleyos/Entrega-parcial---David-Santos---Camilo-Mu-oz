@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class AddScene extends Stage {
+public class AddScene {
 
     private Button buttonAdd, buttonCancel;
     private final Stage stage;
