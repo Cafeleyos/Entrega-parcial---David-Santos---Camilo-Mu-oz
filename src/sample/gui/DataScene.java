@@ -11,11 +11,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import sample.logic.ValidPublicEmployees;
 import sample.logic.entities.Persona;
+<<<<<<< Updated upstream
 import sample.logic.services.IPersonaServices;
+=======
+import sample.logic.entities.PublicEmployee;
+>>>>>>> Stashed changes
 import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +50,7 @@ public class DataScene extends Application {
     public void behavior() {
         this.personaServices = new PersonaServices();
 
+<<<<<<< Updated upstream
         try {
             personaServices.insert(new Persona("Santiago", "Santos", "18", "Masculino",
                     "Tólima", "Vivo", "Ninguna", "1005569340"));
@@ -52,12 +59,21 @@ public class DataScene extends Application {
             personaServices.insert(new Persona("Jose", "Santos", "18", "Masculino",
                     "Tólima", "Vivo", "Ninguna", "1015569340"));
         } catch (PersonaException e) {
+=======
+       /* try {
+            personaServices.insert(new Persona("Santiago", "Santos", "18", "Masculino", "Tólima", "Vivo", "Ninguna", "1005569340"));
+            personaServices.insert(new Persona("Alberto", "Santos", "18", "Masculino", "Tólima", "Vivo", "Ninguna", "005569340"));
+            personaServices.insert(new Persona("Alberto", "Santos", "18", "Masculino", "Tólima", "Vivo", "Ninguna", "005569340"));
+            personaServices.insert(new Persona("Alberto", "Santos", "18", "Masculino", "Tólima", "Vivo", "Ninguna", "005569340"));
+            personaServices.insert(new PublicEmployee("Alberto", "Santos", "18", "Masculino", "Tólima", "Vivo", "Ninguna", "005569340", ValidPublicEmployees.ESMAD.toString()));
+        } catch (PersonaException | IOException e) {
+>>>>>>> Stashed changes
             e.printStackTrace();
-        }
+        }*/
 
         table.setItems((ObservableList<Persona>) this.personaServices.getAll());
 
-        menuItems.get("Add").setOnAction(e -> new AddScene());
+        menuItems.get("Add").setOnAction(e -> new AddScene(this.personaServices));
 
         menuItems.get("Update").setOnAction(e -> new UpdateScene());
 
@@ -127,5 +143,9 @@ public class DataScene extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public PersonaServices getPersonaServices() {
+        return personaServices;
     }
 }

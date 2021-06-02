@@ -4,9 +4,10 @@ import sample.logic.entities.Persona;
 import sample.logic.persistence.IPersonaPersistence;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
-public class PersonaPersistence implements IPersonaPersistence {
+public class PersonaPersistence implements IPersonaPersistence, Serializable{
     private static final String PEOPLE_FILE_PATH = "people.database";
 
     public PersonaPersistence() throws IOException {
@@ -17,20 +18,31 @@ public class PersonaPersistence implements IPersonaPersistence {
     }
 
     @Override
-    public void save(Persona person) throws IOException {
-        ObjectOutputStream write = new ObjectOutputStream(new FileOutputStream(PEOPLE_FILE_PATH,true));
-        write.writeObject(person);
-        write.close();
+    public void save(Persona persona) throws IOException {
+        try {
+            ObjectOutputStream write = new ObjectOutputStream(new FileOutputStream(PEOPLE_FILE_PATH, true));
+            write.writeObject(persona);
+            write.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
-    public List<Persona> read()  throws IOException {
-        ObjectInputStream read = new ObjectInputStream(new FileInputStream(PEOPLE_FILE_PATH));
-        return null;
-    }
-
-    @Override
-    public void export() {
-
+    public List<Persona> read() throws IOException {
+        List<Persona> result = new ArrayList<>();
+        FileInputStream input = new FileInputStream(PEOPLE_FILE_PATH);
+        ObjectInputStream r = new ObjectInputStream(input);
+        Object obj = null;
+        while (r.available()>0){
+            try {
+                result.add((Persona) r.readObject());
+                System.out.println(result);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 }

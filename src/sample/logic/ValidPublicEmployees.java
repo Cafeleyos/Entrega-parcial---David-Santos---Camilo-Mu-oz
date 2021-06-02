@@ -1,4 +1,4 @@
-package sample.logic.services;
+package sample.logic;
 
 public enum ValidPublicEmployees {
     Policia,

@@ -8,8 +8,6 @@ import java.util.List;
 public interface IPersonaPersistence {
     void save(Persona person) throws IOException;
 
-    List<Persona> read() throws IOException;
-
-    void export();
+    List<Persona> read() throws IOException, ClassNotFoundException;
 
 }

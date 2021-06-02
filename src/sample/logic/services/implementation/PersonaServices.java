@@ -17,7 +17,8 @@ public class PersonaServices implements IPersonaServices {
         personas = FXCollections.observableArrayList();
         try {
             personasDataBase = new PersonaPersistence();
-        } catch (IOException e) {
+            personas.addAll(personasDataBase.read());
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -49,15 +50,14 @@ public class PersonaServices implements IPersonaServices {
     }
 
     @Override
-    public Persona insert(Persona persona) {
+    public Persona insert(Persona persona) throws IOException {
         personas.add(persona);
-
+        personasDataBase.save(persona);
         return persona;
     }
 
     @Override
     public void modify(Persona persona) {
-
     }
 
     @Override

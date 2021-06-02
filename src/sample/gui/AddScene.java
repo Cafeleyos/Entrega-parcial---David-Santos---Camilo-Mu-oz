@@ -15,11 +15,15 @@ import sample.logic.entities.Persona;
 import sample.logic.entities.PublicEmployee;
 import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
-import sample.logic.services.ValidPublicEmployees;
+import sample.logic.ValidPublicEmployees;
 import sample.logic.services.implementation.PersonaServices;
 
+<<<<<<< Updated upstream
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
+=======
+import java.io.IOException;
+>>>>>>> Stashed changes
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -32,10 +36,20 @@ public class AddScene extends Stage {
     private ComboBox<String> inputDepartment, inputSex, inputCondition, inputPosition;
     private Label name, lastname, age, sex, department, condition, reason, id, position;
     private GridPane pane;
+<<<<<<< Updated upstream
     private static final Text TITLE = new Text("Nueva Persona");
 
     public AddScene() {
+=======
+    private static final Text title = new Text("Nueva Persona");
+    private PersonaServices personaServices;
+
+    private static final Font FONT = new Font("DIALOG", 15);
+
+    public AddScene(PersonaServices personaServices) {
+>>>>>>> Stashed changes
         stage = new Stage();
+        this.personaServices = personaServices;
         setUp();
         behavior();
 
@@ -54,10 +68,14 @@ public class AddScene extends Stage {
     }
 
     public void behavior() {
+<<<<<<< Updated upstream
         IPersonaServices personaServices = new PersonaServices();
         ArrayList<Persona> personas = new ArrayList<>();
 
         buttonAdd.setOnAction(e -> {
+=======
+                buttonAdd.setOnAction(e -> {
+>>>>>>> Stashed changes
             try {
                 boolean isPublicEmployee = false;
                 for (ValidPublicEmployees v: ValidPublicEmployees.values()){
@@ -75,7 +93,6 @@ public class AddScene extends Stage {
                     inputAge.clear();
                     inputLastname.clear();
                     inputName.clear();
-                    personas.add(persona);
                 }
                 else {
                     PublicEmployee publicEmployee = new PublicEmployee(inputName.getText(), inputLastname.getText(), inputAge.getText(),
@@ -87,20 +104,19 @@ public class AddScene extends Stage {
                     inputAge.clear();
                     inputLastname.clear();
                     inputName.clear();
-                    personas.add(publicEmployee);
                 }
+<<<<<<< Updated upstream
             } catch (PersonaException personaException) {
                 personaException.printStackTrace();
+=======
+
+            } catch (PersonaException | IOException exception) {
+                exception.printStackTrace();
+>>>>>>> Stashed changes
             }
         });
 
-        buttonCancel.setOnAction(e -> {
-            stage.close();
-            System.out.println(ValidPublicEmployees.ESMAD.toString());
-            for (Persona p: personas ) {
-                System.out.println(p.toString());
-            }
-        });
+        buttonCancel.setOnAction(e -> stage.close());
     }
 
     public void setUpPane() {
@@ -216,7 +232,10 @@ public class AddScene extends Stage {
 
     public void setUpPositionComboBox() {
         ObservableList<String> list = FXCollections.observableArrayList();
-        list.addAll("Manifestante","Civil","Policia","Militar","ESMAD");
+        list.add("Civil");
+        for(ValidPublicEmployees v: ValidPublicEmployees.values()){
+            list.add(v.toString());
+        }
         inputPosition = new ComboBox<>(list);
         inputPosition.setPromptText("-");
         inputPosition.setMinWidth(200);

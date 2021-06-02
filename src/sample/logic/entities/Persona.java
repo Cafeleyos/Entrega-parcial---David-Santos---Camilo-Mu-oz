@@ -2,7 +2,9 @@ package sample.logic.entities;
 
 import sample.logic.services.PersonaException;
 
-public class Persona {
+import java.io.Serializable;
+
+public class Persona implements Serializable {
     private String name;
     private String lastName;
     private int age;
@@ -66,6 +68,7 @@ public class Persona {
         }
     }
 
+<<<<<<< Updated upstream
     @Override
     public String toString() {
         return "Persona{" +
@@ -79,4 +82,6 @@ public class Persona {
                 ", id='" + id + '\'' +
                 '}';
     }
+=======
+>>>>>>> Stashed changes
 }
