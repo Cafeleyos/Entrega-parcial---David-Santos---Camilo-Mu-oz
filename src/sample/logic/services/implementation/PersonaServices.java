@@ -53,17 +53,20 @@ public class PersonaServices implements IPersonaServices {
 
     @Override
     public Persona insert(Persona persona) throws IOException, PersonaException {
-        try {
-            for (Persona p: personasDataBase.read()){
-                if (p.getId().equals(persona.getId())){
-                   throw new PersonaException(PersonaException.EQUAL_ID);
-                }
+        boolean create = true;
+
+        for (Persona p: personas){
+            if (p.getId().equals(persona.getId())){
+                create = false;
+                break;
             }
+        }
+        if (create) {
             personas.add(persona);
             personasDataBase.save(persona);
-
-        } catch (ClassNotFoundException  e) {
-            e.printStackTrace();
+        }
+        if (!create) {
+            throw new PersonaException(PersonaException.EQUAL_ID);
         }
         return persona;
     }

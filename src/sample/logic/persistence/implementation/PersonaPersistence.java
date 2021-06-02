@@ -40,7 +40,6 @@ public class PersonaPersistence implements IPersonaPersistence, Serializable{
             if(file.length() != 0) {
                 read = new ObjectInputStream(new FileInputStream(PEOPLE_FILE_PATH));
                 data.addAll((ArrayList<Persona>)read.readObject());
-                System.out.println(data);
                 read.close();
         }
         return data;

@@ -47,14 +47,15 @@ public class DataScene extends Application {
         this.personaServices = new PersonaServices();
 
         table.setItems((ObservableList<Persona>) this.personaServices.getAll());
+
         /*
         try {
             personaServices.insert(new Persona("Santiago", "Santos", "18", "Masculino",
-                    "Tolima", "Vivo", "Ninguna", "1005569340"));
+                    "Tolima", "Vivo", "Ninguna", "100556934"));
             personaServices.insert(new Persona("Daniel", "Santos", "18", "Masculino",
-                    "Tolima", "Vivo", "Ninguna", "1105569340"));
+                    "Tolima", "Vivo", "Ninguna", "110556935"));
             personaServices.insert(new Persona("Jose", "Santos", "18", "Masculino",
-                    "Tolima", "Vivo", "Ninguna", "1015569340"));
+                    "Tolima", "Vivo", "Ninguna", "100556934"));
         } catch (PersonaException | IOException e) {
             e.printStackTrace();
         }
