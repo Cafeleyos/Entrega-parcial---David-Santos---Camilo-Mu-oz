@@ -4,8 +4,10 @@ import javafx.scene.Node;
 import sample.logic.services.PersonaException;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Persona implements Serializable {
+public class Persona extends Exportable implements Serializable {
     private String name;
     private String lastName;
     private int age;
@@ -78,15 +80,20 @@ public class Persona implements Serializable {
                 + "Departamento: " + department + "\n"
                 + "Condición: " + condition + "\n"
                 + "Razón: " + reason + "\n");
-        //"Persona{" +
-                //"name='" + name + '\'' +
-                //", lastName='" + lastName + '\'' +
-                //", age=" + age +
-                //", sex='" + sex + '\'' +
-                //", department='" + department + '\'' +
-                //", condition='" + condition + '\'' +
-                //", reason='" + reason + '\'' +
-                //", id='" + id + '\'' +
-                //'}';
+    }
+
+    @Override
+    public List<String> toListString() {
+        List<String> result = new ArrayList<>();
+
+        result.add(this.name);
+        result.add(this.lastName);
+
+        return result;
+    }
+
+    @Override
+    public String getHeader() {
+        return "name,lastname,";
     }
 }

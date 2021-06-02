@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import sample.logic.entities.Persona;
 import sample.logic.services.implementation.PersonaServices;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,9 +69,16 @@ public class DataScene extends Application {
                         name = new Text(table.getSelectionModel().getSelectedItem().toString());
                         name.setFont(FONT_TITLE);
                         pane.add(name, 1, 0);
-
                     }
                 }
+            }
+        });
+
+        menuItems.get("Export").setOnAction(e -> {
+            try {
+                this.personaServices.export();
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
             }
         });
 
