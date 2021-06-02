@@ -6,6 +6,7 @@ public class PersonaException extends Exception{
     public static final String UPPER_ID = "El Id supera los 10 digitos";
     public static final String UNDER_ID = "El Id tiene menos de 8 digitos";
     public static final String INVALID_CHARACTERS = "El parametro introducido es invalido";
+    public static final String EQUAL_ID = "EL id ya existe en el sistema";
 
 
 

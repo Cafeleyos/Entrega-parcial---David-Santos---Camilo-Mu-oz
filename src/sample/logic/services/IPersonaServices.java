@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IPersonaServices {
     List<Persona> getAll();
-    Persona insert(Persona persona) throws IOException;
+    Persona insert(Persona persona) throws IOException, PersonaException;
     void modify(Persona persona);
     void delete(Persona persona);
 }

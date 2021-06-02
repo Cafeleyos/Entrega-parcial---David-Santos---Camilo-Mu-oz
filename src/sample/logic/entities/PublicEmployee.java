@@ -14,7 +14,7 @@ public class PublicEmployee extends Persona{
 
     @Override
     public String toString() {
-        return "PublicEmployee{" +
+        return super.toString() +
                 "job='" + job + '\'' +
                 '}';
     }

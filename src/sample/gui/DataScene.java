@@ -17,6 +17,7 @@ import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +45,8 @@ public class DataScene extends Application {
 
     public void behavior() {
         this.personaServices = new PersonaServices();
+
+        table.setItems((ObservableList<Persona>) this.personaServices.getAll());
         /*
         try {
             personaServices.insert(new Persona("Santiago", "Santos", "18", "Masculino",
@@ -56,7 +59,6 @@ public class DataScene extends Application {
             e.printStackTrace();
         }
         */
-        table.setItems((ObservableList<Persona>) this.personaServices.getAll());
 
         menuItems.get("Add").setOnAction(e -> new AddScene(this.personaServices));
 

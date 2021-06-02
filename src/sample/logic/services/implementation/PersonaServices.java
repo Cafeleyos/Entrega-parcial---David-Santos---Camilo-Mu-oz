@@ -5,6 +5,7 @@ import sample.logic.entities.Persona;
 import sample.logic.persistence.IPersonaPersistence;
 import sample.logic.persistence.implementation.PersonaPersistence;
 import sample.logic.services.IPersonaServices;
+import sample.logic.services.PersonaException;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -51,9 +52,19 @@ public class PersonaServices implements IPersonaServices {
     }
 
     @Override
-    public Persona insert(Persona persona) throws IOException {
-        personas.add(persona);
-        personasDataBase.save(persona);
+    public Persona insert(Persona persona) throws IOException, PersonaException {
+        try {
+            for (Persona p: personasDataBase.read()){
+                if (p.getId().equals(persona.getId())){
+                   throw new PersonaException(PersonaException.EQUAL_ID);
+                }
+            }
+            personas.add(persona);
+            personasDataBase.save(persona);
+
+        } catch (ClassNotFoundException  e) {
+            e.printStackTrace();
+        }
         return persona;
     }
 
