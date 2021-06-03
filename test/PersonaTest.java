@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import sample.logic.entities.Persona;
 import sample.logic.services.PersonaException;
+import sample.logic.services.implementation.PersonaServices;
 
 public class PersonaTest {
     public String name ="Diana";

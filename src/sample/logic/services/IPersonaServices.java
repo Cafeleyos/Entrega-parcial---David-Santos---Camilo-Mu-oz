@@ -10,6 +10,6 @@ public interface IPersonaServices {
     List<Persona> getAll();
     Persona insert(Persona persona) throws IOException, PersonaException;
     void modify(Persona persona);
-    void delete(Persona persona);
+    boolean delete(Persona persona) throws PersonaException;
     void export() throws FileNotFoundException;
 }

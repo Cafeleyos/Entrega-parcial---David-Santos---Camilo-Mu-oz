@@ -32,18 +32,26 @@ public class PersonaServices implements IPersonaServices {
         }
     }
 
-    public Persona findIndex(String id) {
+    public Persona findIndex(String id) throws PersonaException {
         Persona result = null;
         int index = 0;
 
-        for(index = 0; index < personas.size(); index++) {
-            if(id.equals(personas.get(index).getId())) {
-                result = personas.get(index);
-                break;
+        if(Integer.parseInt(id) >= 10000000) {
+            for(index = 0; index < personas.size(); index++) {
+                if(id.equals(personas.get(index).getId())) {
+                    result = personas.get(index);
+                    break;
+                }
+            }
+            if(result == null) {
+                throw new PersonaException(PersonaException.NULL_ID);
             }
         }
-
+        else {
+            throw new PersonaException(PersonaException.INVALID_CHARACTERS);
+        }
         return result;
+
     }
 
     @Override
@@ -76,13 +84,21 @@ public class PersonaServices implements IPersonaServices {
     }
 
     @Override
-    public void delete(Persona persona) {
+    public boolean delete(Persona persona) throws PersonaException {
+        boolean result = false;
+
         try {
             personasDataBase.save(persona, false);
             this.personas.remove(persona);
+            result = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if(!result) {
+            throw new PersonaException(PersonaException.INVALID_PERSON);
+        }
+
+        return result;
     }
 
     @Override

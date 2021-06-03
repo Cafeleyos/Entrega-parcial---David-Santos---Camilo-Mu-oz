@@ -8,6 +8,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
+import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
 public class DeleteScene extends Stage {
@@ -45,7 +46,11 @@ public class DeleteScene extends Stage {
 
     public void behavior() {
         delete.setOnAction(e -> {
-            personaServices.delete(personaServices.findIndex(inputId.getText()));
+            try {
+                personaServices.delete(personaServices.findIndex(inputId.getText()));
+            } catch (PersonaException personaException) {
+                personaException.printStackTrace();
+            }
             inputId.clear();
         });
 
