@@ -2,6 +2,7 @@ package sample.gui;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,6 +11,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -17,6 +20,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
+import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
 import java.io.FileNotFoundException;
@@ -70,6 +74,23 @@ public class DataScene extends Application {
                         name.setFont(FONT_TITLE);
                         pane.add(name, 1, 0);
                     }
+                }
+            }
+        });
+
+        dataScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                switch (keyEvent.getCode()) {
+                    case DELETE:
+                        try {
+                            personaServices.delete(table.getSelectionModel().getSelectedItem());
+                            pane.getChildren().clear();
+                            pane.add(table, 0, 0);
+                        } catch (PersonaException e) {
+                            e.printStackTrace();
+                        }
+                        break;
                 }
             }
         });
