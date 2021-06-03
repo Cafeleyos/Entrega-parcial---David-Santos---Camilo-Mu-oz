@@ -14,7 +14,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import sample.logic.ValidPublicEmployees;
 import sample.logic.entities.Persona;
+import sample.logic.entities.PublicEmployee;
+import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
 import java.util.HashMap;
@@ -60,41 +63,67 @@ public class UpdateScene extends SetUp{
 
     public void behavior() {
         updateButton.setOnAction(e -> {
+            setUpPersonaValues();
+            //comboBoxes
+            if(!(inputPosition.getValue().equals(uPosition))){
+                uPosition = inputPosition.getValue();
+            }
+            if(!(inputSex.getValue().equals(uSex))){
+                uSex = inputSex.getValue();
+            }
+            if(!(inputDepartment.getValue().equals(uDepartment))){
+                uDepartment = inputDepartment.getValue();
+            }
+            if(!(inputCondition.getValue().equals(uCondition))){
+                uCondition = inputCondition.getValue();
+            }
+            if(!(inputName.getText().equals(uName))){
+                uName = inputName.getText();
+            }
+            if(!(inputLastname.getText().equals(uLastName))){
+                uLastName = inputLastname.getText();
+            }
+            if(!(inputAge.getText().equals(uAge))){
+                uAge = inputAge.getText();
+            }
+            if(!(inputId.getText().equals(uId))){
+                uId = inputId.getText();
+            }
+            if(!(inputReason.getText().equals(uReason))){
+                uReason = inputReason.getText();
+            }
+            boolean isPublicEmployee = false;
+            for (ValidPublicEmployees v : ValidPublicEmployees.values()) {
+                if (uPosition.equals(v.toString())) {
+                    isPublicEmployee = true;
+                }
+            }
+            try {
+              if(!isPublicEmployee) {
+                  new Persona(uName, uLastName, uAge, uSex, uDepartment, uCondition, uReason, uId);
+              }
+              if (isPublicEmployee){
+                  new PublicEmployee(uName, uLastName, uAge, uSex, uDepartment, uCondition, uReason, uId,uPosition);
+              }
+            } catch (PersonaException personaException) {
+                personaException.printStackTrace();
+            }
 
         });
     }
 
-    private Map<ComboBox, String> personaComboBoxes() {
-        uPosition = persona.getPosition();
+
+
+    private void setUpPersonaValues(){
+        uName = persona.getName();
         uLastName = persona.getLastName();
         uAge = Integer.toString(persona.getAge());
         uId = persona.getId();
         uReason = persona.getReason();
-
-        Map<ComboBox, String> textFields = new HashMap<>();
-        textFields.put(inputPosition,uPosition);
-        textFields.put(inputSex,uSex);
-        textFields.put(inputDepartment,uDepartment);
-        textFields.put(inputCondition,uCondition);
-
-
-        return textFields;
-    }
-
-    private Map<TextField, String> personaTextFields(){
-        uName = persona.getName();
         uSex = persona.getSex();
         uDepartment = persona.getDepartment();
         uCondition = persona.getCondition();
-
-        Map<TextField, String> textFields = new HashMap<>();
-        textFields.put(inputName,uName);
-        textFields.put(inputLastname,uLastName);
-        textFields.put(inputAge,uAge);
-        textFields.put(inputId,uId);
-        textFields.put(inputReason,uReason);
-
-        return textFields;
+        uPosition = persona.getPosition();
     }
 
     
