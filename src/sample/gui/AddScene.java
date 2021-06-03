@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
 import sample.logic.entities.PublicEmployee;
@@ -15,13 +16,13 @@ import sample.logic.services.PersonaException;
 import sample.logic.ValidPublicEmployees;
 import sample.logic.services.implementation.PersonaServices;
 import java.io.IOException;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class AddScene extends SetUp {
 
     private Button addButton, cancelButton;
     private GridPane buttonsBox;
+    private Stage ownerStage;
     private final Stage stage;
     private Scene addScene;
     private GridPane pane;
@@ -30,16 +31,20 @@ public class AddScene extends SetUp {
     private static final Text TITLE = new Text("Añadir");
     private final PersonaServices personaServices;
 
-    public AddScene(PersonaServices personaServices) {
+    public AddScene(PersonaServices personaServices, Stage ownerStage) {
         super();
         stage = new Stage();
+        this.ownerStage = ownerStage;
         this.personaServices = personaServices;
+
         setUp();
         behavior();
 
         stage.setTitle("Añadir Persona");
+        stage.initOwner(ownerStage);
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(addScene);
-        stage.show();
+        stage.showAndWait();
     }
 
     public void behavior() {
@@ -68,7 +73,7 @@ public class AddScene extends SetUp {
                 inputLastname.clear();
                 inputName.clear();
                 stage.close();
-                new AddScene(personaServices);
+                new AddScene(personaServices, this.ownerStage);
 
             } catch (IOException | PersonaException exception) {
                 exception.printStackTrace();

@@ -34,5 +34,12 @@ public class PersonaServicesTest {
         Assertions.assertEquals(result.getMessage(), PersonaException.NULL_ID);
     }
 
-
+    @Test
+    public void ShouldThrowInvalidPersonException() {
+        PersonaException result = Assertions.assertThrows(PersonaException.class, () -> personaServices.delete(new Persona(
+                name, lastName, ConstantsForTests.VALID_AGE, ConstantsForTests.VALID_SEX,
+                ConstantsForTests.VALID_DEPARTMENT, ConstantsForTests.VALID_STATE, "Abuso Policial",
+                ConstantsForTests.VALID_ID)));
+        Assertions.assertEquals(result.getMessage(), PersonaException.INVALID_PERSON);
+    }
 }

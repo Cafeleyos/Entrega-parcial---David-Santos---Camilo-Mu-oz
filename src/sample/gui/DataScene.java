@@ -11,7 +11,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -31,11 +30,10 @@ public class DataScene extends Application {
 
     private TableView<Persona> table;
     private Scene dataScene;
+    private Stage stage;
     private PersonaServices personaServices = new PersonaServices();
 
-    private Button delete;
-
-    private GridPane pane, tablePane;
+    private GridPane pane;
     private Text name;
 
     private MenuBar bar;
@@ -46,6 +44,8 @@ public class DataScene extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        this.stage = primaryStage;
+
         setUp();
         behavior();
 
@@ -58,11 +58,16 @@ public class DataScene extends Application {
 
         table.setItems((ObservableList<Persona>) this.personaServices.getAll());
 
-        menuItems.get("Add").setOnAction(e -> new AddScene(this.personaServices));
+        menuItems.get("Add").setOnAction(e -> new AddScene(this.personaServices, stage));
 
         //menuItems.get("Update").setOnAction(e -> new UpdateScene(this.personaServices));
 
-        menuItems.get("Delete").setOnAction(e -> new DeleteScene(this.personaServices));
+        menuItems.get("Delete").setOnAction(e -> {
+            new DeleteScene(this.personaServices, stage);
+
+            pane.getChildren().clear();
+            pane.add(table, 0, 0);
+        });
 
         table.setOnMouseClicked(e -> {
             pane.getChildren().clear();
@@ -83,6 +88,7 @@ public class DataScene extends Application {
             public void handle(KeyEvent keyEvent) {
                 switch (keyEvent.getCode()) {
                     case DELETE:
+                    case BACK_SPACE:
                         try {
                             personaServices.delete(table.getSelectionModel().getSelectedItem());
                             pane.getChildren().clear();
@@ -95,6 +101,16 @@ public class DataScene extends Application {
             }
         });
 
+        table.setRowFactory(tw -> {
+            TableRow row = new TableRow();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())){
+                    new UpdateScene(this.personaServices,(Persona) row.getItem());
+                }
+            });
+            return row;
+        });
+
         menuItems.get("Export").setOnAction(e -> {
             try {
                 this.personaServices.export();
@@ -102,13 +118,6 @@ public class DataScene extends Application {
                 fileNotFoundException.printStackTrace();
             }
         });
-
-        table.getItems().removeAll(table.getSelectionModel().getSelectedItems());
-    }
-
-    public void a() {
-        delete = new Button();
-        delete.setPrefSize(100, 30);
     }
 
     public void setUp() {
@@ -175,15 +184,6 @@ public class DataScene extends Application {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         table = new TableView<>();
-        table.setRowFactory(tw -> {
-            TableRow row = new TableRow();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (!row.isEmpty())){
-                    new UpdateScene(this.personaServices,(Persona) row.getItem());
-                }
-            });
-            return row;
-        });
 
         table.getColumns().addAll(nameColumn, lastNameColumn, idColumn);
         table.setMaxWidth(450);

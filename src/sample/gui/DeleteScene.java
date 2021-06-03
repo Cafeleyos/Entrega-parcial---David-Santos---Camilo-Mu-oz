@@ -6,6 +6,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import sample.logic.services.PersonaException;
@@ -24,7 +25,7 @@ public class DeleteScene extends Stage {
     private GridPane pane;
     private static final Text TITLE = new Text("Eliminar una Persona");
 
-    public DeleteScene(PersonaServices personaServices) {
+    public DeleteScene(PersonaServices personaServices, Stage ownerStage) {
         stage = new Stage();
         this.personaServices = personaServices;
 
@@ -32,8 +33,10 @@ public class DeleteScene extends Stage {
         behavior();
 
         stage.setTitle("Eliminar Contacto");
+        stage.initOwner(ownerStage);
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(deleteScene);
-        stage.show();
+        stage.showAndWait();
     }
 
     public void setUp() {
@@ -51,6 +54,7 @@ public class DeleteScene extends Stage {
             } catch (PersonaException personaException) {
                 personaException.printStackTrace();
             }
+            new ConfirmationScene(stage);
             inputId.clear();
         });
 
