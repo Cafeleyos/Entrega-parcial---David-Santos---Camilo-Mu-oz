@@ -80,7 +80,15 @@ public class PersonaServices implements IPersonaServices {
     }
 
     @Override
-    public void modify(Persona persona) {
+    public void modify(Persona newPersona, Persona personaToReplace ) {
+        try {
+            personasDataBase.replace(newPersona,personaToReplace);
+            personas.set(personas.indexOf(personaToReplace), newPersona);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
     @Override

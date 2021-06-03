@@ -49,4 +49,21 @@ public class PersonaPersistence implements IPersonaPersistence, Serializable{
         }
         return data;
     }
+
+    public void replace(Persona newPersona,Persona personaToReplace) throws IOException {
+            write = new ObjectOutputStream(new FileOutputStream(PEOPLE_FILE_PATH));
+            data.set(data.indexOf(personaToReplace),newPersona);
+            write.writeObject(data);
+            write.close();
+
+    }
+    public int getPersonaIndex(Persona persona) {
+        int index =0;
+        for (int i = 0; i < data.size(); i++) {
+            if(data.get(i).equals(persona.getId())){
+                index =i;
+            }
+        }
+        return index;
+    }
 }

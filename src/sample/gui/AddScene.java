@@ -53,6 +53,7 @@ public class AddScene extends SetUp {
             confirmationScene = new ConfirmationScene(stage);
 
             if(confirmationScene.getConfirmation()) {
+
                 try {
                     boolean isPublicEmployee = false;
                     for (ValidPublicEmployees v : ValidPublicEmployees.values()) {

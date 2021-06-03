@@ -10,4 +10,5 @@ public interface IPersonaPersistence {
 
     List<Persona> read() throws IOException, ClassNotFoundException;
 
+    public void replace(Persona newPersona,Persona personaToReplace) throws IOException;
 }

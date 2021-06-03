@@ -101,11 +101,13 @@ public class DataScene extends Application {
             }
         });
 
+        //Update
         table.setRowFactory(tw -> {
             TableRow row = new TableRow();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())){
-                    new UpdateScene(this.personaServices,(Persona) row.getItem());
+                    new UpdateScene(this.personaServices,(Persona) row.getItem(),stage);
+
                 }
             });
             return row;

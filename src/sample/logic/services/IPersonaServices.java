@@ -9,7 +9,7 @@ import java.util.List;
 public interface IPersonaServices {
     List<Persona> getAll();
     Persona insert(Persona persona) throws IOException, PersonaException;
-    void modify(Persona persona);
+    void modify(Persona newPersona,Persona personaToReplace);
     boolean delete(Persona persona) throws PersonaException;
     void export(Character characterSeparate) throws FileNotFoundException;
 }

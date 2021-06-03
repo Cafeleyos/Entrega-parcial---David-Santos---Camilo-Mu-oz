@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.logic.ValidPublicEmployees;
 import sample.logic.entities.Persona;
@@ -31,7 +32,7 @@ public class UpdateScene extends SetUp{
     private final PersonaServices personaServices;
     private VBox layout;
 
-    public UpdateScene(PersonaServices personaServices, Persona persona) {
+    public UpdateScene(PersonaServices personaServices, Persona persona, Stage ownerStage) {
         super();
         stage = new Stage();
         this.personaServices = personaServices;
@@ -41,11 +42,15 @@ public class UpdateScene extends SetUp{
 
         stage.setTitle("Modificar Persona");
         stage.setScene(addScene);
-        stage.show();
+        stage.initOwner(ownerStage);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+
 
     }
 
     public void setUp() {
+        setUpPersonaValues();
         setUpInputs();
         setUpButtons();
         setUpPane();
@@ -56,7 +61,6 @@ public class UpdateScene extends SetUp{
 
     public void behavior() {
         updateButton.setOnAction(e -> {
-            setUpPersonaValues();
             //comboBoxes
             if(!(inputPosition.getValue().equals(uPosition))){
                 uPosition = inputPosition.getValue();
@@ -70,19 +74,19 @@ public class UpdateScene extends SetUp{
             if(!(inputCondition.getValue().equals(uCondition))){
                 uCondition = inputCondition.getValue();
             }
-            if(!(inputName.getText().equals(uName))){
+            if(!(inputName.getText().isEmpty())){
                 uName = inputName.getText();
             }
-            if(!(inputLastname.getText().equals(uLastName))){
+            if(!(inputLastname.getText().isEmpty())){
                 uLastName = inputLastname.getText();
             }
-            if(!(inputAge.getText().equals(uAge))){
+            if(!(inputAge.getText().isEmpty())){
                 uAge = inputAge.getText();
             }
-            if(!(inputId.getText().equals(uId))){
+            if(!(inputId.getText().isEmpty())){
                 uId = inputId.getText();
             }
-            if(!(inputReason.getText().equals(uReason))){
+            if(!(inputReason.getText().isEmpty())){
                 uReason = inputReason.getText();
             }
             boolean isPublicEmployee = false;
@@ -93,11 +97,12 @@ public class UpdateScene extends SetUp{
             }
             try {
               if(!isPublicEmployee) {
-                  new Persona(uName, uLastName, uAge, uSex, uDepartment, uCondition, uReason, uId);
+                  personaServices.modify(new Persona(uName, uLastName, uAge, uSex, uDepartment, uCondition, uReason, uId),persona);
               }
               if (isPublicEmployee){
-                  new PublicEmployee(uName, uLastName, uAge, uSex, uDepartment, uCondition, uReason, uId,uPosition);
+                  personaServices.modify(new PublicEmployee(uName, uLastName, uAge, uSex, uDepartment, uCondition, uReason, uId,uPosition),persona);
               }
+              stage.close();
             } catch (PersonaException personaException) {
                 personaException.printStackTrace();
             }
