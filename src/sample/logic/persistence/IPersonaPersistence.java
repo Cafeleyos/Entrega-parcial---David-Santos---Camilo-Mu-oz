@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IPersonaPersistence {
-    void save(Persona person, boolean option) throws IOException;
+    void save(Persona person, boolean option) ;
 
     List<Persona> read() throws IOException, ClassNotFoundException;
 
-    public void replace(Persona newPersona,Persona personaToReplace) throws IOException;
+    void replace(Persona newPersona,Persona personaToReplace) throws IOException;
+
+    void write() throws IOException;
 }

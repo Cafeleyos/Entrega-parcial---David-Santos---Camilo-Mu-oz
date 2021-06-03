@@ -23,7 +23,7 @@ public class PersonaPersistence implements IPersonaPersistence, Serializable{
     }
 
     @Override
-    public void save(Persona persona, boolean option) throws IOException {
+    public void save(Persona persona, boolean option)  {
         try {
             if(option) {
                 data.add(persona);
@@ -35,7 +35,6 @@ public class PersonaPersistence implements IPersonaPersistence, Serializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -48,13 +47,14 @@ public class PersonaPersistence implements IPersonaPersistence, Serializable{
         return data;
     }
 
+    @Override
     public void replace(Persona newPersona,Persona personaToReplace) throws IOException {
             data.set(data.indexOf(personaToReplace),newPersona);
             write();
-
     }
 
-    private void write() throws IOException {
+    @Override
+    public void write() throws IOException {
         write = new ObjectOutputStream(new FileOutputStream(PEOPLE_FILE_PATH));
         write.writeObject(data);
         write.close();
