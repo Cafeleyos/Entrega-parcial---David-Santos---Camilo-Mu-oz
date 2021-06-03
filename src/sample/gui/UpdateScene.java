@@ -5,6 +5,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,6 +28,7 @@ public class UpdateScene extends SetUp{
     private final Stage stage;
     private Scene addScene;
     private GridPane pane;
+    private String uPosition, uName, uLastName, uAge, uId,uSex,uDepartment, uCondition,uReason;
 
     private static final Text TITLE = new Text("Edición");
 
@@ -56,8 +59,44 @@ public class UpdateScene extends SetUp{
     }
 
     public void behavior() {
+        updateButton.setOnAction(e -> {
 
+        });
     }
+
+    private Map<ComboBox, String> personaComboBoxes() {
+        uPosition = persona.getPosition();
+        uLastName = persona.getLastName();
+        uAge = Integer.toString(persona.getAge());
+        uId = persona.getId();
+        uReason = persona.getReason();
+
+        Map<ComboBox, String> textFields = new HashMap<>();
+        textFields.put(inputPosition,uPosition);
+        textFields.put(inputSex,uSex);
+        textFields.put(inputDepartment,uDepartment);
+        textFields.put(inputCondition,uCondition);
+
+
+        return textFields;
+    }
+
+    private Map<TextField, String> personaTextFields(){
+        uName = persona.getName();
+        uSex = persona.getSex();
+        uDepartment = persona.getDepartment();
+        uCondition = persona.getCondition();
+
+        Map<TextField, String> textFields = new HashMap<>();
+        textFields.put(inputName,uName);
+        textFields.put(inputLastname,uLastName);
+        textFields.put(inputAge,uAge);
+        textFields.put(inputId,uId);
+        textFields.put(inputReason,uReason);
+
+        return textFields;
+    }
+
     
     public void setUpInputs () {
 
