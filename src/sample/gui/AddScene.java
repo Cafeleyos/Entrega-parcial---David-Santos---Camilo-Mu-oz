@@ -1,10 +1,12 @@
 package sample.gui;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
@@ -16,41 +18,32 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class AddScene {
+public class AddScene extends SetUp {
 
-    private Button buttonAdd, buttonCancel;
+    private Button addButton, cancelButton;
+    private GridPane buttonsBox;
     private final Stage stage;
     private Scene addScene;
-    private TextField inputName, inputLastname, inputAge, inputReason, inputId;
-    private ComboBox<String> inputDepartment, inputSex, inputCondition, inputPosition;
-    private Label name, lastname, age, sex, department, condition, reason, id, position;
     private GridPane pane;
-    private final SetUp setUp;
+    private VBox layout;
 
-    private static final Text TITLE = new Text("Nueva Persona");
+    private static final Text TITLE = new Text("Añadir");
     private final PersonaServices personaServices;
 
     public AddScene(PersonaServices personaServices) {
+        super();
         stage = new Stage();
         this.personaServices = personaServices;
-        this.setUp = new SetUp();
         setUp();
         behavior();
 
-        stage.setTitle("Añadir Nuevo Contacto");
+        stage.setTitle("Añadir Persona");
         stage.setScene(addScene);
         stage.show();
     }
 
-    public void setUp() {
-        setUpButton();
-        setUpInputs();
-        setUpPane();
-        addScene = new Scene(pane, 400, 550);
-    }
-
     public void behavior() {
-        buttonAdd.setOnAction(e -> {
+        addButton.setOnAction(e -> {
             try {
                 boolean isPublicEmployee = false;
                 for (ValidPublicEmployees v : ValidPublicEmployees.values()) {
@@ -81,133 +74,78 @@ public class AddScene {
                 exception.printStackTrace();
             }
         });
-        buttonCancel.setOnAction(e -> stage.close());
+        cancelButton.setOnAction(e -> stage.close());
     }
 
-    public void setUpPane () {
+    public void setUp() {
+        setUpInputs();
+        setUpButtons();
+        setUpPane();
+        setUpLayout();
+
+        addScene = new Scene(layout, 400, 550);
+    }
+
+    public void setUpInputs () {
+        //labels
+        setUpLabels(labelsList());
+
+        Map<Label, String> list = labelsList();
+
+        //Nombre
+        inputName.setPromptText(list.get(name));
+
+        //Apellido
+        inputLastname.setPromptText(list.get(lastname));
+
+        //Edad
+        inputAge.setPromptText(list.get(age));
+        
+        //Razón
+        inputReason.setPromptText(list.get(reason));
+
+        //Identificación
+        inputId.setPromptText(list.get(id));
+    }
+
+
+    public void setUpPane() {
         pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
         pane.setHgap(20);
         pane.setVgap(20);
 
-        TITLE.setFont(DataScene.FONT_TITLE);
-        pane.add(TITLE, 0, 0, 2, 1);
+        TITLE.setFont(FONT_TITLE);
+
+        pane.add(TITLE,0,0);
 
         int counter = 1;
-        Map<Node, Node> objectList = createListOfObjets();
+        Map<Node, Node> objectList = listOfObjects();
         for (Map.Entry<Node, Node> p : objectList.entrySet()) {
             pane.add(p.getKey(), 0, counter);
             pane.add(p.getValue(), 1, counter);
             counter++;
         }
-
-        pane.add(buttonAdd, 0, objectList.size() + 1, 2, 1);
-        pane.add(buttonCancel, 1, objectList.size() + 1);
     }
+    public void setUpButtons () {
+        buttonsBox = new GridPane();
+        buttonsBox.setHgap(30);
+        buttonsBox.setAlignment(Pos.CENTER);
+        addButton = new Button("Añadir");
+        addButton.setPrefSize(142,30);
 
-    public void setUpButton () {
-        buttonAdd = new Button("Agregar");
-        buttonAdd.setPrefSize(100, 30);
+        cancelButton = new Button("Cancelar");
+        cancelButton.setPrefSize(142,30);
 
-        buttonCancel = new Button("Cancel");
-        buttonCancel.setPrefSize(100, 30);
+        buttonsBox.add(addButton,0,0);
+        buttonsBox.add(cancelButton,1,0);
     }
+    private void setUpLayout(){
+        layout = new VBox();
+        layout.setPadding(new Insets(20));
+        layout.setSpacing(20);
 
-    public void setUpInputs () {
-        //initialize inputs
-        initInputs();
-
-        inputPosition = new ComboBox<>();
-        setUp.setUpPositionComboBox(inputPosition);
-
-        name = new Label();
-        name.setFont(DataScene.FONT);
-        name.setText("Nombre:");
-        inputName = new TextField();
-        inputName.setPromptText("Nombre");
-        inputName.setPromptText("NoooHombre");
-
-        lastname = new Label();
-        lastname.setFont(DataScene.FONT);
-        lastname.setText("Apellido:");
-        inputLastname = new TextField();
-        inputLastname.setPromptText("Apellido");
-
-        age = new Label();
-        age.setFont(DataScene.FONT);
-        age.setText("Años:");
-        inputAge = new TextField();
-        inputAge.setPromptText("Años");
-
-        sex = new Label();
-        sex.setFont(DataScene.FONT);
-        sex.setText("Sexo:");
-        inputSex = new ComboBox<>();
-        setUp.setUpSexComboBox(inputSex);
-
-        department = new Label();
-        department.setFont(DataScene.FONT);
-        department.setText("Departamento");
-        inputDepartment = new ComboBox<>();
-        setUp.setUpDepartmentsComboBox(inputDepartment);
-
-        condition = new Label();
-        condition.setFont(DataScene.FONT);
-        condition.setText("Estado:");
-        inputCondition = new ComboBox<>();
-        setUp.setUpConditionComboBox(inputCondition);
-
-        reason = new Label();
-        reason.setFont(DataScene.FONT);
-        reason.setText("Razón:");
-        inputReason = new TextField();
-        inputReason.setPromptText("Razón");
-
-        id = new Label();
-        id.setFont(DataScene.FONT);
-        id.setText("Identificación:");
-        inputId = new TextField();
-        inputId.setPromptText("Identificación");
-    }
-
-    private void initInputs() {
-        //Text Fields
-        inputName = new TextField();
-        inputLastname = new TextField();
-        inputAge = new TextField();
-        inputReason = new TextField();
-        inputId = new TextField();
-
-        //ComboBoxes
-        inputDepartment = new ComboBox<>();
-        inputSex = new ComboBox<>();
-        inputCondition = new ComboBox<>();
-        inputPosition = new ComboBox<>();
-
-        //Labels
-        name = new Label();
-        lastname = new Label();
-        age = new Label();
-        sex = new Label();
-        department = new Label();
-        condition = new Label();
-        reason = new Label();
-        id = new Label();
-        position = new Label();
-    }
-
-    public Map<Node, Node> createListOfObjets () {
-        Map<Node, Node> objectList = new LinkedHashMap<>();
-        objectList.put(position, inputPosition);
-        objectList.put(name, inputName);
-        objectList.put(lastname, inputLastname);
-        objectList.put(age, inputAge);
-        objectList.put(id, inputId);
-        objectList.put(sex, inputSex);
-        objectList.put(department, inputDepartment);
-        objectList.put(condition, inputCondition);
-        objectList.put(reason, inputReason);
-        return objectList;
+        layout.getChildren().addAll(pane,buttonsBox);
     }
 }
 
