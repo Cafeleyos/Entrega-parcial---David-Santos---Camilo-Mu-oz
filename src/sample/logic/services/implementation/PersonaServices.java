@@ -85,20 +85,18 @@ public class PersonaServices implements IPersonaServices {
 
     @Override
     public boolean delete(Persona persona) throws PersonaException {
-        boolean result = false;
+        if(!this.personas.remove(persona)) {
+            throw new PersonaException(PersonaException.INVALID_PERSON);
+        }
 
         try {
             personasDataBase.save(persona, false);
             this.personas.remove(persona);
-            result = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(!result) {
-            throw new PersonaException(PersonaException.INVALID_PERSON);
-        }
 
-        return result;
+        return true;
     }
 
     @Override
