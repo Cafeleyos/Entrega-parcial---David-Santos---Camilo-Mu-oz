@@ -2,7 +2,6 @@ package sample.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,11 +18,11 @@ import java.io.FileNotFoundException;
 public class ExportScene extends Stage {
 
     private Scene exportScene;
-    private Stage stage;
+    private final Stage STAGE;
 
-    private static final Text TEXT = new Text("Elija una Opción");
+    public static final Text TEXT = new Text("Elija una Opción");
 
-    private ComboBox<String> exportable = new ComboBox<>();
+    private final ComboBox<String> EXPORTABLE = new ComboBox<>();
     private Character character;
     private GridPane pane;
 
@@ -32,26 +31,26 @@ public class ExportScene extends Stage {
     private PersonaServices personaServices;
 
     public ExportScene(PersonaServices personaServices, Stage ownerStage) {
-        stage = new Stage();
+        STAGE = new Stage();
         this.personaServices = personaServices;
 
         setUp();
         behavior();
 
-        stage.setTitle("Exportar");
-        stage.initOwner(ownerStage);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(exportScene);
-        stage.showAndWait();
+        STAGE.setTitle("Exportar");
+        STAGE.initOwner(ownerStage);
+        STAGE.initModality(Modality.APPLICATION_MODAL);
+        STAGE.setScene(exportScene);
+        STAGE.showAndWait();
     }
 
     public void setUp() {
         setUpButton();
-        setUpComboBox(exportable);
+        setUpComboBox(EXPORTABLE);
         setUpPane();
 
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(TEXT, exportable, pane);
+        vBox.getChildren().addAll(TEXT, EXPORTABLE, pane);
         TEXT.setFont(DataScene.FONT_TITLE);
         vBox.setAlignment(Pos.CENTER);
 
@@ -62,8 +61,8 @@ public class ExportScene extends Stage {
         personaServices = new PersonaServices();
 
         confirmation.setOnAction(e -> {
-            stage.close();
-            switch (exportable.getValue()) {
+            STAGE.close();
+            switch (EXPORTABLE.getValue()) {
                 case "CSV" -> character = ',';
                 case "PCS" -> character = ';';
                 case "BSC" -> character = '|';
@@ -75,7 +74,7 @@ public class ExportScene extends Stage {
             }
         });
 
-        cancel.setOnAction(e -> stage.close());
+        cancel.setOnAction(e -> STAGE.close());
     }
 
     public void setUpPane() {

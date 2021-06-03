@@ -3,8 +3,6 @@ package sample.gui;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -14,31 +12,31 @@ import sample.logic.services.implementation.PersonaServices;
 
 public class DeleteScene extends Stage {
 
-    private final Stage stage;
+    private final Stage STAGE;
     private Scene deleteScene;
 
     private Button delete, cancel;
     private TextField inputId;
     private Label id;
-    private PersonaServices personaServices;
 
+    private PersonaServices personaServices;
     private ConfirmationScene confirmationScene;
 
     private GridPane pane;
     private static final Text TITLE = new Text("Eliminar una Persona");
 
     public DeleteScene(PersonaServices personaServices, Stage ownerStage) {
-        stage = new Stage();
+        STAGE = new Stage();
         this.personaServices = personaServices;
 
         setUp();
         behavior();
 
-        stage.setTitle("Eliminar Contacto");
-        stage.initOwner(ownerStage);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(deleteScene);
-        stage.showAndWait();
+        STAGE.setTitle("Eliminar Contacto");
+        STAGE.initOwner(ownerStage);
+        STAGE.initModality(Modality.APPLICATION_MODAL);
+        STAGE.setScene(deleteScene);
+        STAGE.showAndWait();
     }
 
     public void setUp() {
@@ -53,7 +51,7 @@ public class DeleteScene extends Stage {
 
 
         delete.setOnAction(e -> {
-            confirmationScene = new ConfirmationScene(stage);
+            confirmationScene = new ConfirmationScene(STAGE);
 
             if(confirmationScene.getConfirmation()) {
                 try {
@@ -65,7 +63,7 @@ public class DeleteScene extends Stage {
             }
         });
 
-        cancel.setOnAction(e -> stage.close());
+        cancel.setOnAction(e -> STAGE.close());
     }
 
     public void setUpButton() {

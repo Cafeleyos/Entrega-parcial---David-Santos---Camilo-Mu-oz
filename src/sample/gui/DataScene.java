@@ -41,7 +41,6 @@ public class DataScene extends Application {
 
     public static final Font FONT = new Font("DIALOG", 15);
     public static final Font FONT_TITLE = new Font("Tahoma", 20);
-    public ExportScene exportScene;
 
     @Override
     public void start(Stage primaryStage) {
@@ -112,7 +111,7 @@ public class DataScene extends Application {
             return row;
         });
 
-        menuItems.get("Export").setOnAction(e -> exportScene = new ExportScene(personaServices, stage));
+        menuItems.get("Export").setOnAction(e -> new ExportScene(personaServices, stage));
     }
 
     public void setUp() {

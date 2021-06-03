@@ -126,7 +126,7 @@ public class AddScene extends SetUp {
         pane.setHgap(20);
         pane.setVgap(20);
 
-        TITLE.setFont(FONT_TITLE);
+        TITLE.setFont(DataScene.FONT_TITLE);
 
         pane.add(TITLE,0,0);
 

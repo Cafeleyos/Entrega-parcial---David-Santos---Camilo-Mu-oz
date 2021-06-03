@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Font;
 import sample.logic.ValidPublicEmployees;
 
 import java.util.HashMap;
@@ -17,7 +16,6 @@ public class SetUp {
     protected TextField inputName, inputLastname, inputAge, inputReason, inputId;
     protected ComboBox<String> inputDepartment, inputSex, inputCondition, inputPosition;
     protected Label name, lastname, age, sex, department, condition, reason, id, position;
-    public static final Font FONT_TITLE = new Font("Tahoma", 22);
 
     protected SetUp() {
         initInputs();
