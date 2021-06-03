@@ -5,14 +5,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import sample.logic.ValidPublicEmployees;
 import sample.logic.entities.Persona;
@@ -20,8 +15,6 @@ import sample.logic.entities.PublicEmployee;
 import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class UpdateScene extends SetUp{
