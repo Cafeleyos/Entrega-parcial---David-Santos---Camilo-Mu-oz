@@ -11,7 +11,7 @@ import java.util.Map;
 public class SetUp {
     public static final String EMPTY = "-";
 
-    public void setUpDepartmentsComboBox (ComboBox<String> comboBox, String text) {
+    public void setUpDepartmentsComboBox (ComboBox<String> comboBox) {
         ObservableList<String> list = FXCollections.observableArrayList();
         list.addAll(
                 "Amazonas", "Antioquía", "Arauca", "Atlántico", "Bolívar", "Boyacá",
@@ -22,36 +22,36 @@ public class SetUp {
                 "Vaupés", "Vichada");
 
         comboBox.setItems(list);
-        comboBox.setPromptText(text);
+        comboBox.setPromptText("-");
         comboBox.setMinWidth(200);
     }
 
-    public void setUpSexComboBox (ComboBox<String> comboBox, String text) {
+    public void setUpSexComboBox (ComboBox<String> comboBox) {
         ObservableList<String> list = FXCollections.observableArrayList();
         list.addAll("Masculino", "Femenino");
 
         comboBox.setItems(list);
-        comboBox.setPromptText(text);
+        comboBox.setPromptText("-");
         comboBox.setMinWidth(200);
     }
 
-    public void setUpConditionComboBox (ComboBox<String> comboBox, String text) {
+    public void setUpConditionComboBox (ComboBox<String> comboBox) {
         ObservableList<String> list = FXCollections.observableArrayList();
         list.addAll("Vivo", "Herido", "Muerto", "Desconocido");
 
         comboBox.setItems(list);
-        comboBox.setPromptText(text);
+        comboBox.setPromptText("-");
         comboBox.setMinWidth(200);
     }
 
-    public void setUpPositionComboBox (ComboBox comboBox, String text) {
+    public void setUpPositionComboBox (ComboBox comboBox) {
         ObservableList<String> list = FXCollections.observableArrayList();
         list.add("Civil");
         for (ValidPublicEmployees v : ValidPublicEmployees.values()) {
             list.add(v.toString());
         }
         comboBox.setItems(list);
-        comboBox.setPromptText(text);
+        comboBox.setPromptText("-");
         comboBox.setMinWidth(200);
     }
 

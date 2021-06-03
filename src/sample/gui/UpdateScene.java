@@ -8,6 +8,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
@@ -18,7 +20,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class UpdateScene {
-    private Button buttonAdd, buttonCancel;
+    private Button updateButton, cancelButton;
+    private GridPane buttonsBox;
     private SetUp setUp;
     private Persona persona;
     private final Stage stage;
@@ -47,6 +50,7 @@ public class UpdateScene {
 
     public void setUp() {
         setUpInputs();
+        setUpButtons();
         setUpPane();
 
 
@@ -57,67 +61,67 @@ public class UpdateScene {
 
     }
     public void setUpInputs () {
+        initInputs();
+
         //Labels
         setUp.setUpLabels(labelsList());
-        position = new Label();
-        position.setFont(DataScene.FONT);
-        position.setText("Nombre:");
-        inputPosition = new ComboBox<>();
-        setUp.setUpPositionComboBox(inputPosition, SetUp.EMPTY);
+
+        //Posición
+        setUp.setUpPositionComboBox(inputPosition);
         inputPosition.getSelectionModel().select(persona.getPosition());
 
-
-        name = new Label();
-        name.setFont(DataScene.FONT);
-        name.setText("Nombre:");
-        inputName = new TextField();
+        //Nombre
         inputName.setPromptText(persona.getName());
 
-        lastname = new Label();
-        lastname.setFont(DataScene.FONT);
-        lastname.setText("Apellido:");
-        inputLastname = new TextField();
+        //Apellido
         inputLastname.setPromptText(persona.getLastName());
 
-        age = new Label();
-        age.setFont(DataScene.FONT);
-        age.setText("Años:");
-        inputAge = new TextField();
+        //Edad
         inputAge.setPromptText(Integer.toString(persona.getAge()));
 
-        sex = new Label();
-        sex.setFont(DataScene.FONT);
-        sex.setText("Sexo:");
-        inputSex = new ComboBox<>();
-        setUp.setUpSexComboBox(inputSex, SetUp.EMPTY);
+        //Sexo
+        setUp.setUpSexComboBox(inputSex);
         inputSex.getSelectionModel().select(persona.getSex());
 
-        department = new Label();
-        department.setFont(DataScene.FONT);
-        department.setText("Departamento");
-        inputDepartment = new ComboBox<>();
-        setUp.setUpDepartmentsComboBox(inputDepartment, SetUp.EMPTY);
+        //Departamento
+        setUp.setUpDepartmentsComboBox(inputDepartment);
         inputDepartment.getSelectionModel().select(persona.getDepartment());
 
-        condition = new Label();
-        condition.setFont(DataScene.FONT);
-        condition.setText("Estado:");
-        inputCondition = new ComboBox<>();
-        setUp.setUpConditionComboBox(inputCondition, SetUp.EMPTY);
+        //Condición
+        setUp.setUpConditionComboBox(inputCondition);
         inputCondition.getSelectionModel().select(persona.getCondition());
 
-        reason = new Label();
-        reason.setFont(DataScene.FONT);
-        reason.setText("Razón:");
+        //Razón
+        inputReason.setPromptText(persona.getReason());
+
+        //Identificación
+        inputId.setPromptText(persona.getId());
+    }
+
+    private void initInputs() {
+        //Text Fields
+        inputName = new TextField();
+        inputLastname = new TextField();
+        inputAge = new TextField();
         inputReason = new TextField();
-        inputReason.setPromptText("Razón");
-
-
-        id = new Label();
-        id.setFont(DataScene.FONT);
-        id.setText("Identificación:");
         inputId = new TextField();
-        inputId.setPromptText("Identificación");
+
+        //ComboBoxes
+        inputDepartment = new ComboBox<>();
+        inputSex = new ComboBox<>();
+        inputCondition = new ComboBox<>();
+        inputPosition = new ComboBox<>();
+
+        //Labels
+        name = new Label();
+        lastname = new Label();
+        age = new Label();
+        sex = new Label();
+        department = new Label();
+        condition = new Label();
+        reason = new Label();
+        id = new Label();
+        position = new Label();
     }
 
     public void setUpPane() {
@@ -136,8 +140,22 @@ public class UpdateScene {
             pane.add(p.getValue(), 1, counter);
             counter++;
         }
+        pane.addRow(objectList.size()+1,buttonsBox);
+
+    }
+
+    public void setUpButtons () {
+        buttonsBox = new GridPane();
+        buttonsBox.setHgap(30);
+        updateButton = new Button("Modificar");
+        updateButton.setPrefSize(100,30);
+
+        cancelButton = new Button("Cancel");
+        cancelButton.setPrefSize(100,30);
 
 
+        buttonsBox.add(updateButton,0,0);
+        buttonsBox.add(cancelButton,1,0);
     }
 
     public Map<Node, Node> createListOfObjets () {
@@ -160,7 +178,7 @@ public class UpdateScene {
         labels.put(name,"Nombre");
         labels.put(lastname,"Apellido");
         labels.put(age,"Edad");
-        labels.put(id,"Cédula");
+        labels.put(id,"Identificación");
         labels.put(sex,"Sexo");
         labels.put(department,"Departamento");
         labels.put(condition,"Condición");

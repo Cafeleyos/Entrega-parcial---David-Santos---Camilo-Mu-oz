@@ -114,18 +114,18 @@ public class AddScene {
     }
 
     public void setUpInputs () {
+        //initialize inputs
+        initInputs();
 
-        position = new Label();
-        position.setFont(DataScene.FONT);
-        position.setText("Posición:");
         inputPosition = new ComboBox<>();
-        setUp.setUpPositionComboBox(inputPosition, SetUp.EMPTY);
+        setUp.setUpPositionComboBox(inputPosition);
 
         name = new Label();
         name.setFont(DataScene.FONT);
         name.setText("Nombre:");
         inputName = new TextField();
         inputName.setPromptText("Nombre");
+        inputName.setPromptText("NoooHombre");
 
         lastname = new Label();
         lastname.setFont(DataScene.FONT);
@@ -143,19 +143,19 @@ public class AddScene {
         sex.setFont(DataScene.FONT);
         sex.setText("Sexo:");
         inputSex = new ComboBox<>();
-        setUp.setUpSexComboBox(inputSex, SetUp.EMPTY);
+        setUp.setUpSexComboBox(inputSex);
 
         department = new Label();
         department.setFont(DataScene.FONT);
         department.setText("Departamento");
         inputDepartment = new ComboBox<>();
-        setUp.setUpDepartmentsComboBox(inputDepartment, SetUp.EMPTY);
+        setUp.setUpDepartmentsComboBox(inputDepartment);
 
         condition = new Label();
         condition.setFont(DataScene.FONT);
         condition.setText("Estado:");
         inputCondition = new ComboBox<>();
-        setUp.setUpConditionComboBox(inputCondition, SetUp.EMPTY);
+        setUp.setUpConditionComboBox(inputCondition);
 
         reason = new Label();
         reason.setFont(DataScene.FONT);
@@ -168,6 +168,32 @@ public class AddScene {
         id.setText("Identificación:");
         inputId = new TextField();
         inputId.setPromptText("Identificación");
+    }
+
+    private void initInputs() {
+        //Text Fields
+        inputName = new TextField();
+        inputLastname = new TextField();
+        inputAge = new TextField();
+        inputReason = new TextField();
+        inputId = new TextField();
+
+        //ComboBoxes
+        inputDepartment = new ComboBox<>();
+        inputSex = new ComboBox<>();
+        inputCondition = new ComboBox<>();
+        inputPosition = new ComboBox<>();
+
+        //Labels
+        name = new Label();
+        lastname = new Label();
+        age = new Label();
+        sex = new Label();
+        department = new Label();
+        condition = new Label();
+        reason = new Label();
+        id = new Label();
+        position = new Label();
     }
 
     public Map<Node, Node> createListOfObjets () {
