@@ -100,9 +100,9 @@ public class PersonaServices implements IPersonaServices {
     }
 
     @Override
-    public void export() throws FileNotFoundException {
+    public void export(Character characterSeparate) throws FileNotFoundException {
         List<Exportable> exportableList = new ArrayList<>();
         this.personas.stream().forEach(p -> exportableList.add(p));
-        this.export.export(exportableList, Exportable.CSV);
+        this.export.export(exportableList, characterSeparate);
     }
 }

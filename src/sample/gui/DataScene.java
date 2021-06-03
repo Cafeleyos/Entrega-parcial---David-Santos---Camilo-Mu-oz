@@ -41,6 +41,7 @@ public class DataScene extends Application {
 
     public static final Font FONT = new Font("DIALOG", 15);
     public static final Font FONT_TITLE = new Font("Tahoma", 20);
+    public ExportScene exportScene;
 
     @Override
     public void start(Stage primaryStage) {
@@ -112,8 +113,10 @@ public class DataScene extends Application {
         });
 
         menuItems.get("Export").setOnAction(e -> {
+            exportScene = new ExportScene(stage);
+
             try {
-                this.personaServices.export();
+                this.personaServices.export(exportScene.getExport());
             } catch (FileNotFoundException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             }

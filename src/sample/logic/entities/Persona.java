@@ -109,7 +109,9 @@ public class Persona extends Exportable implements Serializable {
     }
 
     @Override
-    public String getHeader() {
-        return "Nombre,Apellido,Edad,Sexo,Departamento,Condición,Razón,Cédula,";
+    public String getHeader(Character separateCharacter) {
+        return "Nombre" + separateCharacter + "Apellido" + separateCharacter + "Edad" + separateCharacter + "Sexo" +
+                separateCharacter + "Departamento" + separateCharacter + "Condición" + separateCharacter + "Razón" +
+                separateCharacter + "Cédula";
     }
 }

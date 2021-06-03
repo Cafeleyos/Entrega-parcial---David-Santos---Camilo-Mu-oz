@@ -17,23 +17,20 @@ public class Export implements IExport {
     public void export(List<Exportable> exportableList, Character characterSeparate) throws FileNotFoundException {
         LocalDate now = LocalDate.now();
         String hour = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
-        String minutes = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
-        String seconds = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
+        String minute = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
+        String second = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
 
-        System.out.println(hour);
-
-        String fileName = String.format("ExportPersons-%s-%s-%s_%s-%s-%s.%s", now.getYear(), now.getMonth(), now.getDayOfMonth(), hour, minutes, seconds, Exportable.getExtension(characterSeparate));
+        String fileName = String.format("ExportPersons-%s-%s-%s_%s-%s-%s.%s", now.getYear(), now.getMonth(), now.getDayOfMonth(),
+                hour, minute, second, Exportable.getExtension(characterSeparate));
         FileOutputStream out = new FileOutputStream(fileName);
         PrintWriter printWriter = new PrintWriter(out);
 
-        String header = exportableList.stream().findAny().get().getHeader();
+        String header = exportableList.stream().findAny().get().getHeader(characterSeparate);
         printWriter.println(header);
-        System.out.println(header);
 
         for(Exportable e : exportableList) {
             String s = e.toExportValue(characterSeparate);
             printWriter.println(s);
-            System.out.println(s);
         }
         printWriter.close();
     }

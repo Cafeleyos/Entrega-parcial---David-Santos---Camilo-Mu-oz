@@ -11,5 +11,5 @@ public interface IPersonaServices {
     Persona insert(Persona persona) throws IOException, PersonaException;
     void modify(Persona persona);
     boolean delete(Persona persona) throws PersonaException;
-    void export() throws FileNotFoundException;
+    void export(Character characterSeparate) throws FileNotFoundException;
 }
