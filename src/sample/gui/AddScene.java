@@ -158,4 +158,3 @@ public class AddScene extends SetUp {
         layout.getChildren().addAll(pane,buttonsBox);
     }
 }
-
