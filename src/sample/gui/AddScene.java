@@ -21,14 +21,14 @@ import java.util.Map;
 public class AddScene extends SetUp {
 
     private Button addButton, cancelButton;
-    private GridPane buttonsBox;
     private Stage ownerStage;
     private final Stage stage;
     private Scene addScene;
     private GridPane pane;
+    private GridPane buttonsBox;
     private VBox layout;
-
     private static final Text TITLE = new Text("Añadir");
+
     private final PersonaServices personaServices;
     private ConfirmationScene confirmationScene;
 
@@ -84,6 +84,7 @@ public class AddScene extends SetUp {
                 }
             }
         });
+
         cancelButton.setOnAction(e -> stage.close());
     }
 

@@ -35,8 +35,6 @@ public abstract class Exportable {
                 stringBuilder.append(s);
                 count = 0;
             }
-
-
         }
 
         return stringBuilder.toString();

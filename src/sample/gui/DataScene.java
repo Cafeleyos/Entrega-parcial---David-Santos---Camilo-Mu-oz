@@ -112,15 +112,7 @@ public class DataScene extends Application {
             return row;
         });
 
-        menuItems.get("Export").setOnAction(e -> {
-            exportScene = new ExportScene(stage);
-
-            try {
-                this.personaServices.export(exportScene.getExport());
-            } catch (FileNotFoundException fileNotFoundException) {
-                fileNotFoundException.printStackTrace();
-            }
-        });
+        menuItems.get("Export").setOnAction(e -> exportScene = new ExportScene(personaServices, stage));
     }
 
     public void setUp() {

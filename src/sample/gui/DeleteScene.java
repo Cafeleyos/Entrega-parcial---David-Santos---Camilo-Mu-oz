@@ -84,7 +84,7 @@ public class DeleteScene extends Stage {
         pane.setVgap(20);
         pane.setHgap(20);
 
-        TITLE.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        TITLE.setFont(DataScene.FONT_TITLE);
         pane.add(TITLE, 0, 0, 2, 1);
 
         pane.add(id, 0, 1);

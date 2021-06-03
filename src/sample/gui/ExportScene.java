@@ -12,6 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sample.logic.services.implementation.PersonaServices;
+
+import java.io.FileNotFoundException;
 
 public class ExportScene extends Stage {
 
@@ -26,8 +29,11 @@ public class ExportScene extends Stage {
 
     private Button confirmation, cancel;
 
-    public ExportScene(Stage ownerStage) {
+    private PersonaServices personaServices;
+
+    public ExportScene(PersonaServices personaServices, Stage ownerStage) {
         stage = new Stage();
+        this.personaServices = personaServices;
 
         setUp();
         behavior();
@@ -53,12 +59,19 @@ public class ExportScene extends Stage {
     }
 
     public void behavior() {
+        personaServices = new PersonaServices();
+
         confirmation.setOnAction(e -> {
             stage.close();
             switch (exportable.getValue()) {
                 case "CSV" -> character = ',';
                 case "PCS" -> character = ';';
                 case "BSC" -> character = '|';
+            }
+            try {
+                this.personaServices.export(character);
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
             }
         });
 
@@ -90,9 +103,5 @@ public class ExportScene extends Stage {
         comboBox.setItems(list);
         comboBox.setPromptText("-");
         comboBox.setMinWidth(200);
-    }
-
-    public Character getExport() {
-        return character;
     }
 }
