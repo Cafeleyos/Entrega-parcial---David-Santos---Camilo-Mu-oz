@@ -30,6 +30,7 @@ public class AddScene extends SetUp {
 
     private static final Text TITLE = new Text("Añadir");
     private final PersonaServices personaServices;
+    private ConfirmationScene confirmationScene;
 
     public AddScene(PersonaServices personaServices, Stage ownerStage) {
         super();
@@ -49,34 +50,38 @@ public class AddScene extends SetUp {
 
     public void behavior() {
         addButton.setOnAction(e -> {
-            try {
-                boolean isPublicEmployee = false;
-                for (ValidPublicEmployees v : ValidPublicEmployees.values()) {
-                    if (inputPosition.getValue().equals(v.toString())) {
-                        isPublicEmployee = true;
-                    }
-                }
-                if (!isPublicEmployee) {
-                    Persona persona = new Persona(inputName.getText(), inputLastname.getText(), inputAge.getText(),
-                            inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
-                            inputId.getText());
-                    personaServices.insert(persona);
-                } else {
-                    PublicEmployee publicEmployee = new PublicEmployee(inputName.getText(), inputLastname.getText(), inputAge.getText(),
-                            inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
-                            inputId.getText(), inputPosition.getValue());
-                    personaServices.insert(publicEmployee);
-                }
-                inputId.clear();
-                inputReason.clear();
-                inputAge.clear();
-                inputLastname.clear();
-                inputName.clear();
-                stage.close();
-                new AddScene(personaServices, this.ownerStage);
+            confirmationScene = new ConfirmationScene(stage);
 
-            } catch (IOException | PersonaException exception) {
-                exception.printStackTrace();
+            if(confirmationScene.getConfirmation()) {
+                try {
+                    boolean isPublicEmployee = false;
+                    for (ValidPublicEmployees v : ValidPublicEmployees.values()) {
+                        if (inputPosition.getValue().equals(v.toString())) {
+                            isPublicEmployee = true;
+                        }
+                    }
+                    if (!isPublicEmployee) {
+                        Persona persona = new Persona(inputName.getText(), inputLastname.getText(), inputAge.getText(),
+                                inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
+                                inputId.getText());
+                        personaServices.insert(persona);
+                    } else {
+                        PublicEmployee publicEmployee = new PublicEmployee(inputName.getText(), inputLastname.getText(), inputAge.getText(),
+                                inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
+                                inputId.getText(), inputPosition.getValue());
+                        personaServices.insert(publicEmployee);
+                    }
+                    inputId.clear();
+                    inputReason.clear();
+                    inputAge.clear();
+                    inputLastname.clear();
+                    inputName.clear();
+                    stage.close();
+                    new AddScene(personaServices, this.ownerStage);
+
+                } catch (IOException | PersonaException exception) {
+                    exception.printStackTrace();
+                }
             }
         });
         cancelButton.setOnAction(e -> stage.close());

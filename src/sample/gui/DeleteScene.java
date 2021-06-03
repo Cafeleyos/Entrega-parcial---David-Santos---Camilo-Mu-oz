@@ -22,6 +22,8 @@ public class DeleteScene extends Stage {
     private Label id;
     private PersonaServices personaServices;
 
+    private ConfirmationScene confirmationScene;
+
     private GridPane pane;
     private static final Text TITLE = new Text("Eliminar una Persona");
 
@@ -48,14 +50,19 @@ public class DeleteScene extends Stage {
     }
 
     public void behavior() {
+
+
         delete.setOnAction(e -> {
-            try {
-                personaServices.delete(personaServices.findIndex(inputId.getText()));
-            } catch (PersonaException personaException) {
-                personaException.printStackTrace();
+            confirmationScene = new ConfirmationScene(stage);
+
+            if(confirmationScene.getConfirmation()) {
+                try {
+                    personaServices.delete(personaServices.findIndex(inputId.getText()));
+                    inputId.clear();
+                } catch (PersonaException personaException) {
+                    personaException.printStackTrace();
+                }
             }
-            new ConfirmationScene(stage);
-            inputId.clear();
         });
 
         cancel.setOnAction(e -> stage.close());
