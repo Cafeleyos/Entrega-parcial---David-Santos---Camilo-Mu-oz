@@ -22,11 +22,21 @@ public abstract class Exportable {
     }
 
     public String toExportValue(Character characterSeparate) {
+        int count = 0;
         List<String> stringList = this.toListString();
         StringBuilder stringBuilder = new StringBuilder();
 
         for(String s : stringList) {
-            stringBuilder.append(s).append(characterSeparate);
+            if(count < 7) {
+                stringBuilder.append(s).append(characterSeparate);
+                count++;
+            }
+            else {
+                stringBuilder.append(s);
+                count = 0;
+            }
+
+
         }
 
         return stringBuilder.toString();
