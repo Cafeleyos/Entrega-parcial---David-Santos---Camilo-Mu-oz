@@ -139,7 +139,7 @@ public class Persona extends Exportable implements Serializable {
     }
 
     /**
-     * sets the header for all the attributes of the class
+     * Sets the header for all the attributes of the class
      * @param separateCharacter for splitting the string
      * @return header string
      */
