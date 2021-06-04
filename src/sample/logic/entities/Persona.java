@@ -8,14 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Persona extends Exportable implements Serializable {
-    private String name;
-    private String lastName;
-    private int age;
-    private String sex;
-    private String department;
-    private String condition;
-    private String reason;
-    private String id;
+    protected String name;
+    protected String lastName;
+    protected int age;
+    private final String postion = "Civil";
+    protected String sex;
+    protected String department;
+    protected String condition;
+    protected String reason;
+    protected String id;
     public static final int MAX_ID_DIGITS = 10;
     public static final int MIN_ID_DIGITS = 8;
     public static final int MAX_AGE = 150;
@@ -44,7 +45,7 @@ public class Persona extends Exportable implements Serializable {
         return this.condition;
     }
 
-    public String getPosition() { return "Civil";}
+    public String getPosition() { return postion;}
 
     public String getSex() { return this.sex;}
 
@@ -96,7 +97,6 @@ public class Persona extends Exportable implements Serializable {
     public List<String> toStringList() {
         List<String> result = new ArrayList<>();
 
-        result.add(this.getPosition());
         result.add(this.name);
         result.add(this.lastName);
         result.add(String.valueOf(this.age));
@@ -105,14 +105,15 @@ public class Persona extends Exportable implements Serializable {
         result.add(this.condition);
         result.add(this.reason);
         result.add(this.id);
+        result.add(this.postion);
 
         return result;
     }
 
     @Override
     public String getHeader(Character separateCharacter) {
-        return "Posición"+ separateCharacter+ "Nombre" + separateCharacter + "Apellido" + separateCharacter + "Edad" + separateCharacter + "Sexo" +
+        return  "Nombre" + separateCharacter + "Apellido" + separateCharacter + "Edad" + separateCharacter + "Sexo" +
                 separateCharacter + "Departamento" + separateCharacter + "Condición" + separateCharacter + "Razón" +
-                separateCharacter + "Cédula";
+                separateCharacter + "Cédula"+ separateCharacter + "Posición";
     }
 }
