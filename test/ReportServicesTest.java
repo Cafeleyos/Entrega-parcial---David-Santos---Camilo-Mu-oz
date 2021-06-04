@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import sample.logic.entities.Persona;
@@ -137,5 +138,13 @@ public class ReportServicesTest {
 
         Assertions.assertEquals(1, reportServices.getReportByDeaths(true).getCount());
         Assertions.assertEquals(0, reportServices.getReportByDeaths(false).getCount());
+    }
+
+    @AfterEach
+    public void eliminatePersona() throws PersonaException {
+        setUp();
+        try {
+            personaServices.delete(persona);
+        } catch (PersonaException ignored) {}
     }
 }
