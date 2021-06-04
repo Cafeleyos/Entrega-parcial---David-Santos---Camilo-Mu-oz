@@ -130,7 +130,7 @@ public class ReportServicesTest {
 
         personaServices.insert(persona);
 
-        Assertions.assertEquals(2, reportServices.getReportByDeaths(true).getCount());
+        Assertions.assertEquals(1, reportServices.getReportByDeaths(true).getCount());
         Assertions.assertEquals(0, reportServices.getReportByDeaths(false).getCount());
 
         personaServices.delete(persona);

@@ -168,5 +168,4 @@ public class ReportScene {
         pane.add(department, 2, 6);
         pane.add(titleDepartment, 2, 7);
     }
-
 }
