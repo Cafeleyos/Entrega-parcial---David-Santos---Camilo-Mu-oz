@@ -24,7 +24,7 @@ public class ReportScene {
     private Stage stage;
 
     private Text titleAge, titleSex, titlePosition, titleCivilDeaths, titlePublicEmployeesDeaths;
-    private Label age, sex, position, civilDeaths, publicEmployeesDeaths;
+    private Label age, sex, position, civilDeaths, publicEmployeesDeaths, department;
 
     private GridPane pane;
     private static final String SPACE = ("              \n");
@@ -96,6 +96,9 @@ public class ReportScene {
         titlePublicEmployeesDeaths = new Text();
         titlePublicEmployeesDeaths.setText(reportServices.getReportByDeaths(false).getDescription());
         titlePublicEmployeesDeaths.setFont(DataScene.FONT);
+
+        department = new Label();
+        department.setText(reportServices.getReportByMayorDepartment(reportServices.getReportByDepartment()).getDescription());
     }
 
     private void setUpPane() {
@@ -122,6 +125,8 @@ public class ReportScene {
 
         pane.add(publicEmployeesDeaths, 2, 3);
         pane.add(titlePublicEmployeesDeaths, 2, 4);
+
+        pane.add(department, 4, 3);
     }
 
     public void setUpTable() {

@@ -127,7 +127,6 @@ public class PersonaServices implements IPersonaServices {
         try {
             personasDataBase.save(persona, false);
             this.personas.remove(persona);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

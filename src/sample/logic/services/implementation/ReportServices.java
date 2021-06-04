@@ -23,9 +23,8 @@ public class ReportServices implements IReportServices {
         Map<String, Report> reportMap = new HashMap<>();
 
         for(DepartmentsEnum departments : DepartmentsEnum.values()) {
-            reportMap.put(departments.toString(), new Report(departments.toString(), 0, "Prueba"));
+            reportMap.put(departments.toString(), new Report(departments.toString(), 0, "Departamento con más\nVictimas"));
         }
-
         for(Persona p : personas) {
             reportMap.get(p.getDepartment()).incrementCount();
         }
@@ -50,11 +49,20 @@ public class ReportServices implements IReportServices {
     }
 
     @Override
-    public Report getReportByMayorDepartment() {
+    public Report getReportByMayorDepartment(Map<String, Report> reportMap) {
         Report report = new Report("department", 0, "Departamento con más\nVictimas");
-        Map<String, Report> reportMap = getReportByDepartment();
+        String department = "";
+        double mayor = 0;
 
+        for(DepartmentsEnum departments : DepartmentsEnum.values()) {
+            if(reportMap.get(departments).getCount() >= mayor) {
+                mayor = reportMap.get(departments).getCount();
+                department = reportMap.get(departments).getDescription();
+            }
+        }
 
+        report.setDescription(department);
+        report.setCount(mayor);
 
         return report;
     }
@@ -118,8 +126,6 @@ public class ReportServices implements IReportServices {
                 }
             }
         }
-
-
         return report;
     }
 }
