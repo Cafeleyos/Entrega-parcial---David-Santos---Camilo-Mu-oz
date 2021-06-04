@@ -49,7 +49,6 @@ public class DeleteScene extends Stage {
 
     public void behavior() {
 
-
         delete.setOnAction(e -> {
             confirmationScene = new ConfirmationScene(STAGE, "Eliminar");
 
