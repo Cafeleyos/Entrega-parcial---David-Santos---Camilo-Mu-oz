@@ -13,8 +13,8 @@ import javafx.stage.Stage;
 import sample.logic.ValidPublicEmployees;
 import sample.logic.entities.Persona;
 import sample.logic.entities.PublicEmployee;
+import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
-import sample.logic.services.implementation.PersonaServices;
 
 import java.util.Map;
 
@@ -29,10 +29,10 @@ public class UpdateScene extends SetUp{
 
     private static final Text TITLE = new Text("Edición");
 
-    private final PersonaServices personaServices;
+    private final IPersonaServices personaServices;
     private VBox layout;
 
-    public UpdateScene(PersonaServices personaServices, Persona persona, Stage ownerStage) {
+    public UpdateScene(IPersonaServices personaServices, Persona persona, Stage ownerStage) {
         super();
         stage = new Stage();
         this.personaServices = personaServices;

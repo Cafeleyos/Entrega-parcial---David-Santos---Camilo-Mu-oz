@@ -19,10 +19,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
+import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +31,8 @@ public class DataScene extends Application {
     private TableView<Persona> table;
     private Scene dataScene;
     private Stage stage;
-    private PersonaServices personaServices = new PersonaServices();
+    private IPersonaServices personaServices;
+    private ConfirmationScene confirmationScene;
 
     private GridPane pane;
     private Text name;
@@ -55,12 +56,19 @@ public class DataScene extends Application {
     }
 
     public void behavior() {
+        personaServices = new PersonaServices();
 
         table.setItems((ObservableList<Persona>) this.personaServices.getAll());
 
         menuItems.get("Add").setOnAction(e -> new AddScene(this.personaServices, stage));
 
-        //menuItems.get("Update").setOnAction(e -> new UpdateScene(this.personaServices));
+        menuItems.get("Update").setOnAction(e -> {
+            if(table.getSelectionModel().getSelectedItem() != null) {
+                new UpdateScene(personaServices, table.getSelectionModel().getSelectedItem(), stage);
+                pane.getChildren().clear();
+                pane.add(table, 0, 0);
+            }
+        });
 
         menuItems.get("Delete").setOnAction(e -> {
             new DeleteScene(this.personaServices, stage);
@@ -83,21 +91,21 @@ public class DataScene extends Application {
             }
         });
 
-        dataScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                switch (keyEvent.getCode()) {
-                    case DELETE:
-                    case BACK_SPACE:
-                        try {
+        dataScene.setOnKeyPressed(keyEvent -> {
+            switch (keyEvent.getCode()) {
+                case DELETE:
+                case BACK_SPACE:
+                    try {
+                        confirmationScene = new ConfirmationScene(stage, "Eliminar");
+                        if(confirmationScene.getConfirmation()) {
                             personaServices.delete(table.getSelectionModel().getSelectedItem());
                             pane.getChildren().clear();
                             pane.add(table, 0, 0);
-                        } catch (PersonaException e) {
-                            e.printStackTrace();
                         }
-                        break;
-                }
+                    } catch (PersonaException e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         });
 
@@ -107,7 +115,6 @@ public class DataScene extends Application {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())){
                     new UpdateScene(this.personaServices,(Persona) row.getItem(),stage);
-
                 }
             });
             return row;

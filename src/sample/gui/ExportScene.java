@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sample.logic.services.IPersonaServices;
 import sample.logic.services.implementation.PersonaServices;
 
 import java.io.FileNotFoundException;
@@ -28,9 +29,9 @@ public class ExportScene extends Stage {
 
     private Button confirmation, cancel;
 
-    private PersonaServices personaServices;
+    private IPersonaServices personaServices;
 
-    public ExportScene(PersonaServices personaServices, Stage ownerStage) {
+    public ExportScene(IPersonaServices personaServices, Stage ownerStage) {
         STAGE = new Stage();
         this.personaServices = personaServices;
 

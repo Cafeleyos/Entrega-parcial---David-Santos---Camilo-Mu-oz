@@ -32,6 +32,7 @@ public class PersonaServices implements IPersonaServices {
         }
     }
 
+    @Override
     public Persona findIndex(String id) throws PersonaException {
         Persona result = null;
         int index = 0;
@@ -97,12 +98,8 @@ public class PersonaServices implements IPersonaServices {
             throw new PersonaException(PersonaException.INVALID_PERSON);
         }
 
-        try {
-            personasDataBase.save(persona, false);
-            this.personas.remove(persona);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        personasDataBase.save(persona, false);
+        this.personas.remove(persona);
 
         return true;
     }

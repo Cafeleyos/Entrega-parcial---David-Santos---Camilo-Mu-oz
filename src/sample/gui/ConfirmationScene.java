@@ -13,14 +13,18 @@ public class ConfirmationScene extends Stage {
     private Scene confirmationScene;
     private Stage stage;
 
-    private static final Text TEXT = new Text("¿Quieres confirmar los cambios?");
+    private static final Text EDIT = new Text("¿Estás seguro que quieres editar está persona?");
+    private static final Text ADD = new Text("¿Estás seguro que quieres agregar está persona?");
+    private static final Text DELETE = new Text("¿Estás seguro que quieres eliminar está persona?");
+    private String mode;
     private GridPane pane;
 
     private Button confirmation, cancel;
     private boolean result;
 
-    public ConfirmationScene(Stage ownerStage) {
+    public ConfirmationScene(Stage ownerStage, String mode) {
         stage = new Stage();
+        this.mode = mode;
 
         setUp();
         behavior();
@@ -65,7 +69,11 @@ public class ConfirmationScene extends Stage {
         pane.setVgap(20);
         pane.setHgap(20);
 
-        pane.add(TEXT, 0, 0, 2, 1);
+        switch (mode) {
+            case "Agregar" -> pane.add(ADD, 0, 0, 2, 1);
+            case "Editar" -> pane.add(EDIT, 0, 0, 2, 1);
+            case "Eliminar" -> pane.add(DELETE, 0, 0, 2, 1);
+        }
 
         pane.add(confirmation, 0, 1);
         pane.add(cancel, 1, 1);

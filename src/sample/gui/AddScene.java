@@ -12,9 +12,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
 import sample.logic.entities.PublicEmployee;
+import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
 import sample.logic.ValidPublicEmployees;
-import sample.logic.services.implementation.PersonaServices;
 import java.io.IOException;
 import java.util.Map;
 
@@ -29,10 +29,10 @@ public class AddScene extends SetUp {
     private VBox layout;
     private static final Text TITLE = new Text("Añadir");
 
-    private final PersonaServices personaServices;
+    private final IPersonaServices personaServices;
     private ConfirmationScene confirmationScene;
 
-    public AddScene(PersonaServices personaServices, Stage ownerStage) {
+    public AddScene(IPersonaServices personaServices, Stage ownerStage) {
         super();
         stage = new Stage();
         this.ownerStage = ownerStage;
@@ -50,7 +50,7 @@ public class AddScene extends SetUp {
 
     public void behavior() {
         addButton.setOnAction(e -> {
-            confirmationScene = new ConfirmationScene(stage);
+            confirmationScene = new ConfirmationScene(stage, "Agregar");
 
             if(confirmationScene.getConfirmation()) {
 
@@ -77,8 +77,6 @@ public class AddScene extends SetUp {
                     inputAge.clear();
                     inputLastname.clear();
                     inputName.clear();
-                    stage.close();
-                    new AddScene(personaServices, this.ownerStage);
 
                 } catch (IOException | PersonaException exception) {
                     exception.printStackTrace();

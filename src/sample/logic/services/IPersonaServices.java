@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IPersonaServices {
+    Persona findIndex(String id) throws PersonaException;
     List<Persona> getAll();
     Persona insert(Persona persona) throws IOException, PersonaException;
     void modify(Persona newPersona,Persona personaToReplace);

@@ -7,8 +7,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
+import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
-import sample.logic.services.implementation.PersonaServices;
 
 public class DeleteScene extends Stage {
 
@@ -19,13 +19,13 @@ public class DeleteScene extends Stage {
     private TextField inputId;
     private Label id;
 
-    private PersonaServices personaServices;
+    private IPersonaServices personaServices;
     private ConfirmationScene confirmationScene;
 
     private GridPane pane;
     private static final Text TITLE = new Text("Eliminar una Persona");
 
-    public DeleteScene(PersonaServices personaServices, Stage ownerStage) {
+    public DeleteScene(IPersonaServices personaServices, Stage ownerStage) {
         STAGE = new Stage();
         this.personaServices = personaServices;
 
@@ -51,7 +51,7 @@ public class DeleteScene extends Stage {
 
 
         delete.setOnAction(e -> {
-            confirmationScene = new ConfirmationScene(STAGE);
+            confirmationScene = new ConfirmationScene(STAGE, "Eliminar");
 
             if(confirmationScene.getConfirmation()) {
                 try {
