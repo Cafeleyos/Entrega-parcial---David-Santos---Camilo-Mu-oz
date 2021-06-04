@@ -23,7 +23,9 @@ import sample.logic.services.implementation.PersonaServices;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Main scene of where all the information is reported.
+ */
 public class DataScene extends Application {
 
     private TableView<Persona> table;
@@ -42,6 +44,9 @@ public class DataScene extends Application {
     public static final Font FONT = new Font("DIALOG", 15);
     public static final Font FONT_TITLE = new Font("Tahoma", 30);
 
+    /**
+     * Initializes and configures the primary stage.
+     */
     @Override
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
@@ -54,6 +59,9 @@ public class DataScene extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Gives action to all the elements present in the scene.
+     */
     public void behavior() {
         personaServices = new PersonaServices();
 
@@ -127,6 +135,9 @@ public class DataScene extends Application {
         menuItems.get("Report").setOnAction(e -> new ReportScene(personaServices, stage));
     }
 
+    /**
+     * Method that calls other sub methods for setting up the data stage and scene.
+     */
     public void setUp() {
         setUpTable();
         setUpMenu();
@@ -140,9 +151,12 @@ public class DataScene extends Application {
         layout.setPadding(new Insets(10, 10, 10, 10));
         layout.getChildren().addAll(menuBar, pane);
 
-        dataScene = new Scene(layout, 860, 450);
+        dataScene = new Scene(layout, 950, 450);
     }
 
+    /**
+     * Creates and configures de GridPane layout
+     */
     public void setUpPane() {
         pane = new GridPane();
         pane.setAlignment(Pos.CENTER_LEFT);
@@ -152,10 +166,13 @@ public class DataScene extends Application {
         pane.add(table, 0, 0);
     }
 
+    /**
+     * Creates and configures the upper bar menu
+     */
     public void setUpMenu() {
         Menu fileMenu = new Menu("Archivos");
         Menu editMenu = new Menu("Editar");
-        Menu resumenMenu = new Menu("Resumen");
+        Menu resumeMenu = new Menu("Resumen");
         Menu aboutMenu = new Menu("Acerca de");
 
         menuItems = new HashMap<>();
@@ -168,12 +185,15 @@ public class DataScene extends Application {
 
         fileMenu.getItems().addAll(menuItems.get("Import"), menuItems.get("Export"));
         editMenu.getItems().addAll(menuItems.get("Add"), menuItems.get("Update"), menuItems.get("Delete"));
-        resumenMenu.getItems().add(menuItems.get("Report"));
+        resumeMenu.getItems().add(menuItems.get("Report"));
 
         bar = new MenuBar();
-        bar.getMenus().addAll(fileMenu, editMenu, resumenMenu, aboutMenu);
+        bar.getMenus().addAll(fileMenu, editMenu, resumeMenu, aboutMenu);
     }
 
+    /**
+     *  Creates and configures the Table view
+     */
     public void setUpTable() {
         TableColumn<Persona, String> nameColumn = new TableColumn<>("Nombre");
         nameColumn.setMinWidth(20);
@@ -187,14 +207,13 @@ public class DataScene extends Application {
         lastNameColumn.setPrefWidth(150);
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
-        TableColumn<Persona, String> idColumn = new TableColumn<>("Cédula");
+        TableColumn<Persona, String> idColumn = new TableColumn<>("Identificación");
         idColumn.setMinWidth(20);
         idColumn.setMaxWidth(200);
         idColumn.setPrefWidth(150);
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         table = new TableView<>();
-
         table.getColumns().addAll(nameColumn, lastNameColumn, idColumn);
         table.setMaxWidth(450);
     }
