@@ -20,7 +20,7 @@ public class Export implements IExport {
         String minute = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
         String second = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
 
-        String fileName = String.format("ExportPersons-%s-%s-%s_%s-%s-%s.%s", now.getYear(), now.getMonth(), now.getDayOfMonth(),
+        String fileName = String.format("directorio-%s-%s-%s-%s-%s-%s.%s", now.getYear(), now.getMonth(), now.getDayOfMonth(),
                 hour, minute, second, Exportable.getExtension(characterSeparate));
         FileOutputStream out = new FileOutputStream(fileName);
         PrintWriter printWriter = new PrintWriter(out);

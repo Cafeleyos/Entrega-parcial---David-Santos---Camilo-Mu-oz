@@ -23,19 +23,15 @@ public class PersonaPersistence implements IPersonaPersistence, Serializable{
     }
 
     @Override
-    public void save(Persona persona, boolean option)  {
-        try {
-            if(option) {
-                data.add(persona);
-            }
-            else {
-                data.remove(persona);
-            }
-            write();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void save(Persona persona, boolean option) throws IOException {
+        if (option) {
+            data.add(persona);
+        } else {
+            data.remove(persona);
         }
+        write();
     }
+
 
     @Override
     public List<Persona> read() throws IOException, ClassNotFoundException {
