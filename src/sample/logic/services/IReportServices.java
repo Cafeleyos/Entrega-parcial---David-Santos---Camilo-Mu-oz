@@ -8,7 +8,7 @@ import java.util.Map;
 public interface IReportServices {
     Map<String, Report> getReportByDepartment();
     Report getReportByAge();
-    Report getReportByMayorDepartment(Map<String, Report> reportMap);
+    Report getReportByMayorDepartment();
     Report getReportBySex();
     Report getReportByPositionCivil();
     Report getReportByDeaths(boolean isCivil);

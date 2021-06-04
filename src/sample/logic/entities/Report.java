@@ -27,6 +27,14 @@ public class Report {
         this.description = description;
     }
 
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
     public void incrementCount() {
         count++;
     }

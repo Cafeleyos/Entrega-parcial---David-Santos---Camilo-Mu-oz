@@ -49,19 +49,20 @@ public class ReportServices implements IReportServices {
     }
 
     @Override
-    public Report getReportByMayorDepartment(Map<String, Report> reportMap) {
+    public Report getReportByMayorDepartment() {
         Report report = new Report("department", 0, "Departamento con más\nVictimas");
+        Map<String, Report> reportMap = getReportByDepartment();
         String department = "";
         double mayor = 0;
 
-        for(DepartmentsEnum departments : DepartmentsEnum.values()) {
-            if(reportMap.get(departments).getCount() >= mayor) {
-                mayor = reportMap.get(departments).getCount();
-                department = reportMap.get(departments).getDescription();
+        for(DepartmentsEnum d : DepartmentsEnum.values()) {
+            if(reportMap.get(d.toString()).getCount() >= mayor) {
+                mayor = reportMap.get(d.toString()).getCount();
+                department = d.toString();
             }
         }
 
-        report.setDescription(department);
+        report.setInformation(department);
         report.setCount(mayor);
 
         return report;
