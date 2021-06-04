@@ -38,7 +38,6 @@ public class DataScene extends Application {
     private TableView<Persona> table;
     private Scene dataScene;
     private Stage stage;
-    private Import importClass;
     private IPersonaServices personaServices;
     private ConfirmationScene confirmationScene;
 
@@ -55,7 +54,6 @@ public class DataScene extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
-        importClass = new Import();
 
         setUp();
         behavior();
@@ -134,17 +132,7 @@ public class DataScene extends Application {
         menuItems.get("Export").setOnAction(e -> new ExportScene(personaServices, stage));
 
         menuItems.get("Import").setOnAction(e -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().add(new ExtensionFilter("csv files","*.csv"));
-            fileChooser.setInitialDirectory(new File("C:\\Users\\Camilo\\IdeaProjects\\Entrega parcial - David Santos - Camilo Muñoz"));
-            File file = fileChooser.showOpenDialog(stage);
-            try {
-                importClass.verifyFileHeader(file);
-            } catch (IOException | PersistenceException ioException) {
-                ioException.printStackTrace();
-            }
-
-
+            new ImportScene(personaServices);
         });
     }
 

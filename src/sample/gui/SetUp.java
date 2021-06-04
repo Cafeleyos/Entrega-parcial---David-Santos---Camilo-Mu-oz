@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import sample.logic.DepartmentsEnum;
 import sample.logic.ValidPublicEmployees;
 
 import java.util.*;
@@ -49,13 +50,9 @@ public class SetUp {
 
     private void setUpDepartmentsComboBox (ComboBox<String> comboBox) {
         ObservableList<String> list = FXCollections.observableArrayList();
-        list.addAll(
-                "Amazonas", "Antioquía", "Arauca", "Atlántico", "Bolívar", "Boyacá",
-                "Caldas", "Caquetá", "Casanare", "Cauca", "Cesar", "Chocó", "Córdoba",
-                "Cundinamarca", "Guainía", "Guaviare", "Huila", "La Guajira", "Magdalena",
-                "Meta", "Nariño", "Norte de Santander", "Putumayo", "Quindío", "Risaralda",
-                "San Andrés y Providencia", "Santander", "Sucre", "Tolima", "Valle del Cauca",
-                "Vaupés", "Vichada");
+        for (DepartmentsEnum c :DepartmentsEnum.values()){
+            list.add(c.toString());
+        }
 
         comboBox.setItems(list);
         comboBox.setPromptText("-");
