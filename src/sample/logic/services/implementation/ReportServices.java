@@ -6,18 +6,12 @@ import sample.logic.entities.Report;
 import sample.logic.services.IPersonaServices;
 import sample.logic.services.IReportServices;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ReportServices implements IReportServices {
 
     private IPersonaServices personaServices;
-
-    public ReportServices() {
-
-    }
 
     public ReportServices(IPersonaServices personaServices) {
         this.personaServices = personaServices;
@@ -41,6 +35,95 @@ public class ReportServices implements IReportServices {
 
     @Override
     public Report getReportByAge() {
-        return null;
+        List<Persona> personas = personaServices.getAll();
+        Report report = new Report("edad", 0, "Porcentaje de Victimas\nMenores de Edad");
+
+        for(Persona p : personas) {
+            if(p.getAge() < 18) {
+                report.incrementCount();
+            }
+        }
+
+        report.setCount(report.getCount()*100/personaServices.getAll().size());
+
+        return report;
+    }
+
+    @Override
+    public Report getReportByMayorDepartment() {
+        Report report = new Report("department", 0, "Departamento con más\nVictimas");
+        Map<String, Report> reportMap = getReportByDepartment();
+
+
+
+        return report;
+    }
+
+    @Override
+    public Report getReportBySex() {
+        Report report = new Report("sex", 0, "Relación entre\nHombres y Mujeres");
+        List<Persona> personas = personaServices.getAll();
+
+        for(Persona p : personas) {
+            if(p.getSex().equals("Masculino")) {
+                report.incrementCount();
+            }
+        }
+        if(report.getCount() == personaServices.getAll().size()) {
+            report.setCount(personaServices.getAll().size());
+        }
+        else if(report.getCount() != 0) {
+            report.setCount(report.getCount()/(personas.size()-report.getCount()));
+        }
+        else {
+            report.setCount(personas.size());
+        }
+
+        return report;
+    }
+
+    @Override
+    public Report getReportByPositionCivil() {
+        Report report = new Report("civil", 0, "Relación entre Civiles\ny Fuerzas Públicas");
+        List<Persona> personas = personaServices.getAll();
+
+        for(Persona p : personas) {
+            if(p.getPosition().equals("Civil")) {
+                report.incrementCount();
+            }
+        }
+
+        report.setCount(report.getCount()/(personas.size()-report.getCount()));
+
+        return report;
+
+    }
+
+    @Override
+    public Report getReportByPublicEmployeeDeaths() {
+        Report report = new Report("publicemployeedeaths", 0, "Cantidad de Muertes\nde Empleados Públicos");
+        List<Persona> personas = personaServices.getAll();
+
+        for(Persona p : personas) {
+            if(!p.getPosition().equals("Civil") && p.getCondition().equals("Muerto")) {
+                report.incrementCount();
+            }
+        }
+
+        return report;
+    }
+
+    @Override
+    public Report getReportByCivilDeaths() {
+        Report report = new Report("deaths", 0, "Cantidad de Civiles\nMuertos en el Paro");
+        List<Persona> personas = personaServices.getAll();
+
+        for(Persona p : personas) {
+            if(p.getPosition().equals("Civil") && p.getCondition().equals("Muerto")) {
+                report.incrementCount();
+            }
+        }
+
+        return report;
     }
 }

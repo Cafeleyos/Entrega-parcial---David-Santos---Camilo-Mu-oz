@@ -1,9 +1,7 @@
 package sample.gui;
 
-import com.sun.glass.ui.CommonDialogs;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,24 +10,17 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
-import sample.logic.persistence.PersistenceException;
-import sample.logic.persistence.implementation.Import;
 import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -131,9 +122,9 @@ public class DataScene extends Application {
 
         menuItems.get("Export").setOnAction(e -> new ExportScene(personaServices, stage));
 
-        menuItems.get("Import").setOnAction(e -> {
-            new ImportScene(personaServices, stage);
-        });
+        menuItems.get("Import").setOnAction(e -> new ImportScene(personaServices, stage));
+
+        menuItems.get("Report").setOnAction(e -> new ReportScene(personaServices, stage));
     }
 
     public void setUp() {
@@ -172,8 +163,9 @@ public class DataScene extends Application {
         menuItems.put("Add", new MenuItem("Agregar"));
         menuItems.put("Update", new MenuItem("Actualizar"));
         menuItems.put("Delete", new MenuItem("Eliminar"));
+        menuItems.put("Report", new MenuItem("Reporte"));
 
-        fileMenu.getItems().addAll(menuItems.get("Import"), menuItems.get("Export"));
+        fileMenu.getItems().addAll(menuItems.get("Report"), menuItems.get("Import"), menuItems.get("Export"));
         editMenu.getItems().addAll(menuItems.get("Add"), menuItems.get("Update"), menuItems.get("Delete"));
 
         bar = new MenuBar();
