@@ -8,7 +8,9 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import sample.logic.persistence.PersistenceException;
 import sample.logic.persistence.implementation.Import;
 import sample.logic.services.IPersonaServices;
@@ -27,15 +29,18 @@ public class ImportScene {
     private Stage stage;
     private Label label, idsLabel;
 
-    public ImportScene(IPersonaServices personaServices) {
+    public ImportScene(IPersonaServices personaServices, Stage ownerStage) {
         stage = new Stage();
         importClass = new Import(personaServices);
         setUpInput();
         setUpBehavior();
 
+
         stage.setTitle("Importar");
+        stage.initOwner(ownerStage);
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
     }
 
     private void setUpBehavior() {
@@ -47,7 +52,6 @@ public class ImportScene {
     private void setUpInput() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("csv files","*.csv"));
-        fileChooser.setInitialDirectory(new File("C:\\Users\\Camilo\\IdeaProjects\\Entrega parcial - David Santos - Camilo Muñoz"));
         File file = fileChooser.showOpenDialog(stage);
         try {
             importClass.verifyFileHeader(file);
@@ -81,7 +85,7 @@ public class ImportScene {
             label = new Label();
             label.setText("Los siguientes id's no fueron añadidos");
             label.setFont(new Font("Tahoma", 18));
-            
+
 
             idsLabel = new Label();
             idsLabel.setText(list.toString().replace('[',' ').replace(']',' '));

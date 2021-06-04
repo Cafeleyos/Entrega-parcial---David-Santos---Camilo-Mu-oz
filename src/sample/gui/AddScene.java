@@ -21,7 +21,6 @@ import java.util.Map;
 public class AddScene extends SetUp {
 
     private Button addButton, cancelButton;
-    private Stage ownerStage;
     private final Stage stage;
     private Scene addScene;
     private GridPane pane;
@@ -35,7 +34,6 @@ public class AddScene extends SetUp {
     public AddScene(IPersonaServices personaServices, Stage ownerStage) {
         super();
         stage = new Stage();
-        this.ownerStage = ownerStage;
         this.personaServices = personaServices;
 
         setUp();

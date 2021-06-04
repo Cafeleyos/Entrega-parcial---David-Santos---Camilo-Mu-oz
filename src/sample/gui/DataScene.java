@@ -132,7 +132,7 @@ public class DataScene extends Application {
         menuItems.get("Export").setOnAction(e -> new ExportScene(personaServices, stage));
 
         menuItems.get("Import").setOnAction(e -> {
-            new ImportScene(personaServices);
+            new ImportScene(personaServices, stage);
         });
     }
 

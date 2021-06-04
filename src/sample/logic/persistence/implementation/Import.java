@@ -53,12 +53,13 @@ public class Import {
                     isPublicEmployee = true;
                 }
             }
+
             try {
                 if (!isPublicEmployee) {
                     personaServices.insert(new Persona(list.get(0), list.get(1), list.get(2), list.get(3), list.get(4),
                             list.get(5), list.get(6), list.get(7)));
                 }
-                if (isPublicEmployee) {
+                else {
                     personaServices.insert(new PublicEmployee(list.get(0), list.get(1), list.get(2), list.get(3), list.get(4),
                             list.get(5), list.get(6), list.get(7), list.get(8)));
                 }
