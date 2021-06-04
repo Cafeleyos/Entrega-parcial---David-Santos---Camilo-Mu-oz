@@ -67,7 +67,7 @@ public class ExportScene extends Stage {
         TEXT.setFont(DataScene.FONT_TITLE);
         vBox.setAlignment(Pos.CENTER);
 
-        exportScene = new Scene(vBox, 300, 170);
+        exportScene = new Scene(vBox, 350, 170);
     }
 
     /**

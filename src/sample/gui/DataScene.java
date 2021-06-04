@@ -40,7 +40,7 @@ public class DataScene extends Application {
 
 
     public static final Font FONT = new Font("DIALOG", 15);
-    public static final Font FONT_TITLE = new Font("Tahoma", 20);
+    public static final Font FONT_TITLE = new Font("Tahoma", 30);
 
     @Override
     public void start(Stage primaryStage) {
