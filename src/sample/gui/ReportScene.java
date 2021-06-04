@@ -13,21 +13,26 @@ import sample.logic.services.IPersonaServices;
 import sample.logic.services.IReportServices;
 import sample.logic.services.implementation.ReportServices;
 
-import java.util.Map;
-
+/**
+ * Scene that show all the reports created.
+ */
 public class ReportScene {
 
     private Scene reportScene;
     private Stage stage;
+    private GridPane pane;
+    private IReportServices reportServices;
+    private static final String SPACE = ("              \n");
 
     private Text titleAgeMenor, titleAgeMayor, titleSexMan, titleSexWoman, titleCivil, titlePublicEmployees, titleCivilDeaths,
             titlePublicEmployeesDeaths, titleDepartment;
     private Label ageMenor, ageMayor, sexMan, sexWoman, civil, publicEmployees, civilDeaths, publicEmployeesDeaths, department;
 
-    private GridPane pane;
-    private static final String SPACE = ("              \n");
-    private IReportServices reportServices;
-
+    /**
+     *
+     * @param personaServices
+     * @param ownerStage
+     */
     public ReportScene(IPersonaServices personaServices, Stage ownerStage) {
         stage = new Stage();
         this.reportServices = new ReportServices(personaServices);
@@ -41,6 +46,9 @@ public class ReportScene {
         stage.showAndWait();
     }
 
+    /**
+     * Method that calls other sub methods for setting up the report stage and scene.
+     */
     public void setUp() {
         setUpText();
         setUpPane();
@@ -48,6 +56,9 @@ public class ReportScene {
         reportScene = new Scene(pane, 860, 450);
     }
 
+    /**
+     * Sets up all the report information in the local variables
+     */
     private void setUpText() {
         ageMenor = new Label();
         ageMenor.setText((int) reportServices.getReportByAge(true).getCount() + "%");
@@ -113,6 +124,9 @@ public class ReportScene {
         titleDepartment.setFont(DataScene.FONT);
     }
 
+    /**
+     * Creates and configures the GridPane. Adds all the reports information
+     */
     private void setUpPane() {
         pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
