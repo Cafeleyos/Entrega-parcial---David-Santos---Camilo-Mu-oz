@@ -1,10 +1,19 @@
 package sample.logic.entities;
 
+/**
+ * Represents a report of a database
+ */
 public class Report {
 
     private String information, description;
     private double count;
 
+    /**
+     * generates an instance of report
+     * @param information interest data
+     * @param count of cases that satisfy the interest data
+     * @param description of the report
+     */
     public Report(String information, double count, String description) {
         this.information = information;
         this.count = count;
@@ -35,6 +44,9 @@ public class Report {
         this.information = information;
     }
 
+    /**
+     * Method that increments 1 the count
+     */
     public void incrementCount() {
         count++;
     }
