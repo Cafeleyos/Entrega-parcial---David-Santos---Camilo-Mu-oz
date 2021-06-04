@@ -1,6 +1,7 @@
 package sample.logic.entities;
 
 import javafx.scene.Node;
+import sample.gui.SetUp;
 import sample.logic.services.PersonaException;
 
 import java.io.Serializable;
@@ -112,8 +113,8 @@ public class Persona extends Exportable implements Serializable {
 
     @Override
     public String getHeader(Character separateCharacter) {
-        return  "Nombre" + separateCharacter + "Apellido" + separateCharacter + "Edad" + separateCharacter + "Sexo" +
-                separateCharacter + "Departamento" + separateCharacter + "Condición" + separateCharacter + "Razón" +
-                separateCharacter + "Cédula"+ separateCharacter + "Posición";
+        return SetUp.NAME + separateCharacter + SetUp.LAST_NAME + separateCharacter + SetUp.AGE + separateCharacter + SetUp.AGE +
+                separateCharacter + SetUp.DEPARTMENT + separateCharacter + SetUp.CONDITION + separateCharacter + SetUp.REASON +
+                separateCharacter + SetUp.ID + separateCharacter + SetUp.POSITION;
     }
 }

@@ -22,11 +22,14 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
+import sample.logic.persistence.PersistenceException;
+import sample.logic.persistence.implementation.Import;
 import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +38,7 @@ public class DataScene extends Application {
     private TableView<Persona> table;
     private Scene dataScene;
     private Stage stage;
+    private Import importClass;
     private IPersonaServices personaServices;
     private ConfirmationScene confirmationScene;
 
@@ -51,6 +55,7 @@ public class DataScene extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
+        importClass = new Import();
 
         setUp();
         behavior();
@@ -133,6 +138,11 @@ public class DataScene extends Application {
             fileChooser.getExtensionFilters().add(new ExtensionFilter("csv files","*.csv"));
             fileChooser.setInitialDirectory(new File("C:\\Users\\Camilo\\IdeaProjects\\Entrega parcial - David Santos - Camilo Muñoz"));
             File file = fileChooser.showOpenDialog(stage);
+            try {
+                importClass.verifyFileHeader(file);
+            } catch (IOException | PersistenceException ioException) {
+                ioException.printStackTrace();
+            }
 
 
         });

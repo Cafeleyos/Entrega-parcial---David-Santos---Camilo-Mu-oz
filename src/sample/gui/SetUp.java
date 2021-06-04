@@ -8,15 +8,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import sample.logic.ValidPublicEmployees;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SetUp {
     protected TextField inputName, inputLastname, inputAge, inputReason, inputId;
     protected ComboBox<String> inputDepartment, inputSex, inputCondition, inputPosition;
     protected Label name, lastname, age, sex, department, condition, reason, id, position;
     public static final int NUMBER_OF_ITEMS = 9;
+    public static final String POSITION = "Posición";
+    public static final String NAME  = "Nombre";
+    public static final String LAST_NAME = "Apellido";
+    public static final String AGE = "Edad";
+    public static final String ID = "Identificación";
+    public static final String SEX = "Sexo";
+    public static final String DEPARTMENT = "Departamento";
+    public static final String CONDITION = "Condición";
+    public static final String REASON = "Razón";
 
     public SetUp() {
         initInputs();
@@ -133,16 +140,30 @@ public class SetUp {
 
     protected Map<Label, String> labelsList() {
         Map<Label, String> labels = new HashMap<>();
-        labels.put(position,"Posición");
-        labels.put(name,"Nombre");
-        labels.put(lastname,"Apellido");
-        labels.put(age,"Edad");
-        labels.put(id,"Identificación");
-        labels.put(sex,"Sexo");
-        labels.put(department,"Departamento");
-        labels.put(condition,"Condición");
-        labels.put(reason,"Razón");
+        labels.put(name, NAME);
+        labels.put(lastname,LAST_NAME);
+        labels.put(age,AGE);
+        labels.put(id,ID);
+        labels.put(sex,SEX);
+        labels.put(department,DEPARTMENT);
+        labels.put(condition,CONDITION);
+        labels.put(reason,REASON);
+        labels.put(position,POSITION);
 
         return labels;
+    }
+
+    public List<String> stringList() {
+        List<String> list = new ArrayList<>();
+        list.add(POSITION);
+        list.add(NAME);
+        list.add(LAST_NAME);
+        list.add(AGE);
+        list.add(ID);
+        list.add(SEX);
+        list.add(DEPARTMENT);
+        list.add(CONDITION);
+        list.add(REASON);
+        return list;
     }
 }
