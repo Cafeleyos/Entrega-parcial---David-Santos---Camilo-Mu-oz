@@ -11,6 +11,10 @@ import sample.logic.ValidPublicEmployees;
 
 import java.util.*;
 
+/**
+ * class that standardize the setups of text fields, combo boxes and labels. Also, gives
+ * util lists for automation
+ */
 public class SetUp {
     protected TextField inputName, inputLastname, inputAge, inputReason, inputId;
     protected ComboBox<String> inputDepartment, inputSex, inputCondition, inputPosition;
@@ -26,11 +30,17 @@ public class SetUp {
     public static final String CONDITION = "Condición";
     public static final String REASON = "Razón";
 
+    /**
+     * unique constructor of the class. It configures the elements.
+     */
     public SetUp() {
         initInputs();
         setUpInputs();
     }
-    
+
+    /**
+     * Calls for the setUp of the Combo boxes and labels.
+     */
     private void setUpInputs(){
         setUpLabels(labelsList());
         
@@ -48,6 +58,10 @@ public class SetUp {
 
     }
 
+    /**
+     * sets up a given combo Box with the valid departments
+     * @param comboBox for configuring
+     */
     private void setUpDepartmentsComboBox (ComboBox<String> comboBox) {
         ObservableList<String> list = FXCollections.observableArrayList();
         for (DepartmentsEnum c :DepartmentsEnum.values()){
@@ -59,6 +73,10 @@ public class SetUp {
         comboBox.setMinWidth(200);
     }
 
+    /**
+     * sets up a given combo Box with the sexes
+     * @param comboBox for configuring
+     */
     private void setUpSexComboBox (ComboBox<String> comboBox) {
         ObservableList<String> list = FXCollections.observableArrayList();
         list.addAll("Masculino", "Femenino");
@@ -68,6 +86,10 @@ public class SetUp {
         comboBox.setMinWidth(200);
     }
 
+    /**
+     * sets up a given combo Box with the valid conditions.
+     * @param comboBox for configuring
+     */
     private void setUpConditionComboBox (ComboBox<String> comboBox) {
         ObservableList<String> list = FXCollections.observableArrayList();
         list.addAll("Vivo", "Herido", "Muerto", "Desconocido");
@@ -77,6 +99,10 @@ public class SetUp {
         comboBox.setMinWidth(200);
     }
 
+    /**
+     * sets up a given combo Box with the valid stoppage positions.
+     * @param comboBox for configuring
+     */
     private void setUpPositionComboBox (ComboBox comboBox) {
         ObservableList<String> list = FXCollections.observableArrayList();
         list.add("Civil");
@@ -88,6 +114,10 @@ public class SetUp {
         comboBox.setMinWidth(200);
     }
 
+    /**
+     * standardizes the setup of the labels.
+     * @param map with the labels and its texts.
+     */
     protected void setUpLabels(Map<Label, String> map){
         for (Map.Entry<Label,String> e: map.entrySet()){
             e.getKey().setFont(DataScene.FONT);
@@ -95,6 +125,9 @@ public class SetUp {
         }
     }
 
+    /**
+     * Initialize the text fields, combo boxes and labels.
+     */
     private void initInputs() {
         //Text Fields
         inputName = new TextField();
@@ -121,6 +154,10 @@ public class SetUp {
         position = new Label();
     }
 
+    /**
+     * map of the labels and inputs used.
+     * @return map
+     */
     protected Map<Node, Node> listOfObjects () {
         Map<Node, Node> objectList = new LinkedHashMap<>();
         objectList.put(position, inputPosition);
@@ -135,6 +172,10 @@ public class SetUp {
         return objectList;
     }
 
+    /**
+     * map of the labels with their respective String name.
+     * @return map
+     */
     protected Map<Label, String> labelsList() {
         Map<Label, String> labels = new HashMap<>();
         labels.put(name, NAME);
@@ -150,6 +191,10 @@ public class SetUp {
         return labels;
     }
 
+    /**
+     * String list of the parameters used
+     * @return string list
+     */
     public List<String> stringList() {
         List<String> list = new ArrayList<>();
         list.add(POSITION);

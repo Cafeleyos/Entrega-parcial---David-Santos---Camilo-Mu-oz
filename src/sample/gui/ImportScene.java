@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class that allows importing a csv file for adding (if possible) its people to the database.
+ */
 public class ImportScene {
     private Button button;
     private Scene scene;
@@ -29,6 +32,11 @@ public class ImportScene {
     private Stage stage;
     private Label label, idsLabel;
 
+    /**
+     * unique constructor of the class. It initialize and shows the import stage.
+     * @param personaServices of the main scene
+     * @param ownerStage of the main scene
+     */
     public ImportScene(IPersonaServices personaServices, Stage ownerStage) {
         stage = new Stage();
         importClass = new Import(personaServices);
@@ -43,12 +51,18 @@ public class ImportScene {
         stage.showAndWait();
     }
 
+    /**
+     * Gives action to the element present in the scene.
+     */
     private void setUpBehavior() {
         button.setOnAction(e -> {
             stage.close();
         });
     }
 
+    /**
+     * Opens, stores and verifies a selected file.
+     */
     private void setUpInput() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("csv files","*.csv"));
@@ -63,6 +77,10 @@ public class ImportScene {
 
     }
 
+    /**
+     * Method that sets up the window that will be shown depending on the content of the given list.
+     * @param list of identifications
+     */
     private void windowConfig(List<String> list) {
         button = new Button();
         button.setText("Aceptar");
