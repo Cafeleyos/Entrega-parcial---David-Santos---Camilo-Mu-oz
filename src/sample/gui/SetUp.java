@@ -16,11 +16,11 @@ public class SetUp {
     protected TextField inputName, inputLastname, inputAge, inputReason, inputId;
     protected ComboBox<String> inputDepartment, inputSex, inputCondition, inputPosition;
     protected Label name, lastname, age, sex, department, condition, reason, id, position;
+    public static final int NUMBER_OF_ITEMS = 9;
 
-    protected SetUp() {
+    public SetUp() {
         initInputs();
         setUpInputs();
-        
     }
     
     private void setUpInputs(){

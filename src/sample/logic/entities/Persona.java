@@ -93,9 +93,10 @@ public class Persona extends Exportable implements Serializable {
     }
 
     @Override
-    public List<String> toListString() {
+    public List<String> toStringList() {
         List<String> result = new ArrayList<>();
 
+        result.add(this.getPosition());
         result.add(this.name);
         result.add(this.lastName);
         result.add(String.valueOf(this.age));
@@ -110,7 +111,7 @@ public class Persona extends Exportable implements Serializable {
 
     @Override
     public String getHeader(Character separateCharacter) {
-        return "Nombre" + separateCharacter + "Apellido" + separateCharacter + "Edad" + separateCharacter + "Sexo" +
+        return "Posición"+ separateCharacter+ "Nombre" + separateCharacter + "Apellido" + separateCharacter + "Edad" + separateCharacter + "Sexo" +
                 separateCharacter + "Departamento" + separateCharacter + "Condición" + separateCharacter + "Razón" +
                 separateCharacter + "Cédula";
     }

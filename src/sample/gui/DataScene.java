@@ -1,5 +1,6 @@
 package sample.gui;
 
+import com.sun.glass.ui.CommonDialogs;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -17,12 +18,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
 import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
 import sample.logic.services.implementation.PersonaServices;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +43,7 @@ public class DataScene extends Application {
 
     private MenuBar bar;
     private Map<String, MenuItem> menuItems;
+
 
     public static final Font FONT = new Font("DIALOG", 15);
     public static final Font FONT_TITLE = new Font("Tahoma", 20);
@@ -62,11 +67,41 @@ public class DataScene extends Application {
 
         menuItems.get("Add").setOnAction(e -> new AddScene(this.personaServices, stage));
 
+        //Update
+        table.setRowFactory(tw -> {
+            TableRow row = new TableRow();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())){
+                    new UpdateScene(this.personaServices,(Persona) row.getItem(),stage);
+                }
+            });
+            return row;
+        });
+
         menuItems.get("Update").setOnAction(e -> {
             if(table.getSelectionModel().getSelectedItem() != null) {
                 new UpdateScene(personaServices, table.getSelectionModel().getSelectedItem(), stage);
                 pane.getChildren().clear();
                 pane.add(table, 0, 0);
+            }
+        });
+
+        //Delete
+        dataScene.setOnKeyPressed(keyEvent -> {
+            switch (keyEvent.getCode()) {
+                case DELETE:
+                case BACK_SPACE:
+                    try {
+                        confirmationScene = new ConfirmationScene(stage, "Eliminar");
+                        if(confirmationScene.getConfirmation()) {
+                            personaServices.delete(table.getSelectionModel().getSelectedItem());
+                            pane.getChildren().clear();
+                            pane.add(table, 0, 0);
+                        }
+                    } catch (PersonaException e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         });
 
@@ -91,36 +126,16 @@ public class DataScene extends Application {
             }
         });
 
-        dataScene.setOnKeyPressed(keyEvent -> {
-            switch (keyEvent.getCode()) {
-                case DELETE:
-                case BACK_SPACE:
-                    try {
-                        confirmationScene = new ConfirmationScene(stage, "Eliminar");
-                        if(confirmationScene.getConfirmation()) {
-                            personaServices.delete(table.getSelectionModel().getSelectedItem());
-                            pane.getChildren().clear();
-                            pane.add(table, 0, 0);
-                        }
-                    } catch (PersonaException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-            }
-        });
-
-        //Update
-        table.setRowFactory(tw -> {
-            TableRow row = new TableRow();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (!row.isEmpty())){
-                    new UpdateScene(this.personaServices,(Persona) row.getItem(),stage);
-                }
-            });
-            return row;
-        });
-
         menuItems.get("Export").setOnAction(e -> new ExportScene(personaServices, stage));
+
+        menuItems.get("Import").setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new ExtensionFilter("csv files","*.csv"));
+            fileChooser.setInitialDirectory(new File("C:\\Users\\Camilo\\IdeaProjects\\Entrega parcial - David Santos - Camilo Muñoz"));
+            File file = fileChooser.showOpenDialog(stage);
+
+
+        });
     }
 
     public void setUp() {

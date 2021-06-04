@@ -98,8 +98,14 @@ public class PersonaServices implements IPersonaServices {
             throw new PersonaException(PersonaException.INVALID_PERSON);
         }
 
-        personasDataBase.save(persona, false);
-        this.personas.remove(persona);
+        try {
+            personasDataBase.save(persona, false);
+            this.personas.remove(persona);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         return true;
     }
