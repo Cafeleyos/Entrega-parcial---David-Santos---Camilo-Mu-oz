@@ -97,7 +97,7 @@ public class ConfirmationScene extends Stage {
         pane.add(confirmation, 0, 1);
         pane.add(cancel, 1, 1);
     }
-    
+
     public boolean getConfirmation() {
         return result;
     }
