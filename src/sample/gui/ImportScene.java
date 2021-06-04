@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
@@ -59,10 +60,11 @@ public class ImportScene {
     }
 
     private void windowConfig(List<String> list) {
+        button = new Button();
+        button.setText("Aceptar");
+        button.setPrefSize(70,30);
+
         if (list.isEmpty()) {
-            button = new Button();
-            button.setText("Aceptar");
-            button.setPrefSize(70,30);
 
             label = new Label();
             label.setText("¡Importación exitosa!");
@@ -74,23 +76,23 @@ public class ImportScene {
 
             scene = new Scene(vBox,200,100);;
         }
-        if (!list.isEmpty()){
-            button = new Button();
-            button.setText("Aceptar");
-            button.setPrefSize(70,30);
+        if (!list.isEmpty()){ ;
 
             label = new Label();
             label.setText("Los siguientes id's no fueron añadidos");
             label.setFont(new Font("Tahoma", 18));
+            
 
             idsLabel = new Label();
-            label.setText(list.toString());
+            idsLabel.setText(list.toString().replace('[',' ').replace(']',' '));
+            idsLabel.setFont(new Font("Tahoma", 15));
 
-            vBox.getChildren().addAll(label,button);
-            vBox.setSpacing(10);
+
+            vBox.getChildren().addAll(label,idsLabel,button);
+            vBox.setSpacing(20);
             vBox.setAlignment(Pos.CENTER);
 
-            scene = new Scene(vBox,200,100);;
+            scene = new Scene(vBox,400,200);;
         }
     }
 
