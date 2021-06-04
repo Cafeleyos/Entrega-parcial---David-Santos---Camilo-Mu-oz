@@ -18,6 +18,9 @@ import sample.logic.ValidPublicEmployees;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * Window that allows adding a person to the database.
+ */
 public class AddScene extends SetUp {
 
     private Button addButton, cancelButton;
@@ -31,6 +34,11 @@ public class AddScene extends SetUp {
     private final IPersonaServices personaServices;
     private ConfirmationScene confirmationScene;
 
+    /**
+     * unique constructor of the class. It initialize and shows the adding stage.
+     * @param personaServices of the main scene
+     * @param ownerStage of the main scene
+     */
     public AddScene(IPersonaServices personaServices, Stage ownerStage) {
         super();
         stage = new Stage();
@@ -46,6 +54,9 @@ public class AddScene extends SetUp {
         stage.showAndWait();
     }
 
+    /**
+     * Gives action to all the elements present in the scene.
+     */
     public void behavior() {
         addButton.setOnAction(e -> {
             confirmationScene = new ConfirmationScene(stage, "Agregar");
@@ -85,6 +96,9 @@ public class AddScene extends SetUp {
         cancelButton.setOnAction(e -> stage.close());
     }
 
+    /**
+     * Method that calls other sub methods for setting up the update stage and scene.
+     */
     public void setUp() {
         setUpInputs();
         setUpButtons();
@@ -94,9 +108,10 @@ public class AddScene extends SetUp {
         addScene = new Scene(layout, 400, 550);
     }
 
+    /**
+     *  sets up all the PrompTexts of the text fields present in the class
+     */
     public void setUpInputs () {
-        //labels
-        setUpLabels(labelsList());
 
         Map<Label, String> list = labelsList();
 
@@ -116,7 +131,10 @@ public class AddScene extends SetUp {
         inputId.setPromptText(list.get(id));
     }
 
-
+    /**
+     * Creates and sets up the Grid pane that contains the text fields and
+     * combo boxes.
+     */
     public void setUpPane() {
         pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
@@ -135,6 +153,9 @@ public class AddScene extends SetUp {
             counter++;
         }
     }
+    /**
+     * sets up all the buttons.
+     */
     public void setUpButtons () {
         buttonsBox = new GridPane();
         buttonsBox.setHgap(30);
@@ -148,6 +169,9 @@ public class AddScene extends SetUp {
         buttonsBox.add(addButton,0,0);
         buttonsBox.add(cancelButton,1,0);
     }
+    /**
+     * sets up the layout of the scene.
+     */
     private void setUpLayout(){
         layout = new VBox();
         layout.setPadding(new Insets(20));

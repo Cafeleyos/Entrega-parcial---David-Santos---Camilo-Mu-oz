@@ -18,7 +18,11 @@ import sample.logic.services.PersonaException;
 
 import java.util.Map;
 
+/**
+ * Gives the space for modifying a selected person in the database.
+ */
 public class UpdateScene extends SetUp{
+
     private Button updateButton, cancelButton;
     private GridPane buttonsBox;
     private Persona persona;
@@ -26,11 +30,16 @@ public class UpdateScene extends SetUp{
     private Scene addScene;
     private GridPane pane;
     private String uPosition, uName, uLastName, uAge, uId,uSex,uDepartment, uCondition,uReason;
-
     private static final Text TITLE = new Text("Edición");
-
     private final IPersonaServices personaServices;
     private VBox layout;
+
+    /**
+     * Unique constructor of the class, it initialize and shows the update stage.
+     * @param personaServices of the main scene
+     * @param persona to update
+     * @param ownerStage stage of the main scene
+     */
 
     public UpdateScene(IPersonaServices personaServices, Persona persona, Stage ownerStage) {
         super();
@@ -45,10 +54,11 @@ public class UpdateScene extends SetUp{
         stage.initOwner(ownerStage);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
-
-
     }
 
+    /**
+     * Method that calls other sub methods for setting up the update stage and scene.
+     */
     public void setUp() {
         setUpPersonaValues();
         setUpInputs();
@@ -59,6 +69,9 @@ public class UpdateScene extends SetUp{
         addScene = new Scene(layout, 400, 550);
     }
 
+    /**
+     * Gives action to all the elements present in the scene.
+     */
     public void behavior() {
         updateButton.setOnAction(e -> {
             //comboBoxes
@@ -108,10 +121,13 @@ public class UpdateScene extends SetUp{
             }
 
         });
+
+        cancelButton.setOnAction(e -> stage.close());
     }
 
-
-
+    /**
+     * Stores the persona attributes in local variables
+     */
     private void setUpPersonaValues(){
         uName = persona.getName();
         uLastName = persona.getLastName();
@@ -124,7 +140,10 @@ public class UpdateScene extends SetUp{
         uPosition = persona.getPosition();
     }
 
-    
+    /**
+     * Gives custom titles for the text fields and an initial position for the
+     * combo boxes.
+     */
     public void setUpInputs () {
 
         //Posición
@@ -154,7 +173,11 @@ public class UpdateScene extends SetUp{
         //Identificación
         inputId.setPromptText(persona.getId());
     }
-    
+
+    /**
+     * Creates and sets up the Grid pane that contains the text fields and
+     * combo boxes.
+     */
     public void setUpPane() {
         pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
@@ -174,7 +197,10 @@ public class UpdateScene extends SetUp{
         }
 
     }
-    
+
+    /**
+     * sets up all the buttons.
+     */
     public void setUpButtons () {
         buttonsBox = new GridPane();
         buttonsBox.setHgap(30);
@@ -188,7 +214,10 @@ public class UpdateScene extends SetUp{
         buttonsBox.add(updateButton,0,0);
         buttonsBox.add(cancelButton,1,0);
     }
-    
+
+    /**
+     * sets up the layout of the scene.
+     */
     private void setUpLayout(){
         layout = new VBox();
         layout.setPadding(new Insets(20));
