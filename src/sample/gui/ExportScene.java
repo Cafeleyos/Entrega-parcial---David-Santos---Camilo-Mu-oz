@@ -16,12 +16,15 @@ import sample.logic.services.implementation.PersonaServices;
 
 import java.io.FileNotFoundException;
 
+/**
+ * Window that allows exporting the database to an specific type of file.
+ */
 public class ExportScene extends Stage {
 
     private Scene exportScene;
     private final Stage STAGE;
 
-    public static final Text TEXT = new Text("Elija una Opción");
+    public static final Text TEXT = new Text("Seleccione la extensión");
 
     private final ComboBox<String> EXPORTABLE = new ComboBox<>();
     private Character character;
@@ -31,6 +34,11 @@ public class ExportScene extends Stage {
 
     private IPersonaServices personaServices;
 
+    /**
+     * unique constructor of the class. It initialize and shows the export stage.
+     * @param personaServices of the main scene
+     * @param ownerStage of the main scene
+     */
     public ExportScene(IPersonaServices personaServices, Stage ownerStage) {
         STAGE = new Stage();
         this.personaServices = personaServices;
@@ -45,19 +53,26 @@ public class ExportScene extends Stage {
         STAGE.showAndWait();
     }
 
+    /**
+     * Method that calls other sub methods for setting up the export stage and scene.
+     */
     public void setUp() {
         setUpButton();
         setUpComboBox(EXPORTABLE);
         setUpPane();
 
         VBox vBox = new VBox();
+        vBox.setSpacing(15);
         vBox.getChildren().addAll(TEXT, EXPORTABLE, pane);
         TEXT.setFont(DataScene.FONT_TITLE);
         vBox.setAlignment(Pos.CENTER);
 
-        exportScene = new Scene(vBox, 400, 200);
+        exportScene = new Scene(vBox, 300, 170);
     }
 
+    /**
+     * Gives action to all the elements present in the scene.
+     */
     public void behavior() {
         personaServices = new PersonaServices();
 
@@ -78,24 +93,34 @@ public class ExportScene extends Stage {
         cancel.setOnAction(e -> STAGE.close());
     }
 
+    /**
+     * Creates and sets up the Grid pane that contains the buttons
+     */
     public void setUpPane() {
         pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
         pane.setHgap(10);
-        pane.setVgap(10);
+        pane.setVgap(3);
 
         pane.add(confirmation, 0, 2);
         pane.add(cancel, 1, 2);
     }
 
+    /**
+     * sets up all the buttons.
+     */
     public void setUpButton() {
-        confirmation = new Button("Aceptar");
+        confirmation = new Button("Exportar");
         confirmation.setPrefSize(100, 30);
 
         cancel = new Button("Cancelar");
         cancel.setPrefSize(100, 30);
     }
 
+    /**
+     * It sets up the comboBox of the file extensions.
+     * @param comboBox to configure
+     */
     public void setUpComboBox(ComboBox<String> comboBox) {
         ObservableList<String> list = FXCollections.observableArrayList();
         list.addAll("CSV", "PCS", "BSC");

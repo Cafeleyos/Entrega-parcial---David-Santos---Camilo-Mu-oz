@@ -10,6 +10,9 @@ import javafx.scene.control.*;
 import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
 
+/**
+ * Window that allows deleting an specific person given its ID.
+ */
 public class DeleteScene extends Stage {
 
     private final Stage STAGE;
@@ -25,6 +28,11 @@ public class DeleteScene extends Stage {
     private GridPane pane;
     private static final Text TITLE = new Text("Eliminar una Persona");
 
+    /**
+     * unique constructor of the class. It initialize and shows the delete stage.
+     * @param personaServices of the main scene
+     * @param ownerStage of the main scene
+     */
     public DeleteScene(IPersonaServices personaServices, Stage ownerStage) {
         STAGE = new Stage();
         this.personaServices = personaServices;
@@ -38,7 +46,9 @@ public class DeleteScene extends Stage {
         STAGE.setScene(deleteScene);
         STAGE.showAndWait();
     }
-
+    /**
+     * Method that calls other sub methods for setting up the delete stage and scene.
+     */
     public void setUp() {
         setUpInputs();
         setUpButton();
@@ -47,6 +57,9 @@ public class DeleteScene extends Stage {
         deleteScene = new Scene(pane, 400, 150);
     }
 
+    /**
+     * Gives action to all the elements present in the scene.
+     */
     public void behavior() {
 
         delete.setOnAction(e -> {
@@ -65,6 +78,9 @@ public class DeleteScene extends Stage {
         cancel.setOnAction(e -> STAGE.close());
     }
 
+    /**
+     * sets up all the buttons.
+     */
     public void setUpButton() {
         delete = new Button("Borrar");
         delete.setPrefSize(100, 30);
@@ -73,6 +89,9 @@ public class DeleteScene extends Stage {
         cancel.setPrefSize(100, 30);
     }
 
+    /**
+     * Creates and sets up the Grid pane that contains the labels, textFields and buttons
+     */
     public void setUpPane() {
         pane = new GridPane();
 
@@ -91,11 +110,14 @@ public class DeleteScene extends Stage {
         pane.add(cancel, 1, 2);
     }
 
+    /**
+     *  sets up the label and the textField
+     */
     public void setUpInputs() {
-        id = new Label("Cédula");
+        id = new Label("Identificación");
         id.setFont(DataScene.FONT);
-        id.setText("Cédula:");
+        id.setText("Identificación:");
         inputId = new TextField();
-        inputId.setPromptText("Cédula");
+        inputId.setPromptText("Identificación");
     }
 }
