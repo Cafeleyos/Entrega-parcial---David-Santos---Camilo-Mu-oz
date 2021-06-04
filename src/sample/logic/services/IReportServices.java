@@ -11,6 +11,5 @@ public interface IReportServices {
     Report getReportByMayorDepartment();
     Report getReportBySex();
     Report getReportByPositionCivil();
-    Report getReportByPublicEmployeeDeaths();
-    Report getReportByCivilDeaths();
+    Report getReportByDeaths(boolean isCivil);
 }

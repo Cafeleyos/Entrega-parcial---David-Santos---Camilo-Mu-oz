@@ -155,6 +155,7 @@ public class DataScene extends Application {
     public void setUpMenu() {
         Menu fileMenu = new Menu("Archivos");
         Menu editMenu = new Menu("Editar");
+        Menu resumenMenu = new Menu("Resumen");
         Menu aboutMenu = new Menu("Acerca de");
 
         menuItems = new HashMap<>();
@@ -165,11 +166,12 @@ public class DataScene extends Application {
         menuItems.put("Delete", new MenuItem("Eliminar"));
         menuItems.put("Report", new MenuItem("Reporte"));
 
-        fileMenu.getItems().addAll(menuItems.get("Report"), menuItems.get("Import"), menuItems.get("Export"));
+        fileMenu.getItems().addAll(menuItems.get("Import"), menuItems.get("Export"));
         editMenu.getItems().addAll(menuItems.get("Add"), menuItems.get("Update"), menuItems.get("Delete"));
+        resumenMenu.getItems().add(menuItems.get("Report"));
 
         bar = new MenuBar();
-        bar.getMenus().addAll(fileMenu, editMenu, aboutMenu);
+        bar.getMenus().addAll(fileMenu, editMenu, resumenMenu, aboutMenu);
     }
 
     public void setUpTable() {

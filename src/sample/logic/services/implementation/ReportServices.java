@@ -96,33 +96,29 @@ public class ReportServices implements IReportServices {
         report.setCount(report.getCount()/(personas.size()-report.getCount()));
 
         return report;
-
     }
 
     @Override
-    public Report getReportByPublicEmployeeDeaths() {
-        Report report = new Report("publicemployeedeaths", 0, "Cantidad de Muertes\nde Empleados Públicos");
-        List<Persona> personas = personaServices.getAll();
-
-        for(Persona p : personas) {
-            if(!p.getPosition().equals("Civil") && p.getCondition().equals("Muerto")) {
-                report.incrementCount();
-            }
-        }
-
-        return report;
-    }
-
-    @Override
-    public Report getReportByCivilDeaths() {
+    public Report getReportByDeaths(boolean isCivil) {
         Report report = new Report("deaths", 0, "Cantidad de Civiles\nMuertos en el Paro");
         List<Persona> personas = personaServices.getAll();
 
-        for(Persona p : personas) {
-            if(p.getPosition().equals("Civil") && p.getCondition().equals("Muerto")) {
-                report.incrementCount();
+        if(isCivil) {
+            for(Persona p : personas) {
+                if(p.getPosition().equals("Civil") && p.getCondition().equals("Muerto")) {
+                    report.incrementCount();
+                }
             }
         }
+        else {
+            report.setDescription("Cantidad de Muertes de\nEmpleados Públicos");
+            for(Persona p : personas) {
+                if(!p.getPosition().equals("Civil") && p.getCondition().equals("Muerto")) {
+                    report.incrementCount();
+                }
+            }
+        }
+
 
         return report;
     }

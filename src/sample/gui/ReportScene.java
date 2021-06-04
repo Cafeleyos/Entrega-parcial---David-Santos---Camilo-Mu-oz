@@ -23,8 +23,8 @@ public class ReportScene {
     private Scene reportScene;
     private Stage stage;
 
-    private Text titleAge, titleSex, titlePosition, titleDeaths;
-    private Label age, sex, position, deaths;
+    private Text titleAge, titleSex, titlePosition, titleCivilDeaths, titlePublicEmployeesDeaths;
+    private Label age, sex, position, civilDeaths, publicEmployeesDeaths;
 
     private GridPane pane;
     private static final String SPACE = ("              \n");
@@ -83,12 +83,19 @@ public class ReportScene {
         titlePosition.setText(reportServices.getReportByPositionCivil().getDescription());
         titlePosition.setFont(DataScene.FONT);
 
-        deaths = new Label();
-        deaths.setText(String.valueOf((int) reportServices.getReportByCivilDeaths().getCount()));
-        deaths.setFont(DataScene.FONT_TITLE);
-        titleDeaths = new Text();
-        titleDeaths.setText(reportServices.getReportByCivilDeaths().getDescription());
-        titleDeaths.setFont(DataScene.FONT);
+        civilDeaths = new Label();
+        civilDeaths.setText(String.valueOf((int) reportServices.getReportByDeaths(true).getCount()));
+        civilDeaths.setFont(DataScene.FONT_TITLE);
+        titleCivilDeaths = new Text();
+        titleCivilDeaths.setText(reportServices.getReportByDeaths(true).getDescription());
+        titleCivilDeaths.setFont(DataScene.FONT);
+
+        publicEmployeesDeaths = new Label();
+        publicEmployeesDeaths.setText(String.valueOf((int) reportServices.getReportByDeaths(false).getCount()));
+        publicEmployeesDeaths.setFont(DataScene.FONT_TITLE);
+        titlePublicEmployeesDeaths = new Text();
+        titlePublicEmployeesDeaths.setText(reportServices.getReportByDeaths(false).getDescription());
+        titlePublicEmployeesDeaths.setFont(DataScene.FONT);
     }
 
     private void setUpPane() {
@@ -110,8 +117,11 @@ public class ReportScene {
 
         pane.add(new Text(SPACE), 0, 2);
 
-        pane.add(deaths, 0, 3);
-        pane.add(titleDeaths, 0, 4);
+        pane.add(civilDeaths, 0, 3);
+        pane.add(titleCivilDeaths, 0, 4);
+
+        pane.add(publicEmployeesDeaths, 2, 3);
+        pane.add(titlePublicEmployeesDeaths, 2, 4);
     }
 
     public void setUpTable() {
