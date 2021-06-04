@@ -23,6 +23,7 @@ import sample.logic.services.implementation.PersonaServices;
 
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * Main scene of where all the information is reported.
  */
@@ -31,6 +32,7 @@ public class DataScene extends Application {
     private TableView<Persona> table;
     private Scene dataScene;
     private Stage stage;
+
     private IPersonaServices personaServices;
     private ConfirmationScene confirmationScene;
 
