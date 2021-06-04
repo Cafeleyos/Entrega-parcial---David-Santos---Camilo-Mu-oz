@@ -8,22 +8,31 @@ import sample.logic.services.IReportServices;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
+/**
+ * Class that generates different types of reports.
+ */
 public class ReportServices implements IReportServices {
 
     private IPersonaServices personaServices;
 
+    /**
+     * Initialize the class and stores the given personaServices
+     */
     public ReportServices(IPersonaServices personaServices) {
         this.personaServices = personaServices;
     }
 
+    /**
+     * Counts the total victims per department in the database
+     * @return map of departments and reports.
+     */
     @Override
     public Map<String, Report> getReportByDepartment() {
         List<Persona> personas = personaServices.getAll();
         Map<String, Report> reportMap = new HashMap<>();
 
         for(DepartmentsEnum departments : DepartmentsEnum.values()) {
-            reportMap.put(departments.toString(), new Report(departments.toString(), 0, "Departamento con más\nVictimas"));
+            reportMap.put(departments.toString(), new Report(departments.toString(), 0, "Conteo de visctimas por departamento"));
         }
         for(Persona p : personas) {
             reportMap.get(p.getDepartment()).incrementCount();
@@ -32,6 +41,11 @@ public class ReportServices implements IReportServices {
         return reportMap;
     }
 
+    /**
+     * Generates a report of the total victims that are adults or under-age
+     * @param isMenor if true, calculates under-age. if false, calculates adults
+     * @return report
+     */
     @Override
     public Report getReportByAge(boolean isMenor) {
         List<Persona> personas = personaServices.getAll();
@@ -58,6 +72,10 @@ public class ReportServices implements IReportServices {
         return report;
     }
 
+    /**
+     * Generates a report for the department with the greatest amount of victims.
+     * @return report
+     */
     @Override
     public Report getReportByMayorDepartment() {
         Report report = new Report("department", 0, "Departamento con más\nVictimas");
@@ -78,6 +96,11 @@ public class ReportServices implements IReportServices {
         return report;
     }
 
+    /**
+     * Generates a report of the percentage of Male/ Female of the database
+     * @param isMen true if its male, false if its female
+     * @return report
+     */
     @Override
     public Report getReportBySex(boolean isMen) {
         Report report = new Report("sex", 0, "Victimas de Sexo\nMasculino");
@@ -104,6 +127,11 @@ public class ReportServices implements IReportServices {
         return report;
     }
 
+    /**
+     * Generates a report of the percentage of victims that are civilians or public employees
+     * @param isCivil true if its civil; false if its public employee
+     * @return report
+     */
     @Override
     public Report getReportByPosition(boolean isCivil) {
         Report report = new Report("civil", 0, "Civiles que son\nVictimas");
@@ -130,6 +158,11 @@ public class ReportServices implements IReportServices {
         return report;
     }
 
+    /**
+     * Generates a report of the total victims that are actually death
+     * @param isCivil true if its civil; false if its public employee
+     * @return report
+     */
     @Override
     public Report getReportByDeaths(boolean isCivil) {
         Report report = new Report("deaths", 0, "Civiles Muertos en el\nParo");
