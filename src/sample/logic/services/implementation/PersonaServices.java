@@ -16,11 +16,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that manipulates all the people created.
+ */
 public class PersonaServices implements IPersonaServices {
     private IPersonaPersistence personasDataBase;
     private List<Persona>personas;
     private IExport export;
 
+    /**
+     * Creates an instance of PersonaServices. It links the persistence list with the local one.
+     */
     public PersonaServices() {
         personas = FXCollections.observableArrayList();
         try {
@@ -32,6 +38,12 @@ public class PersonaServices implements IPersonaServices {
         }
     }
 
+    /**
+     * Given a person id, then it returns such person.
+     * @param id for searching
+     * @return required person
+     * @throws PersonaException if the person does´nt exist
+     */
     @Override
     public Persona findIndex(String id) throws PersonaException {
         Persona result = null;
@@ -55,11 +67,20 @@ public class PersonaServices implements IPersonaServices {
 
     }
 
+    /**
+     * @return the local personas list
+     */
     @Override
     public List<Persona> getAll() {
         return personas;
     }
 
+    /**
+     * Introduces the given person to the local list and to the persistence.
+     * @param persona to insert
+     * @return persona added
+     * @throws PersonaException if the person to add has something wrong
+     */
     @Override
     public Persona insert(Persona persona) throws IOException, PersonaException {
         boolean create = true;
@@ -92,12 +113,17 @@ public class PersonaServices implements IPersonaServices {
 
     }
 
+    /**
+     * Deletes a given person from the local list and from the persistence.
+     * @param persona to delete
+     * @return if it was deleted
+     * @throws PersonaException if there was something wrong with the person
+     */
     @Override
     public boolean delete(Persona persona) throws PersonaException {
-        if(!this.personas.remove(persona)) {
+        if(!this.personas.contains(persona)) {
             throw new PersonaException(PersonaException.INVALID_PERSON);
         }
-
         try {
             personasDataBase.save(persona, false);
             this.personas.remove(persona);
@@ -105,11 +131,13 @@ public class PersonaServices implements IPersonaServices {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return true;
     }
 
+    /**
+     * Adds all the people to an exportable list and calls for its exportation.
+     * @param characterSeparate of the extension
+     */
     @Override
     public void export(Character characterSeparate) throws FileNotFoundException {
         List<Exportable> exportableList = new ArrayList<>();
