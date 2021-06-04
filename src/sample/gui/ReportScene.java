@@ -23,8 +23,9 @@ public class ReportScene {
     private Scene reportScene;
     private Stage stage;
 
-    private Text titleAge, titleSex, titlePosition, titleCivilDeaths, titlePublicEmployeesDeaths, titleDepartment;
-    private Label age, sex, position, civilDeaths, publicEmployeesDeaths, department;
+    private Text titleAgeMenor, titleAgeMayor, titleSexMan, titleSexWoman, titleCivil, titlePublicEmployees, titleCivilDeaths,
+            titlePublicEmployeesDeaths, titleDepartment;
+    private Label ageMenor, ageMayor, sexMan, sexWoman, civil, publicEmployees, civilDeaths, publicEmployeesDeaths, department;
 
     private GridPane pane;
     private static final String SPACE = ("              \n");
@@ -62,26 +63,47 @@ public class ReportScene {
     }
 
     private void setUpText() {
-        age = new Label();
-        age.setText(String.valueOf((int) reportServices.getReportByAge().getCount()) + "%");
-        age.setFont(DataScene.FONT_TITLE);
-        titleAge = new Text();
-        titleAge.setText(reportServices.getReportByAge().getDescription());
-        titleAge.setFont(DataScene.FONT);
+        ageMenor = new Label();
+        ageMenor.setText((int) reportServices.getReportByAge(true).getCount() + "%");
+        ageMenor.setFont(DataScene.FONT_TITLE);
+        titleAgeMenor = new Text();
+        titleAgeMenor.setText(reportServices.getReportByAge(true).getDescription());
+        titleAgeMenor.setFont(DataScene.FONT);
 
-        sex = new Label();
-        sex.setText(String.valueOf(reportServices.getReportBySex().getCount()));
-        sex.setFont(DataScene.FONT_TITLE);
-        titleSex = new Text();
-        titleSex.setText(reportServices.getReportBySex().getDescription());
-        titleSex.setFont(DataScene.FONT);
+        ageMayor = new Label();
+        ageMayor.setText((int) reportServices.getReportByAge(false).getCount() + "%");
+        ageMayor.setFont(DataScene.FONT_TITLE);
+        titleAgeMayor = new Text();
+        titleAgeMayor.setText(reportServices.getReportByAge(false).getDescription());
+        titleAgeMayor.setFont(DataScene.FONT);
 
-        position = new Label();
-        position.setText(String.valueOf(reportServices.getReportByPositionCivil().getCount()));
-        position.setFont(DataScene.FONT_TITLE);
-        titlePosition = new Text();
-        titlePosition.setText(reportServices.getReportByPositionCivil().getDescription());
-        titlePosition.setFont(DataScene.FONT);
+        sexMan = new Label();
+        sexMan.setText((int) reportServices.getReportBySex(true).getCount() + "%");
+        sexMan.setFont(DataScene.FONT_TITLE);
+        titleSexMan = new Text();
+        titleSexMan.setText(reportServices.getReportBySex(true).getDescription());
+        titleSexMan.setFont(DataScene.FONT);
+
+        sexWoman = new Label();
+        sexWoman.setText((int) reportServices.getReportBySex(false).getCount() + "%");
+        sexWoman.setFont(DataScene.FONT_TITLE);
+        titleSexWoman = new Text();
+        titleSexWoman.setText(reportServices.getReportBySex(false).getDescription());
+        titleSexWoman.setFont(DataScene.FONT);
+
+        civil = new Label();
+        civil.setText((int) reportServices.getReportByPosition(true).getCount() + "%");
+        civil.setFont(DataScene.FONT_TITLE);
+        titleCivil = new Text();
+        titleCivil.setText(reportServices.getReportByPosition(true).getDescription());
+        titleCivil.setFont(DataScene.FONT);
+
+        publicEmployees = new Label();
+        publicEmployees.setText((int) reportServices.getReportByPosition(false).getCount() + "%");
+        publicEmployees.setFont(DataScene.FONT_TITLE);
+        titlePublicEmployees = new Text();
+        titlePublicEmployees.setText(reportServices.getReportByPosition(false).getDescription());
+        titlePublicEmployees.setFont(DataScene.FONT);
 
         civilDeaths = new Label();
         civilDeaths.setText(String.valueOf((int) reportServices.getReportByDeaths(true).getCount()));
@@ -109,29 +131,42 @@ public class ReportScene {
         pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
 
-        pane.add(age, 0, 0);
-        pane.add(titleAge, 0, 1);
+        pane.add(ageMenor, 0, 0);
+        pane.add(titleAgeMenor, 0, 1);
 
-        pane.add(new Text(SPACE),1, 0);
+        pane.add(new Text(SPACE), 1, 0);
 
-        pane.add(sex, 2, 0);
-        pane.add(titleSex, 2, 1);
+        pane.add(ageMayor, 2, 0);
+        pane.add(titleAgeMayor, 2, 1);
 
-        pane.add(new Text(SPACE),3, 0);
+        pane.add(new Text(SPACE), 3, 0);
 
-        pane.add(position, 4, 0);
-        pane.add(titlePosition, 4, 1);
+        pane.add(sexMan, 4, 0);
+        pane.add(titleSexMan, 4, 1);
+
+        pane.add(new Text(SPACE), 5, 0);
+
+        pane.add(sexWoman, 6, 0);
+        pane.add(titleSexWoman, 6, 1);
 
         pane.add(new Text(SPACE), 0, 2);
 
-        pane.add(civilDeaths, 0, 3);
-        pane.add(titleCivilDeaths, 0, 4);
+        pane.add(civil, 0, 3);
+        pane.add(titleCivil, 0, 4);
 
-        pane.add(publicEmployeesDeaths, 2, 3);
-        pane.add(titlePublicEmployeesDeaths, 2, 4);
+        pane.add(publicEmployees, 2, 3);
+        pane.add(titlePublicEmployees, 2, 4);
 
-        pane.add(department, 4, 3);
-        pane.add(titleDepartment, 4, 4);
+        pane.add(civilDeaths, 4, 3);
+        pane.add(titleCivilDeaths, 4, 4);
+
+        pane.add(publicEmployeesDeaths, 6, 3);
+        pane.add(titlePublicEmployeesDeaths, 6, 4);
+
+        pane.add(new Text(SPACE), 0, 5);
+
+        pane.add(department, 2, 6);
+        pane.add(titleDepartment, 2, 7);
     }
 
     public void setUpTable() {

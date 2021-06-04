@@ -33,14 +33,24 @@ public class ReportServices implements IReportServices {
     }
 
     @Override
-    public Report getReportByAge() {
+    public Report getReportByAge(boolean isMenor) {
         List<Persona> personas = personaServices.getAll();
-        Report report = new Report("edad", 0, "Porcentaje de Victimas\nMenores de Edad");
+        Report report = new Report("edad", 0, "Victimas Menores de\nEdad");
 
-        for(Persona p : personas) {
-            if(p.getAge() < 18) {
-                report.incrementCount();
+        if(isMenor) {
+            for(Persona p : personas) {
+                if(p.getAge() < 18) {
+                    report.incrementCount();
+                }
             }
+        }
+        else {
+            for(Persona p : personas) {
+                if(p.getAge() >= 18) {
+                    report.incrementCount();
+                }
+            }
+            report.setDescription("Victimas Mayores de\nEdad");
         }
 
         report.setCount(report.getCount()*100/personaServices.getAll().size());
@@ -69,47 +79,60 @@ public class ReportServices implements IReportServices {
     }
 
     @Override
-    public Report getReportBySex() {
-        Report report = new Report("sex", 0, "Relación entre\nHombres y Mujeres");
+    public Report getReportBySex(boolean isMen) {
+        Report report = new Report("sex", 0, "Victimas de Sexo\nMasculino");
         List<Persona> personas = personaServices.getAll();
 
-        for(Persona p : personas) {
-            if(p.getSex().equals("Masculino")) {
-                report.incrementCount();
+        if(isMen) {
+            for(Persona p : personas) {
+                if(p.getSex().equals("Masculino")) {
+                    report.incrementCount();
+                }
             }
         }
-        if(report.getCount() == personaServices.getAll().size()) {
-            report.setCount(personaServices.getAll().size());
-        }
-        else if(report.getCount() != 0) {
-            report.setCount(report.getCount()/(personas.size()-report.getCount()));
-        }
         else {
-            report.setCount(personas.size());
+            for(Persona p : personas) {
+                if(p.getSex().equals("Femenino")) {
+                    report.incrementCount();
+                }
+            }
+            report.setDescription("Victimas de Sexo\nFemenino");
         }
+
+        report.setCount(report.getCount()*100/personaServices.getAll().size());
 
         return report;
     }
 
     @Override
-    public Report getReportByPositionCivil() {
-        Report report = new Report("civil", 0, "Relación entre Civiles\ny Fuerzas Públicas");
+    public Report getReportByPosition(boolean isCivil) {
+        Report report = new Report("civil", 0, "Civiles que son\nVictimas");
         List<Persona> personas = personaServices.getAll();
 
-        for(Persona p : personas) {
-            if(p.getPosition().equals("Civil")) {
-                report.incrementCount();
+        if(isCivil) {
+            for(Persona p : personas) {
+                if(p.getPosition().equals("Civil")) {
+                    report.incrementCount();
+                }
+            }
+        }
+        else {
+            report.setDescription("Empleados Públicos\nque son Victimas");
+            for(Persona p : personas) {
+                if(!p.getPosition().equals("Civil")) {
+                    report.incrementCount();
+                }
             }
         }
 
-        report.setCount(report.getCount()/(personas.size()-report.getCount()));
+        report.setCount(report.getCount()*100/personaServices.getAll().size());
 
         return report;
     }
 
     @Override
     public Report getReportByDeaths(boolean isCivil) {
-        Report report = new Report("deaths", 0, "Cantidad de Civiles\nMuertos en el Paro");
+        Report report = new Report("deaths", 0, "Civiles Muertos en el\nParo");
         List<Persona> personas = personaServices.getAll();
 
         if(isCivil) {
@@ -120,7 +143,7 @@ public class ReportServices implements IReportServices {
             }
         }
         else {
-            report.setDescription("Cantidad de Muertes de\nEmpleados Públicos");
+            report.setDescription("Empleados Públicos\nMuertos en el Paro");
             for(Persona p : personas) {
                 if(!p.getPosition().equals("Civil") && p.getCondition().equals("Muerto")) {
                     report.incrementCount();
