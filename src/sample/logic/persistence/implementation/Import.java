@@ -7,22 +7,32 @@ import sample.logic.entities.PublicEmployee;
 import sample.logic.persistence.PersistenceException;
 import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
-import sample.logic.services.implementation.PersonaServices;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *  Class that allows to verify and save a people csv file into the dataBase
+ */
 public class Import {
     SetUp setUp;
     IPersonaServices personaServices;
 
+    /**
+     * Creates an instance of import.
+     * @param personaServices of the main scene.
+     */
     public Import(IPersonaServices personaServices) {
         setUp = new SetUp();
         this.personaServices = personaServices;
     }
 
+    /**
+     * method that verifies if the given csv file header corresponds to the header structure of the program.
+     * @param file to verify
+     * @throws PersistenceException if the header does not correspond.
+     */
     public void verifyFileHeader(File file) throws IOException, PersistenceException {
         BufferedReader br = new BufferedReader(new FileReader(file));
         String header =br.readLine();
@@ -36,6 +46,12 @@ public class Import {
         }
     }
 
+    /**
+     * Converts a csv valid file into people inside the database.
+     * @param file to convert
+     * @return the identifications of the people who were not added.
+     * @throws PersonaException if there is something wrong with the person
+     */
     public List<String>  fileToPersonas(File file) throws IOException, PersonaException {
         BufferedReader br = new BufferedReader(new FileReader(file));
         br.readLine();

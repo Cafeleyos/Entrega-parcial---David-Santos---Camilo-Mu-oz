@@ -10,9 +10,15 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
-
+/**
+ * Class that allows to export the database to a file with an specified extension.
+ */
 public class Export implements IExport {
-
+    /**
+     * Converts a given exportable list into a file with an specific name and extension
+     * @param exportableList to export
+     * @param characterSeparate of the extension
+     */
     @Override
     public void export(List<Exportable> exportableList, Character characterSeparate) throws FileNotFoundException {
         LocalDate now = LocalDate.now();
