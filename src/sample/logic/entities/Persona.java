@@ -21,6 +21,7 @@ public class Persona extends Exportable implements Serializable {
     protected String condition;
     protected String reason;
     protected String id;
+    protected String URL;
     public static final int MAX_ID_DIGITS = 10;
     public static final int MIN_ID_DIGITS = 8;
     public static final int MAX_AGE = 150;
@@ -31,7 +32,7 @@ public class Persona extends Exportable implements Serializable {
      * @param reason why it was a victim
      * @throws PersonaException if there is a wrong parameter
      */
-    public Persona(String name, String lastName, String age, String sex, String department, String condition, String reason, String id) throws PersonaException {
+    public Persona(String name, String lastName, String age, String sex, String department, String condition, String reason, String id, String URL) throws PersonaException {
         this.name = name;
         this.lastName = lastName;
         setAge(age);
@@ -40,6 +41,7 @@ public class Persona extends Exportable implements Serializable {
         this.condition = condition;
         this.reason = reason;
         setId(id);
+        this.URL = URL;
     }
 
     public String getName() {
@@ -66,6 +68,10 @@ public class Persona extends Exportable implements Serializable {
 
     public String getId() {
         return this.id;
+    }
+
+    public String getURL() {
+        return this.URL;
     }
 
     /**

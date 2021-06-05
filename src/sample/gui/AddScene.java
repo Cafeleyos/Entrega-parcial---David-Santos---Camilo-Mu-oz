@@ -4,10 +4,14 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.logic.entities.Persona;
@@ -15,7 +19,9 @@ import sample.logic.entities.PublicEmployee;
 import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
 import sample.logic.ValidPublicEmployees;
-import java.io.IOException;
+
+import java.io.*;
+import java.net.MalformedURLException;
 import java.util.Map;
 
 /**
@@ -23,13 +29,20 @@ import java.util.Map;
  */
 public class AddScene extends SetUp {
 
-    private Button addButton, cancelButton;
+    private Button addButton, cancelButton, addImages;
     private final Stage stage;
     private Scene addScene;
     private GridPane pane;
     private GridPane buttonsBox;
     private VBox layout;
     private static final Text TITLE = new Text("Añadir");
+
+    private FileInputStream fileInputStream;
+    private Image image;
+    private FileChooser fileChooser = new FileChooser();
+    private File file;
+    private ImageView imageView;
+    //private BufferedReader bufferedReader = new BufferedReader(new FileReader());
 
     private final IPersonaServices personaServices;
     private ConfirmationScene confirmationScene;
@@ -73,12 +86,12 @@ public class AddScene extends SetUp {
                     if (!isPublicEmployee) {
                         Persona persona = new Persona(inputName.getText(), inputLastname.getText(), inputAge.getText(),
                                 inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
-                                inputId.getText());
+                                inputId.getText(), String.valueOf(file.toURI().toURL()));
                         personaServices.insert(persona);
                     } else {
                         PublicEmployee publicEmployee = new PublicEmployee(inputName.getText(), inputLastname.getText(), inputAge.getText(),
                                 inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
-                                inputId.getText(), inputPosition.getValue());
+                                inputId.getText(), inputPosition.getValue(), String.valueOf(file.toURI().toURL()));
                         personaServices.insert(publicEmployee);
                     }
                     inputId.clear();
@@ -86,11 +99,32 @@ public class AddScene extends SetUp {
                     inputAge.clear();
                     inputLastname.clear();
                     inputName.clear();
+                    pane.getChildren().clear();
+                    pane.add(TITLE,0,0);
+                    int counter = 1;
+                    Map<Node, Node> objectList = listOfObjects();
+                    for (Map.Entry<Node, Node> p : objectList.entrySet()) {
+                        pane.add(p.getKey(), 0, counter);
+                        pane.add(p.getValue(), 1, counter);
+                        counter++;
+                    }
 
                 } catch (IOException | PersonaException exception) {
                     exception.printStackTrace();
                 }
             }
+        });
+
+        addImages.setOnAction(e -> {
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("images files", "*.png", "*.PNG"));
+            file = fileChooser.showOpenDialog(stage);
+            try {
+                image = new Image(String.valueOf(file.toURI().toURL()));
+            } catch (MalformedURLException malformedURLException) {
+                malformedURLException.printStackTrace();
+            }
+            imageView = new ImageView(image);
+            buttonsBox.add(imageView, 1, 0);
         });
 
         cancelButton.setOnAction(e -> stage.close());
@@ -105,7 +139,11 @@ public class AddScene extends SetUp {
         setUpPane();
         setUpLayout();
 
-        addScene = new Scene(layout, 400, 550);
+        addScene = new Scene(layout, 1000, 850);
+    }
+
+    public void setUpInputImage() {
+
     }
 
     /**
@@ -163,11 +201,15 @@ public class AddScene extends SetUp {
         addButton = new Button("Añadir");
         addButton.setPrefSize(142,30);
 
+        addImages = new Button("Agregar Imagen...");
+        addImages.setPrefSize(142, 30);
+
         cancelButton = new Button("Cancelar");
         cancelButton.setPrefSize(142,30);
 
-        buttonsBox.add(addButton,0,0);
-        buttonsBox.add(cancelButton,1,0);
+        buttonsBox.add(addButton,0,1);
+        buttonsBox.add(cancelButton,1,1);
+        buttonsBox.add(addImages, 0, 0);
     }
     /**
      * sets up the layout of the scene.
@@ -177,6 +219,6 @@ public class AddScene extends SetUp {
         layout.setPadding(new Insets(20));
         layout.setSpacing(20);
 
-        layout.getChildren().addAll(pane,buttonsBox);
+        layout.getChildren().addAll(pane, buttonsBox);
     }
 }

@@ -10,6 +10,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -38,6 +40,9 @@ public class DataScene extends Application {
 
     private GridPane pane;
     private Text name;
+
+    private Image image;
+    private ImageView imageView;
 
     private MenuBar bar;
     private Map<String, MenuItem> menuItems;
@@ -124,7 +129,10 @@ public class DataScene extends Application {
                     if(table.getSelectionModel().getSelectedItem().getId().equals(p.getId())) {
                         name = new Text(table.getSelectionModel().getSelectedItem().toString());
                         name.setFont(FONT_TITLE);
-                        pane.add(name, 1, 0);
+                        image = new Image(table.getSelectionModel().getSelectedItem().getURL());
+                        imageView = new ImageView(image);
+                        pane.add(name, 2, 0);
+                        pane.add(imageView, 1, 0);
                     }
                 }
             }
@@ -153,7 +161,7 @@ public class DataScene extends Application {
         layout.setPadding(new Insets(10, 10, 10, 10));
         layout.getChildren().addAll(menuBar, pane);
 
-        dataScene = new Scene(layout, 950, 450);
+        dataScene = new Scene(layout, 1250, 450);
     }
 
     /**

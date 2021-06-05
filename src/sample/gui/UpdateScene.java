@@ -29,7 +29,7 @@ public class UpdateScene extends SetUp{
     private final Stage stage;
     private Scene addScene;
     private GridPane pane;
-    private String uPosition, uName, uLastName, uAge, uId,uSex,uDepartment, uCondition,uReason;
+    private String uPosition, uName, uLastName, uAge, uId,uSex,uDepartment, uCondition,uReason, uURL;
     private static final Text TITLE = new Text("Edición");
     private final IPersonaServices personaServices;
     private VBox layout;
@@ -110,10 +110,10 @@ public class UpdateScene extends SetUp{
             }
             try {
               if(!isPublicEmployee) {
-                  personaServices.modify(new Persona(uName, uLastName, uAge, uSex, uDepartment, uCondition, uReason, uId),persona);
+                  personaServices.modify(new Persona(uName, uLastName, uAge, uSex, uDepartment, uCondition, uReason, uId, uURL),persona);
               }
               if (isPublicEmployee){
-                  personaServices.modify(new PublicEmployee(uName, uLastName, uAge, uSex, uDepartment, uCondition, uReason, uId,uPosition),persona);
+                  personaServices.modify(new PublicEmployee(uName, uLastName, uAge, uSex, uDepartment, uCondition, uReason, uId,uPosition, uURL),persona);
               }
               stage.close();
             } catch (PersonaException personaException) {

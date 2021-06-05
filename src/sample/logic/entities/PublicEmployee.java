@@ -17,8 +17,8 @@ public class PublicEmployee extends Persona{
      * @param position where it works.
      * @throws PersonaException if there is a wrong parameter
      */
-    public PublicEmployee(String name, String lastName, String age, String sex, String department, String condition, String reason, String id, String position) throws PersonaException {
-        super(name, lastName, age, sex, department, condition, reason, id);
+    public PublicEmployee(String name, String lastName, String age, String sex, String department, String condition, String reason, String id, String position, String url) throws PersonaException {
+        super(name, lastName, age, sex, department, condition, reason, id, url);
         this.position = position;
     }
 

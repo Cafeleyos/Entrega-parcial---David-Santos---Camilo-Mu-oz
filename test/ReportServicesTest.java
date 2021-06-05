@@ -8,7 +8,7 @@ import sample.logic.services.implementation.PersonaServices;
 import sample.logic.services.implementation.ReportServices;
 
 import java.io.IOException;
-
+/*
 public class ReportServicesTest {
 
     private IPersonaServices personaServices = new PersonaServices();
@@ -148,3 +148,4 @@ public class ReportServicesTest {
         } catch (PersonaException ignored) {}
     }
 }
+*/
