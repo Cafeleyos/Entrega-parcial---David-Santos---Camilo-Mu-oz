@@ -99,16 +99,11 @@ public class AddScene extends SetUp {
                     inputAge.clear();
                     inputLastname.clear();
                     inputName.clear();
-                    pane.getChildren().clear();
+                    buttonsBox.getChildren().clear();
                     pane.add(TITLE,0,0);
-                    int counter = 1;
-                    Map<Node, Node> objectList = listOfObjects();
-                    for (Map.Entry<Node, Node> p : objectList.entrySet()) {
-                        pane.add(p.getKey(), 0, counter);
-                        pane.add(p.getValue(), 1, counter);
-                        counter++;
-                    }
-
+                    buttonsBox.add(addButton,0,1);
+                    buttonsBox.add(cancelButton,1,1);
+                    buttonsBox.add(addImages, 0, 0);
                 } catch (IOException | PersonaException exception) {
                     exception.printStackTrace();
                 }
