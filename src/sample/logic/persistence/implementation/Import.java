@@ -8,6 +8,7 @@ import sample.logic.persistence.PersistenceException;
 import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -72,11 +73,11 @@ public class Import {
 
             try {
                 if (!isPublicEmployee) {
-                    personaServices.insert(new Persona(list.get(0), list.get(1), list.get(2), list.get(3), list.get(4),
+                    personaServices.insert(new Persona(list.get(0), list.get(1),LocalDate.MAX, list.get(3), list.get(4),
                             list.get(5), list.get(6), list.get(7)));
                 }
                 else {
-                    personaServices.insert(new PublicEmployee(list.get(0), list.get(1), list.get(2), list.get(3), list.get(4),
+                    personaServices.insert(new PublicEmployee(list.get(0), list.get(1), LocalDate.MAX, list.get(3), list.get(4),
                             list.get(5), list.get(6), list.get(7), list.get(8)));
                 }
             } catch (PersonaException exception){

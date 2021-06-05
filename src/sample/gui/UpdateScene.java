@@ -16,6 +16,8 @@ import sample.logic.entities.PublicEmployee;
 import sample.logic.services.IPersonaServices;
 import sample.logic.services.PersonaException;
 
+import java.time.LocalDate;
+import java.time.chrono.Chronology;
 import java.util.Map;
 
 /**
@@ -29,10 +31,11 @@ public class UpdateScene extends SetUp{
     private final Stage stage;
     private Scene addScene;
     private GridPane pane;
-    private String uPosition, uName, uLastName, uAge, uId,uSex,uDepartment, uCondition,uReason;
+    private String uPosition, uName, uLastName, uId,uSex,uDepartment, uCondition,uReason;
     private static final Text TITLE = new Text("Edición");
     private final IPersonaServices personaServices;
     private VBox layout;
+    private int uAge;
 
     /**
      * Unique constructor of the class, it initialize and shows the update stage.
@@ -93,9 +96,9 @@ public class UpdateScene extends SetUp{
             if(!(inputLastname.getText().isEmpty())){
                 uLastName = inputLastname.getText();
             }
-            if(!(inputAge.getText().isEmpty())){
-                uAge = inputAge.getText();
-            }
+           // if(!(inputAge.getChronology().isEmpty())){
+           //     uAge = inputAge.getText();
+            //}
             if(!(inputId.getText().isEmpty())){
                 uId = inputId.getText();
             }
@@ -110,10 +113,10 @@ public class UpdateScene extends SetUp{
             }
             try {
               if(!isPublicEmployee) {
-                  personaServices.modify(new Persona(uName, uLastName, uAge, uSex, uDepartment, uCondition, uReason, uId),persona);
+                  personaServices.modify(new Persona(uName, uLastName, LocalDate.MAX, uSex, uDepartment, uCondition, uReason, uId),persona);
               }
               if (isPublicEmployee){
-                  personaServices.modify(new PublicEmployee(uName, uLastName, uAge, uSex, uDepartment, uCondition, uReason, uId,uPosition),persona);
+                  personaServices.modify(new PublicEmployee(uName, uLastName, LocalDate.MAX, uSex, uDepartment, uCondition, uReason, uId,uPosition),persona);
               }
               stage.close();
             } catch (PersonaException personaException) {
@@ -131,7 +134,7 @@ public class UpdateScene extends SetUp{
     private void setUpPersonaValues(){
         uName = persona.getName();
         uLastName = persona.getLastName();
-        uAge = Integer.toString(persona.getAge());
+        uAge = persona.getAge();
         uId = persona.getId();
         uReason = persona.getReason();
         uSex = persona.getSex();

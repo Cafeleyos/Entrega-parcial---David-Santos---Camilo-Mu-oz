@@ -2,6 +2,8 @@ package sample.logic.entities;
 
 import sample.logic.services.PersonaException;
 
+import java.time.LocalDate;
+import java.time.chrono.Chronology;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +19,8 @@ public class PublicEmployee extends Persona{
      * @param position where it works.
      * @throws PersonaException if there is a wrong parameter
      */
-    public PublicEmployee(String name, String lastName, String age, String sex, String department, String condition, String reason, String id, String position) throws PersonaException {
-        super(name, lastName, age, sex, department, condition, reason, id);
+    public PublicEmployee(String name, String lastName, LocalDate date, String sex, String department, String condition, String reason, String id, String position) throws PersonaException {
+        super(name, lastName, date, sex, department, condition, reason, id);
         this.position = position;
     }
 

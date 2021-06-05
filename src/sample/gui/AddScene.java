@@ -31,6 +31,7 @@ public class AddScene extends SetUp {
     private VBox layout;
     private static final Text TITLE = new Text("Añadir");
 
+
     private final IPersonaServices personaServices;
     private ConfirmationScene confirmationScene;
 
@@ -71,19 +72,18 @@ public class AddScene extends SetUp {
                         }
                     }
                     if (!isPublicEmployee) {
-                        Persona persona = new Persona(inputName.getText(), inputLastname.getText(), inputAge.getText(),
+                        Persona persona = new Persona(inputName.getText(), inputLastname.getText(), inputAge.getValue(),
                                 inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
                                 inputId.getText());
                         personaServices.insert(persona);
                     } else {
-                        PublicEmployee publicEmployee = new PublicEmployee(inputName.getText(), inputLastname.getText(), inputAge.getText(),
+                        PublicEmployee publicEmployee = new PublicEmployee(inputName.getText(), inputLastname.getText(), inputAge.getValue(),
                                 inputSex.getValue(), inputDepartment.getValue(), inputCondition.getValue(), inputReason.getText(),
                                 inputId.getText(), inputPosition.getValue());
                         personaServices.insert(publicEmployee);
                     }
                     inputId.clear();
                     inputReason.clear();
-                    inputAge.clear();
                     inputLastname.clear();
                     inputName.clear();
 
@@ -92,7 +92,7 @@ public class AddScene extends SetUp {
                 }
             }
         });
-
+;
         cancelButton.setOnAction(e -> stage.close());
     }
 
@@ -107,6 +107,7 @@ public class AddScene extends SetUp {
 
         addScene = new Scene(layout, 400, 550);
     }
+
 
     /**
      *  sets up all the PrompTexts of the text fields present in the class

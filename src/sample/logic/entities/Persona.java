@@ -1,10 +1,13 @@
 package sample.logic.entities;
 
 import javafx.scene.Node;
+import javafx.scene.control.DatePicker;
 import sample.gui.SetUp;
 import sample.logic.services.PersonaException;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.chrono.Chronology;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,10 +34,10 @@ public class Persona extends Exportable implements Serializable {
      * @param reason why it was a victim
      * @throws PersonaException if there is a wrong parameter
      */
-    public Persona(String name, String lastName, String age, String sex, String department, String condition, String reason, String id) throws PersonaException {
+    public Persona(String name, String lastName, LocalDate date, String sex, String department, String condition, String reason, String id) throws PersonaException {
         this.name = name;
         this.lastName = lastName;
-        setAge(age);
+        setAge(date);
         this.sex = sex;
         this.department = department;
         this.condition = condition;
@@ -70,19 +73,11 @@ public class Persona extends Exportable implements Serializable {
 
     /**
      * Method for setting the age that takes into account that the given one have a value between the min and max age.
-     * @param inputAge for setting
      * @throws PersonaException if the age is not valid
      */
-    private void setAge(String inputAge) throws PersonaException {
-        try {
-            int result = Integer.parseInt(inputAge);
-            if (result> MAX_AGE) throw new PersonaException(PersonaException.UPPER_AGE);
-            if (result< MIN_AGE) throw new PersonaException(PersonaException.UNDER_AGE);
-            this.age = result;
-        } catch (NumberFormatException e) {
-            throw new PersonaException(PersonaException.INVALID_CHARACTERS);
-        }
-
+    private void setAge(LocalDate date) throws PersonaException {
+        System.out.println(date);
+        System.out.println(date.getYear());
     }
 
     /**

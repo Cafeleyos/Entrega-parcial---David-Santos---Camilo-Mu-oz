@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import sample.logic.DepartmentsEnum;
@@ -16,7 +17,7 @@ import java.util.*;
  * util lists for automation
  */
 public class SetUp {
-    protected TextField inputName, inputLastname, inputAge, inputReason, inputId;
+    protected TextField inputName, inputLastname, inputReason, inputId;
     protected ComboBox<String> inputDepartment, inputSex, inputCondition, inputPosition;
     protected Label name, lastname, age, sex, department, condition, reason, id, position;
     public static final int NUMBER_OF_ITEMS = 9;
@@ -29,7 +30,7 @@ public class SetUp {
     public static final String DEPARTMENT = "Departamento";
     public static final String CONDITION = "Condición";
     public static final String REASON = "Razón";
-
+    protected DatePicker inputAge;
     /**
      * unique constructor of the class. It configures the elements.
      */
@@ -43,10 +44,10 @@ public class SetUp {
      */
     private void setUpInputs(){
         setUpLabels(labelsList());
-        
+
         //Posición
         setUpPositionComboBox(inputPosition);
-      
+
         //Sexo
         setUpSexComboBox(inputSex);
 
@@ -132,7 +133,6 @@ public class SetUp {
         //Text Fields
         inputName = new TextField();
         inputLastname = new TextField();
-        inputAge = new TextField();
         inputReason = new TextField();
         inputId = new TextField();
 
@@ -152,6 +152,8 @@ public class SetUp {
         reason = new Label();
         id = new Label();
         position = new Label();
+
+        inputAge = new DatePicker();
     }
 
     /**
@@ -169,6 +171,7 @@ public class SetUp {
         objectList.put(department, inputDepartment);
         objectList.put(condition, inputCondition);
         objectList.put(reason, inputReason);
+        objectList.put(reason, inputReason);
         return objectList;
     }
 
@@ -180,7 +183,7 @@ public class SetUp {
         Map<Label, String> labels = new HashMap<>();
         labels.put(name, NAME);
         labels.put(lastname,LAST_NAME);
-        labels.put(age,AGE);
+        labels.put(age,"Fecha de nacimiento");
         labels.put(id,ID);
         labels.put(sex,SEX);
         labels.put(department,DEPARTMENT);
