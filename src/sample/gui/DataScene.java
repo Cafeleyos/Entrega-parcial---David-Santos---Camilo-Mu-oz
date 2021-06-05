@@ -153,7 +153,7 @@ public class DataScene extends Application {
         layout.setPadding(new Insets(10, 10, 10, 10));
         layout.getChildren().addAll(menuBar, pane);
 
-        dataScene = new Scene(layout, 950, 450);
+        dataScene = new Scene(layout, 1100, 450);
     }
 
     /**
@@ -223,7 +223,7 @@ public class DataScene extends Application {
 
         table = new TableView<>();
         table.getColumns().addAll(nameColumn, lastNameColumn, idColumn, ageColumn);
-        table.setMaxWidth(600);
+        table.setMaxWidth(620);
     }
 
     public static void main(String[] args) {

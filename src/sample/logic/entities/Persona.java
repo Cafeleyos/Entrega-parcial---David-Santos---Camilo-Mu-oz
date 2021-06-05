@@ -45,6 +45,17 @@ public class Persona extends Exportable implements Serializable {
         setId(id);
     }
 
+    public Persona(String name, String lastName, int age, String sex, String department, String condition, String reason, String id) throws PersonaException {
+        this.name = name;
+        this.lastName = lastName;
+        setIntAge(age);
+        this.sex = sex;
+        this.department = department;
+        this.condition = condition;
+        this.reason = reason;
+        setId(id);
+    }
+
     public String getName() {
         return this.name;
     }
@@ -152,4 +163,21 @@ public class Persona extends Exportable implements Serializable {
                 separateCharacter + SetUp.DEPARTMENT + separateCharacter + SetUp.CONDITION + separateCharacter + SetUp.REASON +
                 separateCharacter + SetUp.ID + separateCharacter + SetUp.POSITION;
     }
+    public int calculateAge(LocalDate date) {
+        return LocalDate.now().getYear() - date.getYear();
+    }
+
+    public void setIntAge(int age) throws PersonaException {
+        if (age > 150) {
+            throw new PersonaException(PersonaException.UNDER_AGE);
+        }
+        if (age < 0) {
+            throw new PersonaException(PersonaException.UNDER_AGE);
+        }
+        if (age==0){
+            throw new PersonaException(PersonaException.ZERO_AGE);
+        }
+        this.age = age;
+    }
+
 }

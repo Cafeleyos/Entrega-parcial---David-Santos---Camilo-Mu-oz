@@ -24,6 +24,12 @@ public class PublicEmployee extends Persona{
         this.position = position;
     }
 
+    public PublicEmployee(String name, String lastName, int age, String sex, String department, String condition, String reason, String id, String position) throws PersonaException {
+        super(name, lastName, age, sex, department, condition, reason, id);
+        this.position = position;
+    }
+
+
     public String getPosition() {
         return this.position;
     }

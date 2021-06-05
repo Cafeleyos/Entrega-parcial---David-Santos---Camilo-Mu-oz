@@ -96,8 +96,9 @@ public class UpdateScene extends SetUp{
             if(!(inputLastname.getText().isEmpty())){
                 uLastName = inputLastname.getText();
             }
-           // if(!(inputAge.getChronology().isEmpty())){
-           //     uAge = inputAge.getText();
+           if(!(persona.calculateAge(inputAge.getValue()) == persona.getAge())) {
+               uAge = persona.calculateAge(inputAge.getValue());
+           }
             //}
             if(!(inputId.getText().isEmpty())){
                 uId = inputId.getText();
@@ -113,10 +114,10 @@ public class UpdateScene extends SetUp{
             }
             try {
               if(!isPublicEmployee) {
-                  personaServices.modify(new Persona(uName, uLastName, LocalDate.MAX, uSex, uDepartment, uCondition, uReason, uId),persona);
+                  personaServices.modify(new Persona(uName, uLastName, uAge, uSex, uDepartment, uCondition, uReason, uId),persona);
               }
               if (isPublicEmployee){
-                  personaServices.modify(new PublicEmployee(uName, uLastName, LocalDate.MAX, uSex, uDepartment, uCondition, uReason, uId,uPosition),persona);
+                  personaServices.modify(new PublicEmployee(uName, uLastName, uAge, uSex, uDepartment, uCondition, uReason, uId,uPosition),persona);
               }
               stage.close();
             } catch (PersonaException personaException) {
@@ -131,7 +132,7 @@ public class UpdateScene extends SetUp{
     /**
      * Stores the persona attributes in local variables
      */
-    private void setUpPersonaValues(){
+    private void setUpPersonaValues() {
         uName = persona.getName();
         uLastName = persona.getLastName();
         uAge = persona.getAge();
