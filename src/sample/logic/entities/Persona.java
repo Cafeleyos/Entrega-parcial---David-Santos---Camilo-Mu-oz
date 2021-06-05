@@ -164,12 +164,12 @@ public class Persona extends Exportable implements Serializable {
                 separateCharacter + SetUp.ID + separateCharacter + SetUp.POSITION;
     }
     public int calculateAge(LocalDate date) {
-        return LocalDate.now().getYear() - date.getYear();
+        return (LocalDate.now().getYear()) - date.getYear();
     }
 
     public void setIntAge(int age) throws PersonaException {
         if (age > 150) {
-            throw new PersonaException(PersonaException.UNDER_AGE);
+            throw new PersonaException(PersonaException.UPPER_AGE);
         }
         if (age < 0) {
             throw new PersonaException(PersonaException.UNDER_AGE);
