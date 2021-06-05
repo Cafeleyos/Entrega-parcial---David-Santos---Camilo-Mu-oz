@@ -110,7 +110,6 @@ public class PersonaServices implements IPersonaServices {
         catch (IOException e){
             e.printStackTrace();
         }
-
     }
 
     /**
