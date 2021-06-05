@@ -116,7 +116,7 @@ public class AddScene extends SetUp {
         });
 
         addImages.setOnAction(e -> {
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("images files", "*.png", "*.PNG"));
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("images files", "*.png", "*.PNG", "*jpg"));
             file = fileChooser.showOpenDialog(stage);
             try {
                 image = new Image(String.valueOf(file.toURI().toURL()));

@@ -153,6 +153,6 @@ public class Persona extends Exportable implements Serializable {
     public String getHeader(Character separateCharacter) {
         return SetUp.NAME + separateCharacter + SetUp.LAST_NAME + separateCharacter + SetUp.AGE + separateCharacter + SetUp.AGE +
                 separateCharacter + SetUp.DEPARTMENT + separateCharacter + SetUp.CONDITION + separateCharacter + SetUp.REASON +
-                separateCharacter + SetUp.ID + separateCharacter + SetUp.POSITION;
+                separateCharacter + SetUp.ID + separateCharacter + SetUp.POSITION + separateCharacter + SetUp.URL;
     }
 }

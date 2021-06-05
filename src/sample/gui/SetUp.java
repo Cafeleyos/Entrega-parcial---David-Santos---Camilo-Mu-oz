@@ -19,7 +19,7 @@ public class SetUp {
     protected TextField inputName, inputLastname, inputAge, inputReason, inputId;
     protected ComboBox<String> inputDepartment, inputSex, inputCondition, inputPosition;
     protected Label name, lastname, age, sex, department, condition, reason, id, position;
-    public static final int NUMBER_OF_ITEMS = 9;
+    public static final int NUMBER_OF_ITEMS = 10;
     public static final String POSITION = "Posición";
     public static final String NAME  = "Nombre";
     public static final String LAST_NAME = "Apellido";
@@ -29,6 +29,7 @@ public class SetUp {
     public static final String DEPARTMENT = "Departamento";
     public static final String CONDITION = "Condición";
     public static final String REASON = "Razón";
+    public static final String URL = "URL";
 
     /**
      * unique constructor of the class. It configures the elements.
