@@ -121,6 +121,7 @@ public class UpdateScene extends SetUp{
               }
               stage.close();
             } catch (PersonaException personaException) {
+                new ErrorWindow(personaException.getMessage());
                 personaException.printStackTrace();
             }
 

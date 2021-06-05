@@ -169,10 +169,10 @@ public class Persona extends Exportable implements Serializable {
 
     public void setIntAge(int age) throws PersonaException {
         if (age > 150) {
-            throw new PersonaException(PersonaException.UPPER_AGE);
+            throw new PersonaException(PersonaException.MAX_AGE);
         }
         if (age < 0) {
-            throw new PersonaException(PersonaException.UNDER_AGE);
+            throw new PersonaException(PersonaException.POST_DATE);
         }
         if (age==0){
             throw new PersonaException(PersonaException.ZERO_AGE);

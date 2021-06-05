@@ -9,9 +9,9 @@ public class PersonaException extends Exception{
     public static final String EQUAL_ID = "EL id ya existe en el sistema";
     public static final String NULL_ID = "El id no existe en el sistema";
     public static final String INVALID_PERSON = "La persona no existe en el sistema";
-    public static final String POST_DATE = "La fecha agregada es futura. No es valido";
-    public static final String MAX_AGE = "La edad será mayor a 150 años. Indique una menor";
-    public static final String ZERO_AGE = "La edad es igual a 0";
+    public static final String POST_DATE = "La fecha agregada es futura. Agregue una fecha valida";
+    public static final String MAX_AGE = "La fecha de nacimiento supera los 150 años";
+    public static final String ZERO_AGE = "La edad será 0. Agregue una fecha valida";
 
 
 

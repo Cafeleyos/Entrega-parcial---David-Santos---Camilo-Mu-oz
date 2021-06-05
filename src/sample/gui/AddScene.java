@@ -88,6 +88,7 @@ public class AddScene extends SetUp {
                     inputName.clear();
 
                 } catch (IOException | PersonaException exception) {
+                    new ErrorWindow(exception.getMessage());
                     exception.printStackTrace();
                 }
             }
