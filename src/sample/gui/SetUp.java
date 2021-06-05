@@ -16,9 +16,9 @@ import java.util.*;
  * util lists for automation
  */
 public class SetUp {
-    protected TextField inputName, inputLastname, inputAge, inputReason, inputId;
+    protected TextField inputName, inputLastname, inputAge, inputReason, inputId, inputURL;
     protected ComboBox<String> inputDepartment, inputSex, inputCondition, inputPosition;
-    protected Label name, lastname, age, sex, department, condition, reason, id, position;
+    protected Label name, lastname, age, sex, department, condition, reason, id, position, url;
     public static final int NUMBER_OF_ITEMS = 10;
     public static final String POSITION = "Posición";
     public static final String NAME  = "Nombre";
@@ -136,6 +136,7 @@ public class SetUp {
         inputAge = new TextField();
         inputReason = new TextField();
         inputId = new TextField();
+        inputURL = new TextField();
 
         //ComboBoxes
         inputDepartment = new ComboBox<>();
@@ -153,6 +154,7 @@ public class SetUp {
         reason = new Label();
         id = new Label();
         position = new Label();
+        url = new Label();
     }
 
     /**
