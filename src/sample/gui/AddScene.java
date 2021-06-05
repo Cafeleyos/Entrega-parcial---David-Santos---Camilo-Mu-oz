@@ -100,7 +100,6 @@ public class AddScene extends SetUp {
                     inputLastname.clear();
                     inputName.clear();
                     buttonsBox.getChildren().clear();
-                    pane.add(TITLE,0,0);
                     buttonsBox.add(addButton,0,1);
                     buttonsBox.add(cancelButton,1,1);
                     buttonsBox.add(addImages, 0, 0);
@@ -111,6 +110,10 @@ public class AddScene extends SetUp {
         });
 
         addImages.setOnAction(e -> {
+            buttonsBox.getChildren().clear();
+            buttonsBox.add(addButton,0,1);
+            buttonsBox.add(cancelButton,1,1);
+            buttonsBox.add(addImages, 0, 0);
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("images files", "*.png", "*.PNG", "*jpg"));
             file = fileChooser.showOpenDialog(stage);
             try {
@@ -119,6 +122,8 @@ public class AddScene extends SetUp {
                 malformedURLException.printStackTrace();
             }
             imageView = new ImageView(image);
+            imageView.setScaleX(0.5);
+            imageView.setScaleY(0.5);
             buttonsBox.add(imageView, 1, 0);
         });
 
