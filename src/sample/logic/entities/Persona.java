@@ -76,8 +76,16 @@ public class Persona extends Exportable implements Serializable {
      * @throws PersonaException if the age is not valid
      */
     private void setAge(LocalDate date) throws PersonaException {
-        System.out.println(date);
-        System.out.println(date.getYear());
+        if (date.isAfter(LocalDate.now())){
+            throw new PersonaException(PersonaException.POST_DATE);
+        }
+        if ((LocalDate.now().getYear() - date.getYear()) > 150) {
+            throw new PersonaException(PersonaException.MAX_AGE);
+        }
+        if ((LocalDate.now().getYear() - date.getYear())==0){
+            throw new PersonaException(PersonaException.ZERO_AGE);
+        }
+        this.age = (LocalDate.now().getYear() - date.getYear());
     }
 
     /**

@@ -215,9 +215,15 @@ public class DataScene extends Application {
         idColumn.setPrefWidth(150);
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
+        TableColumn<Persona, String> ageColumn = new TableColumn<>("Edad");
+        ageColumn.setMinWidth(20);
+        ageColumn.setMaxWidth(200);
+        ageColumn.setPrefWidth(150);
+        ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
+
         table = new TableView<>();
-        table.getColumns().addAll(nameColumn, lastNameColumn, idColumn);
-        table.setMaxWidth(450);
+        table.getColumns().addAll(nameColumn, lastNameColumn, idColumn, ageColumn);
+        table.setMaxWidth(600);
     }
 
     public static void main(String[] args) {
