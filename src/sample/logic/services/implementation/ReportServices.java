@@ -32,7 +32,7 @@ public class ReportServices implements IReportServices {
         Map<String, Report> reportMap = new HashMap<>();
 
         for(DepartmentsEnum departments : DepartmentsEnum.values()) {
-            reportMap.put(departments.toString(), new Report(departments.toString(), 0, "Conteo de visctimas por departamento"));
+            reportMap.put(departments.toString(), new Report(departments.toString(), 0, "Conteo de victimas por departamento"));
         }
         for(Persona p : personas) {
             reportMap.get(p.getDepartment()).incrementCount();
